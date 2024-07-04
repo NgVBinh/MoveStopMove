@@ -1,56 +1,134 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.AI;
 
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class Enemy : MonoBehaviour
+public class Enemy : Entity
 {
-    private PlayerManager player;
 
-    public float attackCooldown;
-    public float rangeAttack;
-    public EnemyIdleState enemyIdleState {  get; private set; }
-    public EnemyMoveState enemyMoveState {  get; private set; }
-    public EnemyAttackState enemyAttackState {  get; private set; }
+    public float moveSpeed;
+    private LayerMask targetLayer;
+    [SerializeField] private GameObject beTarget;
+    public Collider col;
+
+    public EnemyIdleState enemyIdleState { get; private set; }
+    public EnemyMoveState enemyMoveState { get; private set; }
+    public EnemyAttackState enemyAttackState { get; private set; }
+    public EnemyDieState enemyDieState { get; private set; }
 
     public EnemyStateMachine stateMachine;
-    public Animator animator { get; private set; }
 
     public NavMeshAgent agent { get; private set; }
 
-    private void Awake()
+    public Action OnDeath;
+    public bool enemyDead;
+    protected override void Awake()
     {
-        animator = GetComponent<Animator>();
+        base.Awake();
         agent = GetComponent<NavMeshAgent>();
+        col = GetComponent<Collider>();
         stateMachine = new EnemyStateMachine();
         enemyIdleState = new EnemyIdleState(this, stateMachine, "IsIdle");
         enemyMoveState = new EnemyMoveState(this, stateMachine, "IsMove");
         enemyAttackState = new EnemyAttackState(this, stateMachine, "IsAttack");
+        enemyDieState = new EnemyDieState(this, stateMachine, "IsDead");
     }
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         stateMachine.Initialize(enemyMoveState);
-        player = PlayerManager.instance;
-
+        targetLayer = LayerMask.GetMask("Enemy", "Player");
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
         stateMachine.currentState.Update();
     }
 
-    public bool CheckPlayerInRange()
+    //public bool CheckPlayerInRange()
+    //{
+    //    if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
+    //    {
+    //        return true;
+    //    }
+
+    //    return false;
+    //}
+
+
+    protected override void ChangeIdleState()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) < rangeAttack)
+        base.ChangeIdleState();
+        stateMachine.ChangeState(enemyIdleState);
+    }
+
+    public void EnemyIdle()
+    {
+        agent.SetDestination(transform.position);// enemy dung im
+        agent.ResetPath();
+        agent.isStopped = true;
+
+    }
+
+    public void SetRandomDestination()
+    {
+        // Debug.Log(enemy.agent.pathPending+"   "+ enemy.agent.remainingDistance);
+        agent.isStopped = false;
+
+        if (!agent.pathPending && agent.remainingDistance < 0.5f)
         {
-            return true;
+            agent.SetDestination(GetRandomPointOnNavMesh());
+        }
+    }
+
+    public Vector3 GetRandomPointOnNavMesh()
+    {
+        NavMeshHit hit;
+        Vector3 randomPoint = transform.position + UnityEngine.Random.insideUnitSphere * 30f;
+
+        if (NavMesh.SamplePosition(randomPoint, out hit, 30f, NavMesh.AllAreas))
+        {
+            return hit.position;
         }
 
-        return false;
+        // If a random point is not on NavMesh, try again.
+        return GetRandomPointOnNavMesh();
+    }
+
+    public Transform GetClosestTargetInRange()
+    {
+        return GetTargetInRange(targetLayer);
+    }
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Weapon"))
+    //    {
+    //        if (enemyDead) return;
+    //        stateMachine.ChangeState(enemyDieState);
+
+    //    }
+    //}
+    public override void TakeDamage()
+    {
+        base.TakeDamage();
+        //if (enemyDead) return;
+        stateMachine.ChangeState(enemyDieState);
+    }
+    public override void KillCharacter()
+    {
+        base.KillCharacter();
+
+    }
+
+    public void BeTargetted()
+    {
+        beTarget.SetActive(true);
     }
 }

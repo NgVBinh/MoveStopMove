@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyAttackState : EnemyState
 {
+    private Vector3 attackDir;
+
     public EnemyAttackState(Enemy enemy, EnemyStateMachine stateMachine, string animationName) : base(enemy, stateMachine, animationName)
     {
     }
@@ -11,8 +13,13 @@ public class EnemyAttackState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("Attack player");
-        stateTimer = enemy.attackCooldown;
+        //enemy.canMove = false;
+        enemy.EnemyIdle();
+
+        stateTimer = enemy.attackDelay;
+        attackDir = enemy.GetClosestTargetInRange().position - enemy.transform.position;
+        attackDir.y = 0;
+        enemy.RotateHandle(attackDir);
     }
 
     public override void Exit()
@@ -23,10 +30,18 @@ public class EnemyAttackState : EnemyState
     public override void Update()
     {
         base.Update();
-        enemy.agent.SetDestination(enemy.transform.position);// enemy dung im
 
         if (stateTimer > 0) return;
-        if (!enemy.CheckPlayerInRange())
+
+        if (stateTimer < 0 && enemy.CheckAttackCooldown())
+        {
+            enemy.StartCoroutine(enemy.HideWeaponOnAttack(1));
+            enemy.ThrowWeapon(attackDir);
+            enemy.SetCooldown();
+
+        }
+
+        if (!enemy.GetClosestTargetInRange())
         {
             stateMachine.ChangeState(enemy.enemyMoveState);
         }

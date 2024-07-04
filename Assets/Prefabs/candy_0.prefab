@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 6977952357488010216}
   - component: {fileID: 9213117408359740353}
   - component: {fileID: 7292370374291390820}
-  - component: {fileID: 6016554012883354439}
+  - component: {fileID: 1542346458683321014}
   m_Layer: 0
   m_Name: candy_0
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,6 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: effd2ca2a2760854ca2c40966e2df0b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canRotate: 0
+  speedRotate: 1000
 --- !u!54 &7292370374291390820
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -122,13 +124,13 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &6016554012883354439
-MeshCollider:
+--- !u!136 &1542346458683321014
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -142,10 +144,11 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 77de8014aff37804f92ab58c8817cced, type: 3}
+  serializedVersion: 2
+  m_Radius: 0.005833263
+  m_Height: 0.011805426
+  m_Direction: 1
+  m_Center: {x: -0.0000000019104054, y: -0.009784151, z: 3.8208106e-10}

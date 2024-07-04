@@ -11,9 +11,12 @@ public class EnemyMoveState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        Vector3 randomPoint = GetRandomPointOnNavMesh();
+        enemy.agent.speed = enemy.moveSpeed;
         //ebug.Log(randomPoint);
-        enemy.agent.SetDestination(randomPoint);
+        enemy.SetRandomDestination();
+
+        //const var
+        stateTimer =Random.Range(3,7);
     }
 
     public override void Exit()
@@ -25,37 +28,17 @@ public class EnemyMoveState : EnemyState
     {
         base.Update();
 
-        SetRandomDestination();
-        if (enemy.CheckPlayerInRange())
+        enemy.SetRandomDestination();
+        //if (enemy.GetClosestTargetInRange() && enemy.CheckAttackCooldown())
+        //{
+        //    stateMachine.ChangeState(enemy.enemyAttackState);
+        //}
+
+        if (stateTimer < 0)
         {
-            stateMachine.ChangeState(enemy.enemyAttackState);
+            stateMachine.ChangeState(enemy.enemyIdleState);
+
         }
     }
-
-    private void SetRandomDestination()
-    {
-        // Debug.Log(enemy.agent.pathPending+"   "+ enemy.agent.remainingDistance);
-
-        if (!enemy.agent.pathPending && enemy.agent.remainingDistance < 0.5f)
-        {
-            enemy.agent.SetDestination(GetRandomPointOnNavMesh());
-        }
-    }
-
-    private Vector3 GetRandomPointOnNavMesh()
-    {
-        NavMeshHit hit;
-        Vector3 randomPoint = enemy.transform.position + Random.insideUnitSphere * 30f;
-
-        if (NavMesh.SamplePosition(randomPoint, out hit, 30f, NavMesh.AllAreas))
-        {
-            return hit.position;
-        }
-
-        // If a random point is not on NavMesh, try again.
-        return GetRandomPointOnNavMesh();
-    }
-
-
 
 }
