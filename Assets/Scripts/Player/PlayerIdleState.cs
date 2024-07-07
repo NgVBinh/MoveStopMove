@@ -29,7 +29,7 @@ public class PlayerIdleState : PlayerState
         // attack enemy
         if (player.GetClosestEnemyInRange() && player.CheckAttackCooldown())
         {
-            player.GetClosestEnemyInRange().GetComponent<Enemy>().BeTargetted();
+            //player.GetClosestEnemyInRange().GetComponent<Enemy>().BeTargetted(true);
 
             stateMachine.ChangeState(player.attackState);
         }

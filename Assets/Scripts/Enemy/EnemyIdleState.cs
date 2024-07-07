@@ -11,7 +11,7 @@ public class EnemyIdleState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        stateTimer = stateTimer = Random.Range(1,3);
+        stateTimer = Random.Range(1,3);
 
         enemy.EnemyIdle();
 

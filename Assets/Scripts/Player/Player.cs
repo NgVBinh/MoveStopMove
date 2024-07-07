@@ -18,6 +18,7 @@ public class Player : Entity
     private LayerMask targetLayer;
     [SerializeField] private CameraFollow camFollow;
 
+    private Transform enemyTargetted; 
     //[SerializeField] private GameObject characterWeapon;
     protected override void Awake()
     {
@@ -44,14 +45,16 @@ public class Player : Entity
     {
         base.Update();
         stateMachine.currentState.Update();
+        DisplayTarget();
+
     }
 
-  
+
 
     public void MoveHandle(Vector3 moveDir)
     {
         if(!canMove) return;
-        rb.velocity = new Vector3(moveDir.x, 0, moveDir.z);
+        rb.velocity = moveDir;// new Vector3(moveDir.x, 0, moveDir.z);
     }
 
 
@@ -60,7 +63,7 @@ public class Player : Entity
         return GetTargetInRange(targetLayer);
     }
 
-    protected override void ChangeIdleState()
+    public override void ChangeIdleState()
     {
         stateMachine.ChangeState(idleState);
     }
@@ -68,7 +71,6 @@ public class Player : Entity
     public override void KillCharacter()
     {
         base.KillCharacter();
-        //this.transform.localScale *= 1.1f;
 
     }
 
@@ -77,7 +79,7 @@ public class Player : Entity
         base.TakeDamage();
 
         Debug.Log("player Dead");
-        //stateMachine.ChangeState(dieState);
+        stateMachine.ChangeState(dieState);
     }
 
     protected override void IncreaseScaleCharacter(float percent)
@@ -86,4 +88,21 @@ public class Player : Entity
         camFollow.SetOffset(percent);
     }
 
+    public void DisplayTarget()
+    {
+        
+        if (enemyTargetted!=GetClosestEnemyInRange())
+        {
+            if(enemyTargetted!=null) {
+                enemyTargetted.GetComponent<Enemy>().BeTargetted(false);
+            }
+            enemyTargetted = GetClosestEnemyInRange();
+        }
+        // attack enemy
+        if (enemyTargetted!=null)
+        {
+            GetClosestEnemyInRange().GetComponent<Enemy>().BeTargetted(true);
+        }
+    }
+ 
 }

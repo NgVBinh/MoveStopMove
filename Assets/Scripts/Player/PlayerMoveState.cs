@@ -14,7 +14,7 @@ public class PlayerMoveState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        moveDir = new Vector3(player.joystick.Direction.x, 0,player.joystick.Direction.y);
+        //moveDir = new Vector3(player.joystick.Direction.x, 0,player.joystick.Direction.y);
     }
 
     public override void Exit()
@@ -30,10 +30,10 @@ public class PlayerMoveState : PlayerState
         player.MoveHandle(moveDir.normalized * Time.deltaTime * player.moveSpeed);
         player.RotateHandle(moveDir);
 
-        if(player.GetClosestEnemyInRange()&& player.CheckAttackCooldown())
-        {
-            player.GetClosestEnemyInRange().GetComponent<Enemy>().BeTargetted();
-        }
+        //if(player.GetClosestEnemyInRange()&& player.CheckAttackCooldown())
+        //{
+        //    player.GetClosestEnemyInRange().GetComponent<Enemy>().BeTargetted(true);
+        //}
 
     }
 }

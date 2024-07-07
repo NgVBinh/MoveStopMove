@@ -6,6 +6,8 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
 
+    public Player player { get; private set; }
+
     private void Awake()
     {
         if(instance != null)
@@ -16,15 +18,10 @@ public class PlayerManager : MonoBehaviour
             instance = this;
         }
     }
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
-        
+        player = GetComponentInChildren<Player>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

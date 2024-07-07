@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DisplayLevel : MonoBehaviour
 {
+
+    [SerializeField]private Image myLevelImage;
     
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private SkinnedMeshRenderer bodyMaterial;
+    // Update is called once per frame
+
+    private void Start()
     {
-        
+        myLevelImage.color =bodyMaterial.material.color;
     }
 
-    // Update is called once per frame
     void LateUpdate()
     {
         transform.forward = Camera.main.transform.forward;
