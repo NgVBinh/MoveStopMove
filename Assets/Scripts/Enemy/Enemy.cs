@@ -12,7 +12,7 @@ public class Enemy : Entity
     public float moveSpeed;
     private LayerMask targetLayer;
     [SerializeField] private GameObject beTarget;
-    public Collider col;
+    public Collider col { get; private set; }
 
     public EnemyIdleState enemyIdleState { get; private set; }
     public EnemyMoveState enemyMoveState { get; private set; }
@@ -25,6 +25,7 @@ public class Enemy : Entity
 
     public Action OnDeath;
     public bool enemyDead;
+
     protected override void Awake()
     {
         base.Awake();
@@ -42,6 +43,7 @@ public class Enemy : Entity
         base.Start();
         stateMachine.Initialize(enemyMoveState);
         targetLayer = LayerMask.GetMask("Enemy", "Player");
+
     }
 
     // Update is called once per frame
@@ -51,18 +53,7 @@ public class Enemy : Entity
         stateMachine.currentState.Update();
     }
 
-    //public bool CheckPlayerInRange()
-    //{
-    //    if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
-    //    {
-    //        return true;
-    //    }
-
-    //    return false;
-    //}
-
-
-    protected override void ChangeIdleState()
+    public override void ChangeIdleState()
     {
         base.ChangeIdleState();
         stateMachine.ChangeState(enemyIdleState);
@@ -106,15 +97,6 @@ public class Enemy : Entity
         return GetTargetInRange(targetLayer);
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag("Weapon"))
-    //    {
-    //        if (enemyDead) return;
-    //        stateMachine.ChangeState(enemyDieState);
-
-    //    }
-    //}
     public override void TakeDamage()
     {
         base.TakeDamage();
@@ -127,8 +109,8 @@ public class Enemy : Entity
 
     }
 
-    public void BeTargetted()
+    public void BeTargetted(bool display)
     {
-        beTarget.SetActive(true);
+        beTarget.SetActive(display);
     }
 }

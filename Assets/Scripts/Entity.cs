@@ -20,15 +20,18 @@ public class Entity : MonoBehaviour
     [Header("Level ui")]
     [SerializeField] private TextMeshProUGUI levelTxt;
 
-
     [SerializeField] private Transform characterAim;
     
     // private var
     [SerializeField] private float rotateSpeed;
 
     [Header("Equipment")]
-    public GameObject pant;
-    public GameObject body;
+    public SkinnedMeshRenderer pant;
+    public SkinnedMeshRenderer body;
+
+    // die effect
+    [SerializeField] private ParticleSystem dieEfect;
+    [SerializeField] private ParticleSystem levelUpEfect;
 
     private int exp;
     public int level;
@@ -36,14 +39,29 @@ public class Entity : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-
     }
+
+    protected virtual void OnEnable()
+    {
+       
+    }
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        InitialWeapon();
-        DisplayLevelTxt();
+        dieEfect.GetComponent<Renderer>().material = body.material;
+        levelUpEfect.GetComponent<Renderer>().material = body.material;
 
+        InitialWeapon();
+
+        DisplayLevelTxt();
+        if (level != 0)
+        {
+            for (int i = 0; i < level; i++)
+            {
+                LevelUp();
+            }
+        }
     }
 
     // Update is called once per frame
@@ -59,11 +77,11 @@ public class Entity : MonoBehaviour
         GameObject myWeapon = PoolObjects.Instance.GetObjectOutPool(weaponName);
 
         myWeapon.transform.SetParent(characterAim);
+        myWeapon.GetComponent<WeaponController>()?.SetWeaponOfCharacter(true);
         myWeapon.transform.localPosition = Vector3.zero;
         myWeapon.transform.localRotation = Quaternion.identity;
-        myWeapon.GetComponent<WeaponController>()?.SetWeaponOfCharacter(true);
         myWeapon.SetActive(true);
-
+        Debug.Log(">");
 
     }
     public virtual void RotateHandle(Vector3 dirTarget)
@@ -128,38 +146,21 @@ public class Entity : MonoBehaviour
 
     }
     #endregion
-    protected virtual void ChangeIdleState()
-    {
-    }
-    protected virtual void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-    }
 
-    public virtual void TakeDamage()
-    {
-    }
-
-    public virtual void KillCharacter()
-    {
-        IncreaseExp(1);
-        // tang kich thuoc vk
-
-    }
-    
+    #region level up & upgrade
     private void IncreaseExp(int amount)
     {
         exp += amount;
         if(exp > 1)
         {
+            level++;
+            levelUpEfect.Play();
             LevelUp();
             exp = 0;
         }
     }
     private void LevelUp()
     {
-        level++;
         DisplayLevelTxt();
         IncreaseScaleCharacter(10);
     }
@@ -184,5 +185,26 @@ public class Entity : MonoBehaviour
         levelTxt.text = level.ToString();
     }
 
+    #endregion
     //action observer tang kich thuoc
+    public virtual void ChangeIdleState()
+    {
+    }
+    protected virtual void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
+    public virtual void TakeDamage()
+    {
+        dieEfect.Play();
+    }
+
+    public virtual void KillCharacter()
+    {
+        IncreaseExp(1);
+        // tang kich thuoc vk
+
+    }
 }
