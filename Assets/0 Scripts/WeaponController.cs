@@ -1,5 +1,9 @@
 using System.Collections;
 <<<<<<< HEAD:Assets/0 Scripts/WeaponController.cs
+<<<<<<< HEAD:Assets/0 Scripts/WeaponController.cs
+=======
+using Unity.VisualScripting;
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/WeaponController.cs
 =======
 using Unity.VisualScripting;
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/WeaponController.cs
@@ -44,7 +48,10 @@ public class WeaponController : MonoBehaviour
     private void OnEnable()
     {
 <<<<<<< HEAD:Assets/0 Scripts/WeaponController.cs
+<<<<<<< HEAD:Assets/0 Scripts/WeaponController.cs
 =======
+=======
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/WeaponController.cs
         transform.localRotation = Quaternion.identity;
         transform.localPosition = Vector3.zero;
         //StartCoroutine(ActiveWeapon());
@@ -72,6 +79,9 @@ public class WeaponController : MonoBehaviour
             transform.rotation = Quaternion.Euler(-90, 0, 0);
         myCharacter = character;
         transform.localScale *= (1 + character.GetLevel() / 10f);
+<<<<<<< HEAD:Assets/0 Scripts/WeaponController.cs
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/WeaponController.cs
+=======
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/WeaponController.cs
     }
 
