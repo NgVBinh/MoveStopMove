@@ -20,12 +20,16 @@ public class Player : Entity
     [SerializeField] private CameraFollow camFollow;
 
 <<<<<<< HEAD:Assets/0 Scripts/Player/Player.cs
+<<<<<<< HEAD:Assets/0 Scripts/Player/Player.cs
     public Transform enemyTargetted { get; private set; }
 
     public Action OnDeath;
     [SerializeField] private string weapon;
 
 
+=======
+    private Transform enemyTargetted; 
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/Player/Player.cs
 =======
     private Transform enemyTargetted; 
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/Player/Player.cs
@@ -57,7 +61,10 @@ public class Player : Entity
         stateMachine.currentState.Update();
         DisplayTarget();
 <<<<<<< HEAD:Assets/0 Scripts/Player/Player.cs
+<<<<<<< HEAD:Assets/0 Scripts/Player/Player.cs
         Debug.Log(stateMachine.currentState);
+=======
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/Player/Player.cs
 =======
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/Player/Player.cs
 
@@ -119,12 +126,16 @@ public class Player : Entity
         }
     }
 <<<<<<< HEAD:Assets/0 Scripts/Player/Player.cs
+<<<<<<< HEAD:Assets/0 Scripts/Player/Player.cs
 
     public override void InitialWeapon(string weapon)
     {
         base.InitialWeapon(weapon);
     }
 
+=======
+ 
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/Player/Player.cs
 =======
  
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/Player/Player.cs

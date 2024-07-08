@@ -1109,6 +1109,9 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2597837948864082712}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
+=======
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
 --- !u!1 &2812544743489707895
 GameObject:
@@ -2639,7 +2642,10 @@ Transform:
   - {fileID: 938401302872230632}
   - {fileID: 7605216795983480663}
 <<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
   - {fileID: 5464723142785179906}
+=======
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
 =======
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
   m_Father: {fileID: 0}
@@ -2700,6 +2706,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 <<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+=======
+  weaponName: riu
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
 =======
   weaponName: riu
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
@@ -3008,7 +3018,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 4006157390921784777}
     m_Modifications:
 <<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
 =======
+=======
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
     - target: {fileID: 1447080010189027754, guid: 36b93359811d7e84b9d483e4b86d3634,
         type: 3}
       propertyPath: m_Name
@@ -3064,6 +3077,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
+=======
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
     - target: {fileID: 5973623064136273561, guid: 36b93359811d7e84b9d483e4b86d3634,
         type: 3}
@@ -3075,6 +3091,7 @@ PrefabInstance:
       propertyPath: InitialModule.gravityModifier.scalar
       value: -0.5
       objectReference: {fileID: 0}
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
 <<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
     - target: {fileID: 1447080010189027754, guid: 5b2a8b2c9343765489c3ac95c081f552,
         type: 3}
@@ -3133,26 +3150,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
 =======
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
+=======
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
 <<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
   m_SourcePrefab: {fileID: 100100000, guid: 5b2a8b2c9343765489c3ac95c081f552, type: 3}
 --- !u!4 &938401302872230632 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3192338382809409797, guid: 5b2a8b2c9343765489c3ac95c081f552,
 =======
+=======
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
   m_SourcePrefab: {fileID: 100100000, guid: 36b93359811d7e84b9d483e4b86d3634, type: 3}
 --- !u!4 &938401302872230632 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3192338382809409797, guid: 36b93359811d7e84b9d483e4b86d3634,
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
+=======
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
     type: 3}
   m_PrefabInstance: {fileID: 2398353560514700269}
   m_PrefabAsset: {fileID: 0}
 --- !u!198 &8335665234210057588 stripped
 ParticleSystem:
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
 <<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
   m_CorrespondingSourceObject: {fileID: 5973623064136273561, guid: 5b2a8b2c9343765489c3ac95c081f552,
     type: 3}
@@ -3300,10 +3326,15 @@ RectTransform:
   m_PrefabInstance: {fileID: 3660539000635010837}
   m_PrefabAsset: {fileID: 0}
 =======
+=======
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
   m_CorrespondingSourceObject: {fileID: 5973623064136273561, guid: 36b93359811d7e84b9d483e4b86d3634,
     type: 3}
   m_PrefabInstance: {fileID: 2398353560514700269}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
+=======
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
 --- !u!1001 &4347868234314974192
 PrefabInstance:
@@ -3314,6 +3345,7 @@ PrefabInstance:
     m_TransformParent: {fileID: 4006157390921784777}
     m_Modifications:
 <<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
     - target: {fileID: 2899894830430211729, guid: f63f1e34df1c27d49819e20125e09eb2,
         type: 3}
       propertyPath: m_Name
@@ -3321,19 +3353,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6187263633406461095, guid: f63f1e34df1c27d49819e20125e09eb2,
 =======
+=======
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
     - target: {fileID: 2899894830430211729, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
         type: 3}
       propertyPath: m_Name
       value: LevelUp
       objectReference: {fileID: 0}
     - target: {fileID: 6187263633406461095, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
+=======
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
 <<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
     - target: {fileID: 6187263633406461095, guid: f63f1e34df1c27d49819e20125e09eb2,
+=======
+    - target: {fileID: 6187263633406461095, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
 =======
     - target: {fileID: 6187263633406461095, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
@@ -3342,7 +3383,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
 <<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
     - target: {fileID: 6187263633406461095, guid: f63f1e34df1c27d49819e20125e09eb2,
+=======
+    - target: {fileID: 6187263633406461095, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
 =======
     - target: {fileID: 6187263633406461095, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
@@ -3351,7 +3396,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
 <<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
     - target: {fileID: 6187263633406461095, guid: f63f1e34df1c27d49819e20125e09eb2,
+=======
+    - target: {fileID: 6187263633406461095, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
 =======
     - target: {fileID: 6187263633406461095, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
@@ -3360,7 +3409,11 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
 <<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
     - target: {fileID: 6187263633406461095, guid: f63f1e34df1c27d49819e20125e09eb2,
+=======
+    - target: {fileID: 6187263633406461095, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
 =======
     - target: {fileID: 6187263633406461095, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
@@ -3369,7 +3422,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
 <<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
     - target: {fileID: 6187263633406461095, guid: f63f1e34df1c27d49819e20125e09eb2,
+=======
+    - target: {fileID: 6187263633406461095, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
 =======
     - target: {fileID: 6187263633406461095, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
@@ -3378,7 +3435,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
 <<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
     - target: {fileID: 6187263633406461095, guid: f63f1e34df1c27d49819e20125e09eb2,
+=======
+    - target: {fileID: 6187263633406461095, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
 =======
     - target: {fileID: 6187263633406461095, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
@@ -3387,7 +3448,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
 <<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
     - target: {fileID: 6187263633406461095, guid: f63f1e34df1c27d49819e20125e09eb2,
+=======
+    - target: {fileID: 6187263633406461095, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
 =======
     - target: {fileID: 6187263633406461095, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
@@ -3396,7 +3461,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
 <<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
     - target: {fileID: 6187263633406461095, guid: f63f1e34df1c27d49819e20125e09eb2,
+=======
+    - target: {fileID: 6187263633406461095, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
 =======
     - target: {fileID: 6187263633406461095, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
@@ -3405,7 +3474,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
 <<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
     - target: {fileID: 6187263633406461095, guid: f63f1e34df1c27d49819e20125e09eb2,
+=======
+    - target: {fileID: 6187263633406461095, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
 =======
     - target: {fileID: 6187263633406461095, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
@@ -3418,15 +3491,21 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
 <<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
   m_SourcePrefab: {fileID: 100100000, guid: f63f1e34df1c27d49819e20125e09eb2, type: 3}
 --- !u!198 &6856264210832398767 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 7165487482961599071, guid: f63f1e34df1c27d49819e20125e09eb2,
 =======
+=======
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
   m_SourcePrefab: {fileID: 100100000, guid: 5c65a62a9aa049c4f9724d96fa4fa708, type: 3}
 --- !u!198 &6856264210832398767 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 7165487482961599071, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
+=======
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
     type: 3}
   m_PrefabInstance: {fileID: 4347868234314974192}
@@ -3434,7 +3513,11 @@ ParticleSystem:
 --- !u!4 &7605216795983480663 stripped
 Transform:
 <<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
+<<<<<<< HEAD:Assets/1 Prefabs/EnemyM.prefab
   m_CorrespondingSourceObject: {fileID: 6187263633406461095, guid: f63f1e34df1c27d49819e20125e09eb2,
+=======
+  m_CorrespondingSourceObject: {fileID: 6187263633406461095, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
+>>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
 =======
   m_CorrespondingSourceObject: {fileID: 6187263633406461095, guid: 5c65a62a9aa049c4f9724d96fa4fa708,
 >>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Prefabs/EnemyM.prefab
