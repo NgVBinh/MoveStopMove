@@ -220,7 +220,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4382113793968459247}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6016e65be641d54f882362c445643b6, type: 3}
+  m_Script: {fileID: 11500000, guid: cee6d5c8284656d4fade2f350b52df87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: 50
+  myLevelImage: {fileID: 6874965359386442308}
+  bodyMaterial: {fileID: 0}

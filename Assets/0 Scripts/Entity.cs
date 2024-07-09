@@ -35,14 +35,9 @@ public class Entity : MonoBehaviour
     // die effect
     [SerializeField] private ParticleSystem dieEfect;
     [SerializeField] private ParticleSystem levelUpEfect;
-<<<<<<< HEAD:Assets/0 Scripts/Entity.cs
-<<<<<<< HEAD:Assets/0 Scripts/Entity.cs
 
     private PoolObjects poolObjects;
-=======
->>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/Entity.cs
-=======
->>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/Entity.cs
+
 
     private int exp;
     public int level;
@@ -51,46 +46,22 @@ public class Entity : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-<<<<<<< HEAD:Assets/0 Scripts/Entity.cs
-<<<<<<< HEAD:Assets/0 Scripts/Entity.cs
-        poolObjects = FindObjectOfType<PoolObjects>();
 
-=======
->>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/Entity.cs
-=======
->>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/Entity.cs
     }
 
     protected virtual void OnEnable()
     {
-<<<<<<< HEAD:Assets/0 Scripts/Entity.cs
-<<<<<<< HEAD:Assets/0 Scripts/Entity.cs
-=======
-       
->>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/Entity.cs
-=======
-       
->>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/Entity.cs
+
+        poolObjects = FindObjectOfType<PoolObjects>();
     }
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
+
         dieEfect.GetComponent<Renderer>().material = body.material;
         levelUpEfect.GetComponent<Renderer>().material = body.material;
-<<<<<<< HEAD:Assets/0 Scripts/Entity.cs
-<<<<<<< HEAD:Assets/0 Scripts/Entity.cs
-        
-=======
 
-        InitialWeapon();
-
->>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/Entity.cs
-=======
-
-        InitialWeapon();
-
->>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/Entity.cs
         DisplayLevelTxt();
         if (level != 0)
         {
@@ -119,15 +90,8 @@ public class Entity : MonoBehaviour
         myWeapon.transform.localPosition = Vector3.zero;
         myWeapon.transform.localRotation = Quaternion.identity;
         myWeapon.SetActive(true);
-<<<<<<< HEAD:Assets/0 Scripts/Entity.cs
-<<<<<<< HEAD:Assets/0 Scripts/Entity.cs
         characterAim.gameObject.SetActive(true);
-=======
-        Debug.Log(">");
->>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/Entity.cs
-=======
-        Debug.Log(">");
->>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/Entity.cs
+
 
     }
     public virtual void RotateHandle(Vector3 dirTarget)
@@ -218,13 +182,8 @@ public class Entity : MonoBehaviour
         {
             level++;
             levelUpEfect.Play();
-<<<<<<< HEAD:Assets/0 Scripts/Entity.cs
-<<<<<<< HEAD:Assets/0 Scripts/Entity.cs
             OnLevelUp?.Invoke();
-=======
->>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/Entity.cs
-=======
->>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/Entity.cs
+
             LevelUp();
             exp = 0;
         }

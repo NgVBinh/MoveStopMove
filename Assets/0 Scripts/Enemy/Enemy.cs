@@ -25,13 +25,6 @@ public class Enemy : Entity
 
     public Action OnDeath;
     public bool enemyDead;
-
-<<<<<<< HEAD:Assets/0 Scripts/Enemy/Enemy.cs
-    //private Color characterColor;
-
-
-=======
->>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/Enemy/Enemy.cs
     protected override void Awake()
     {
         base.Awake();
@@ -59,14 +52,7 @@ public class Enemy : Entity
         stateMachine.currentState.Update();
     }
 
-<<<<<<< HEAD:Assets/0 Scripts/Enemy/Enemy.cs
-    //public void SetupEnemy(Color characterColor)
-    //{
-    //    this.characterColor = characterColor;
-    //}
 
-=======
->>>>>>> d24970c66c36f5591d8065ab0ad3397a8afbafef:Assets/Scripts/Enemy/Enemy.cs
     public override void ChangeIdleState()
     {
         base.ChangeIdleState();

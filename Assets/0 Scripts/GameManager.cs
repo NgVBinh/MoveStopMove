@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     private int amountCharacter;
 
-    private string[] weapons = { "bua", "riu", "keo","ten" };
+    private string[] weapons = { "bua", "riu", "keo"};
     private void Awake()
     {
         if (instance != null)
