@@ -57,10 +57,9 @@ public class WeaponController : MonoBehaviour
         rb.velocity = (dir * force);
 
         transform.up = -dir;
-
+        transform.up = -rb.velocity;
         transform.eulerAngles = new Vector3(90,transform.eulerAngles.y,transform.eulerAngles.z);
 
-        transform.up = -rb.velocity;
 
         myCharacter = character;
         transform.localScale *= (1 + character.GetLevel() / 10f);
@@ -73,7 +72,7 @@ public class WeaponController : MonoBehaviour
 
         if (type==WeaponType.SPIN && !isCharacterWeapon)
         {
-            transform.Rotate(-Vector3.forward * speedRotate * Time.deltaTime);
+            transform.Rotate(Vector3.forward * speedRotate * Time.deltaTime);
         }
 
         if (Vector3.Distance(transform.position, myCharacter.transform.position) > myCharacter.attackRange)

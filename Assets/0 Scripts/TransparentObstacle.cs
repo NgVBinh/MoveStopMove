@@ -34,7 +34,6 @@ public class TransparentObstacle : MonoBehaviour
 
         if (distanceToPlayer < transparentDistance)
         {
-            if (!isBaseColor) return;
             if (distanceToPlayer < transparentDistance)
             {
                 if (!isBaseColor) return;

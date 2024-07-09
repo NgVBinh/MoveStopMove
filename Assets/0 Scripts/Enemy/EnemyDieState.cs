@@ -12,7 +12,6 @@ public class EnemyDieState : EnemyState
     {
         base.Enter();
         stateTimer = 1f;
-        enemy.OnDeath?.Invoke();
         enemy.enemyDead = true;
         enemy.tag = "Untagged";
         enemy.col.enabled = false;
@@ -29,7 +28,13 @@ public class EnemyDieState : EnemyState
         base.Update();
         if (stateTimer < 0f)
         {
+            enemy.OnDeath?.Invoke();
             enemy.gameObject.SetActive(false);
         }
+    }
+
+    private void SetupDie()
+    {
+
     }
 }

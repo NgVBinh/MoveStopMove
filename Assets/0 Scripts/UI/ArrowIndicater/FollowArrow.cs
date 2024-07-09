@@ -19,7 +19,7 @@ public class FollowArrow : MonoBehaviour
         this.arrow = arrow;
         this.offsetArrow = offsetArrow;
         enemyTarget = target.GetComponent<Enemy>();
-        enemyTarget.OnDeath += DestroyMySelf;
+        enemyTarget.OnDeath += DeActiveMySelf;
         levelTxt.text = enemyTarget.level.ToString();
 
         GetComponent<Image>().color = color;
@@ -79,13 +79,13 @@ public class FollowArrow : MonoBehaviour
         levelTxt.text = enemyTarget.level.ToString();
     }
 
-    private void DisEnable()
-    {
-        enemyTarget.OnDeath -= DestroyMySelf;
-        enemyTarget.OnLevelUp -= DisplayLevel;
-    }
+    //private void OnDisable()
+    //{
+    //    enemyTarget.OnDeath -= DeActiveMySelf;
+    //    enemyTarget.OnLevelUp -= DisplayLevel;
+    //}
 
-    private void DestroyMySelf()
+    private void DeActiveMySelf()
     {
         if (gameObject.activeSelf)
         {

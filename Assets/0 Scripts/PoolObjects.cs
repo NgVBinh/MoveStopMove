@@ -62,6 +62,7 @@ public class PoolObjects : MonoBehaviour
         {
             if (!obj.activeInHierarchy)
             {
+                //obj.SetActive(true);
                 return obj;
             }
         }
@@ -71,7 +72,7 @@ public class PoolObjects : MonoBehaviour
         if (pool != null)
         {
             GameObject newObj = Instantiate(pool.prefab);
-            newObj.SetActive(true);
+            newObj.SetActive(false);
             poolDictionary[_objectName].Add(newObj);
             return newObj;
         }

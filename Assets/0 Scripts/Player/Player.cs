@@ -84,7 +84,6 @@ public class Player : Entity
     {
         base.TakeDamage();
 
-        Debug.Log("player Dead");
         stateMachine.ChangeState(dieState);
     }
 

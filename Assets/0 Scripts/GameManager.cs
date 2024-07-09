@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    [Header("Pool")]
+    [SerializeField] private PoolObjects poolObjects;
     [Header("Enemy")]
     public Text enemiesAliveTxt;
 
@@ -14,7 +16,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int enemyAlive;
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform enemyParent;
-    public List<Transform> enemies = new List<Transform>();
 
     [Header("Material")]
     [SerializeField] private List<Material> pantMaterials;
@@ -32,7 +33,12 @@ public class GameManager : MonoBehaviour
 
     private int amountCharacter;
 
-    private string[] weapons = { "bua", "riu", "keo"};
+    private string[] weapons = { "bua", "riu", "keo" };
+
+    // variable game control
+    private bool canSpawn = true;
+    public bool isWin { get; private set; }
+    public bool isEnd { get; private set; }
     private void Awake()
     {
         if (instance != null)
@@ -46,10 +52,11 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         GenerateEnemy();
-        
-        DisplayEnemyAlive();
+
         player.OnDeath += PlayerLose;
         amountCharacter = enemyCount + 1;
+
+        DisplayEnemyAlive();
     }
 
     private void GenerateEnemy()
@@ -62,32 +69,44 @@ public class GameManager : MonoBehaviour
 
     private void InitializeEnemy()
     {
-        Vector3 ramdomPos = new Vector3(Random.Range(-49, 50), 0, Random.Range(-49, 50));
-        GameObject newEnemy = Instantiate(enemyPrefab, ramdomPos, Quaternion.identity, enemyParent);
-        Enemy enemyScript = newEnemy.GetComponent<Enemy>();
-        enemyScript.InitialWeapon(weapons[Random.Range(0,weapons.Length)]);
+        //get enemy in pool
+        GameObject newEnemy = poolObjects.GetObject("enemy");
+
+        // enemy properties
         int enemyLevel = Mathf.Clamp(Random.Range(player.GetLevel(), player.GetLevel() + 4), 0, player.GetLevel() + 4);
-        enemyScript.level = enemyLevel;
+        Material pantMaterial = pantMaterials[Random.Range(0, pantMaterials.Count)];
+        Material bodyMaterial = bodyMaterials[Random.Range(0, bodyMaterials.Count)];
+
+        // set up enemy
+        Enemy enemyScript = newEnemy.GetComponent<Enemy>();
+        enemyScript.InitializeEnemy(weapons[Random.Range(0, weapons.Length)], bodyMaterial, pantMaterial, enemyLevel,player);
         enemyScript.OnDeath += OnEnemyDeath;
-        enemyScript.pant.material = pantMaterials[Random.Range(0, pantMaterials.Count)];
-        enemyScript.body.material = bodyMaterials[Random.Range(0, bodyMaterials.Count)];
+        newEnemy.SetActive(true);
 
-        //enemies.Add(newEnemy.transform);
-
+        // add arrow indicator to enemy
         arrowIndicator.AddTargetIndicator(newEnemy);
     }
 
-    void OnEnemyDeath()
+    public void OnEnemyDeath()
     {
         amountCharacter--;
         DisplayEnemyAlive();
-        //
+
+        // spawn handle
         if (amountCharacter > enemyAlive)
         {
-            InitializeEnemy();
+            StartCoroutine(RevivalEnemyCoroutine());
         }
+        else
+        {
+            canSpawn = false;
+        }
+
+
         if (amountCharacter == 1)
         {
+            isEnd = true;
+            isWin = true;
             PlayerWin();
         }
     }
@@ -125,8 +144,23 @@ public class GameManager : MonoBehaviour
 
     }
 
+    // btn replay
     public void Replay()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private IEnumerator RevivalEnemyCoroutine()
+    {
+        yield return new WaitForSeconds(1);
+        if (canSpawn)
+        {
+
+            GameObject newEnemy = poolObjects.GetObject("enemy");
+            newEnemy.SetActive(true);
+            newEnemy.GetComponent<Enemy>().RevivalEnemy();
+            newEnemy.GetComponent<Enemy>().SpawnOnNavMesh();
+            //Debug.Log("enemy revival");
+        }
     }
 }

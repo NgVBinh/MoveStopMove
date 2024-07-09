@@ -15,6 +15,7 @@ public class EnemyAttackState : EnemyState
         base.Enter();
         //enemy.canMove = false;
         enemy.EnemyIdle();
+        attackDir = enemy.GetClosestTargetInRange().position - enemy.transform.position;
 
         stateTimer = enemy.attackDelay;
         attackDir.y = 0;
@@ -35,7 +36,6 @@ public class EnemyAttackState : EnemyState
         if (stateTimer < 0 && enemy.CheckAttackCooldown())
         {
             enemy.StartCoroutine(enemy.HideWeaponOnAttack(1));
-            attackDir = enemy.GetClosestTargetInRange().position - enemy.transform.position;
             enemy.ThrowWeapon(attackDir);
             enemy.SetCooldown();
 

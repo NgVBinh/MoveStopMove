@@ -22,7 +22,7 @@ public class Entity : MonoBehaviour
     [SerializeField] private TextMeshProUGUI levelTxt;
 
     [SerializeField] private Transform characterAim;
-    
+
     // private var
     [SerializeField] private float rotateSpeed;
 
@@ -44,21 +44,18 @@ public class Entity : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        poolObjects = FindObjectOfType<PoolObjects>();
 
     }
 
     protected virtual void OnEnable()
     {
 
-        poolObjects = FindObjectOfType<PoolObjects>();
     }
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
-
-        dieEfect.GetComponent<Renderer>().material = body.material;
-        levelUpEfect.GetComponent<Renderer>().material = body.material;
 
         DisplayLevelTxt();
         if (level != 0)
@@ -128,17 +125,17 @@ public class Entity : MonoBehaviour
         GameObject weaponThrow = poolObjects.GetObject(weaponName);
         weaponThrow.SetActive(true);
         weaponThrow.transform.position = attackPoint.position;
-        weaponThrow.GetComponent<WeaponController>()?.SetupWeapon(dir.normalized, forceThrow,this);
+        weaponThrow.GetComponent<WeaponController>()?.SetupWeapon(dir.normalized, forceThrow, this);
 
     }
 
-    public virtual void ThrowMultiWeapon(Vector3 dir,int amountBullet,float angle)
+    public virtual void ThrowMultiWeapon(Vector3 dir, int amountBullet, float angle)
     {
-        float angleInit = -(amountBullet/2)*angle;
+        float angleInit = -(amountBullet / 2) * angle;
 
-        for(int i = 0 ; i < amountBullet; i++)
+        for (int i = 0; i < amountBullet; i++)
         {
-            Quaternion rotationBullet = Quaternion.Euler(0, angleInit + (i) * angle,0);
+            Quaternion rotationBullet = Quaternion.Euler(0, angleInit + (i) * angle, 0);
             Vector3 rotatedDirection = rotationBullet * dir;
 
             GameObject weaponThrow = poolObjects.GetObject(weaponName);
@@ -176,9 +173,11 @@ public class Entity : MonoBehaviour
     private void IncreaseExp(int amount)
     {
         exp += amount;
-        if(exp > 1)
+        if (exp > 1)
         {
             level++;
+
+            levelUpEfect.GetComponent<Renderer>().material = body.material;
             levelUpEfect.Play();
             OnLevelUp?.Invoke();
 
@@ -199,7 +198,7 @@ public class Entity : MonoBehaviour
     }
     private void SetRange(float percent)
     {
-        attackRange *= (1+ percent/100); 
+        attackRange *= (1 + percent / 100);
     }
 
     public int GetLevel()
@@ -225,6 +224,7 @@ public class Entity : MonoBehaviour
 
     public virtual void TakeDamage()
     {
+        dieEfect.GetComponent<Renderer>().material = body.material;
         dieEfect.Play();
     }
 

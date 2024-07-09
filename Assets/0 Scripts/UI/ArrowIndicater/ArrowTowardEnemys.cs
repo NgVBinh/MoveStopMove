@@ -31,9 +31,9 @@ public class ArrowTowardEnemys : MonoBehaviour
         targetIndicators.Add(indicator);
     }
 
-    public void RemoveTargetIndicator(TargetIndicator target)
-    {
-        targetIndicators.Remove(target);
+    //public void RemoveTargetIndicator(TargetIndicator target)
+    //{
+    //    targetIndicators.Remove(target);
    
-    }
+    //}
 }

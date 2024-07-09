@@ -18,7 +18,7 @@ public class TargetIndicator : MonoBehaviour
     private RectTransform canvasRect;
     private RectTransform rectTransform;
 
-    private ArrowTowardEnemys arrowTowardEnemys;
+    //private ArrowTowardEnemys arrowTowardEnemys;
 
 
     private void Awake()
@@ -32,10 +32,9 @@ public class TargetIndicator : MonoBehaviour
         this.target = target;
         this.mainCamera = mainCamera;
         canvasRect = canvas.GetComponent<RectTransform>();
-        this.arrowTowardEnemys = arrowTowardEnemys;
-
+        //this.arrowTowardEnemys = arrowTowardEnemys;
+        target.GetComponent<Enemy>().OnDeath += DeActiveIndicator;
         myImage.color = target.GetComponent<Enemy>().body.material.color;
-        target.GetComponent<Enemy>().OnDeath += RemoveIndicator;
 
         levelImg = Instantiate(levelInforImgPref, canvas.transform);
         levelImg.GetComponent<FollowArrow>().SetupLevelInforImg(this, outOfSightOffset, target, myImage.color);
@@ -44,6 +43,10 @@ public class TargetIndicator : MonoBehaviour
 
     public void UpdateTargetIndicator()
     {
+        if (!target.activeSelf)
+        {
+            return;        
+        }
         SetIndicatorPos();
     }
 
@@ -132,14 +135,13 @@ public class TargetIndicator : MonoBehaviour
         return new Vector3(0, 0, angle);
     }
 
-    public void RemoveIndicator()
+    public void DeActiveIndicator()
     {
-        arrowTowardEnemys.RemoveTargetIndicator(this);
+        //arrowTowardEnemys.RemoveTargetIndicator(this);
         if (gameObject.activeSelf)
         {
             gameObject.SetActive(false);
         }
     }
-
 
 }

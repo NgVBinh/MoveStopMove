@@ -45,7 +45,7 @@ public class PlayerAttackState : PlayerState
             {
                 attackDir = player.enemyTargetted.position - player.transform.position;
             }
-            player.ThrowMultiWeapon(attackDir, 4, 15);
+            player.ThrowMultiWeapon(attackDir, 5, 15);
             player.canMove = true;
             player.SetCooldown();
             attacked = true;
