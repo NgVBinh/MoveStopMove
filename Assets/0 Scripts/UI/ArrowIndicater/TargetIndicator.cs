@@ -8,19 +8,19 @@ public class TargetIndicator : MonoBehaviour
     [SerializeField] private Image offScreenTargetIndicator;
     [SerializeField] private float outOfSightOffset = 20f;
 
-    private float outOfSightOffest { get { return outOfSightOffset; } }
+    [SerializeField] private GameObject levelInforImgPref;
 
     private GameObject target;
     private Camera mainCamera;
 
+    private GameObject levelImg;
+    private Image myImage;
     private RectTransform canvasRect;
     private RectTransform rectTransform;
 
-
     private ArrowTowardEnemys arrowTowardEnemys;
-    private Image myImage;
 
-    [SerializeField] private bool canRotate;
+
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -36,6 +36,10 @@ public class TargetIndicator : MonoBehaviour
 
         myImage.color = target.GetComponent<Enemy>().body.material.color;
         target.GetComponent<Enemy>().OnDeath += RemoveIndicator;
+
+        levelImg = Instantiate(levelInforImgPref, canvas.transform);
+        levelImg.GetComponent<FollowArrow>().SetupLevelInforImg(this, outOfSightOffset, target, myImage.color);
+
     }
 
     public void UpdateTargetIndicator()
@@ -104,8 +108,10 @@ public class TargetIndicator : MonoBehaviour
             if (!offScreenTargetIndicator.gameObject.activeSelf)
             {
                 offScreenTargetIndicator.gameObject.SetActive(true);
+                levelImg.SetActive(true);
             }
-            
+
+
             offScreenTargetIndicator.rectTransform.rotation = Quaternion.Euler(CalculateRotation(indicatorPos));
         }
         else
@@ -113,6 +119,8 @@ public class TargetIndicator : MonoBehaviour
             if (offScreenTargetIndicator.gameObject.activeSelf)
             {
                 offScreenTargetIndicator.gameObject.SetActive(false);
+                levelImg.SetActive(false);
+
             }
         }
     }
