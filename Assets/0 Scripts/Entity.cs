@@ -2,8 +2,6 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using System;
-using System.ComponentModel;
-using UnityEngine.UIElements;
 
 public class Entity : MonoBehaviour
 {
