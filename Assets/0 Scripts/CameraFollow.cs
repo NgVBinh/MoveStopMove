@@ -16,10 +16,16 @@ public class CameraFollow : MonoBehaviour
         //transform.position = targetPos;
         //transform.LookAt(target.transform);
         transform.position = targetPos;
+
     }
 
     public void SetOffset(float percent)
     {
         this.offset *=(1+percent/100);
+    }
+
+    private void ActiveFollow()
+    {
+        this.enabled = true;
     }
 }

@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.EventSystems.EventTrigger;
 
 
 [RequireComponent(typeof(NavMeshAgent))]
@@ -14,23 +12,28 @@ public class Enemy : Entity
     [SerializeField] private float radiusFindWay = 30f;
     [SerializeField] private float radiusSpawn = 20f;
 
-    private LayerMask targetLayer;
+    [Header("Enemy infor")]
     [SerializeField] private GameObject beTarget;
-    public Collider col { get; private set; }
+    [SerializeField] private GameObject levelOnHead;
 
-    public EnemyIdleState enemyIdleState { get; private set; }
-    public EnemyMoveState enemyMoveState { get; private set; }
-    public EnemyAttackState enemyAttackState { get; private set; }
-    public EnemyDieState enemyDieState { get; private set; }
-
-    public EnemyStateMachine stateMachine;
-
+    private LayerMask targetLayer;
     public NavMeshAgent agent { get; private set; }
 
     public Action OnDeath;
     public bool enemyDead;
 
     private Player player;
+    public Collider col { get; private set; }
+
+    #region enemy state
+    public EnemyPrepareState enemyPrepareState { get; private set; }
+    public EnemyIdleState enemyIdleState { get; private set; }
+    public EnemyMoveState enemyMoveState { get; private set; }
+    public EnemyAttackState enemyAttackState { get; private set; }
+    public EnemyDieState enemyDieState { get; private set; }
+
+    public EnemyStateMachine stateMachine;
+    #endregion
 
     protected override void Awake()
     {
@@ -38,6 +41,7 @@ public class Enemy : Entity
         agent = GetComponent<NavMeshAgent>();
         col = GetComponent<Collider>();
         stateMachine = new EnemyStateMachine();
+        enemyPrepareState = new EnemyPrepareState(this, stateMachine, "IsIdle");
         enemyIdleState = new EnemyIdleState(this, stateMachine, "IsIdle");
         enemyMoveState = new EnemyMoveState(this, stateMachine, "IsMove");
         enemyAttackState = new EnemyAttackState(this, stateMachine, "IsAttack");
@@ -52,10 +56,10 @@ public class Enemy : Entity
     protected override void Start()
     {
         base.Start();
-        stateMachine.Initialize(enemyMoveState);
+        stateMachine.Initialize(enemyPrepareState);
         targetLayer = LayerMask.GetMask("Enemy", "Player");
 
-
+        Observer.AddObserver("play", EnemyPlay);
     }
 
     // Update is called once per frame
@@ -93,13 +97,13 @@ public class Enemy : Entity
     public void SpawnOnNavMesh()
     {
         // don't spawn near players according to the spawn radius
-        Vector3 randomPosSpawn = GetRandomPointOnNavMesh(radiusSpawn);
+        Vector3 randomPosSpawn = GetRandomPointOnNavMesh(transform.position,radiusSpawn);
         if (CheckPlayerRange(randomPosSpawn))
         {
             SpawnOnNavMesh();
             return;
         }
-        Debug.Log(Vector3.Distance(randomPosSpawn, player.transform.position));
+       // Debug.Log(Vector3.Distance(randomPosSpawn, player.transform.position));
 
         transform.position = randomPosSpawn;
     }
@@ -109,14 +113,14 @@ public class Enemy : Entity
 
         if (!agent.pathPending && agent.remainingDistance < 0.5f)
         {
-            agent.SetDestination(GetRandomPointOnNavMesh(radiusFindWay));
+            agent.SetDestination(GetRandomPointOnNavMesh(transform.position,radiusFindWay));
         }
     }
 
-    public Vector3 GetRandomPointOnNavMesh(float radius)
+    public Vector3 GetRandomPointOnNavMesh(Vector3 centerPos,float radius)
     {
         NavMeshHit hit;
-        Vector3 randomPoint = transform.position + UnityEngine.Random.insideUnitSphere * radius;
+        Vector3 randomPoint = centerPos + UnityEngine.Random.insideUnitSphere * radius;
 
         if (NavMesh.SamplePosition(randomPoint, out hit, radius, NavMesh.AllAreas))
         {
@@ -124,12 +128,12 @@ public class Enemy : Entity
         }
 
         // If a random point is not on NavMesh, try again.
-        return GetRandomPointOnNavMesh(radius);
+        return GetRandomPointOnNavMesh(centerPos,radius);
     }
 
     protected virtual bool CheckPlayerRange(Vector3 checkPos)
     {
-        if (Vector3.Distance(checkPos, player.transform.position) < radiusSpawn)
+        if (Vector3.Distance(checkPos, player.transform.position) < player.attackRange)
         {
             return true;
         }
@@ -165,5 +169,24 @@ public class Enemy : Entity
         col.enabled = true;
         agent.ResetPath();
         stateMachine.ChangeState(enemyMoveState);
+    }
+
+    private void OnDestroy()
+    {
+        Observer.RemoveObserver("play", EnemyPlay);
+    }
+
+    private void EnemyPlay()
+    {
+        levelOnHead.SetActive(true);
+
+        if(UnityEngine.Random.Range(0, 2) == 0)
+        {
+            stateMachine.ChangeState(enemyIdleState);
+        }
+        else
+        {
+            stateMachine.ChangeState(enemyMoveState);
+        }
     }
 }

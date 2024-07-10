@@ -94,4 +94,8 @@ public class FollowArrow : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        enemyTarget.OnDeath -= DeActiveMySelf;
+    }
 }

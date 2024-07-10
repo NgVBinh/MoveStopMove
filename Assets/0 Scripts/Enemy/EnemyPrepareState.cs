@@ -2,19 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDieState : PlayerState
+public class EnemyPrepareState : EnemyState
 {
-    public PlayerDieState(Player player, PlayerStateMachine stateMachine, string animationName) : base(player, stateMachine, animationName)
+    public EnemyPrepareState(Enemy enemy, EnemyStateMachine stateMachine, string animationName) : base(enemy, stateMachine, animationName)
     {
     }
 
     public override void Enter()
     {
         base.Enter();
-        player.rb.velocity = Vector3.zero;
-        Debug.Log("Player dead");
-        Observer.Notify("playerDead");
-
     }
 
     public override void Exit()

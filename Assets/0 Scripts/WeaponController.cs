@@ -6,16 +6,26 @@ public enum WeaponType
 {
     STRAIGHT,
     SPIN,
-    MULTIBULLET,
     BUMERANG
 }
 
+public enum AttackType
+{
+    SINGLE,
+    MULTYBULLET
+}
 
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
 public class WeaponController : MonoBehaviour
 {
-    [SerializeField] private WeaponType type;
-    [SerializeField] private float speedRotate;
+    public WeaponType weaponType;
+    public AttackType attackType;
+    // if weapon type Spin
+    [SerializeField] private float rotateSpeed=1000;
+
+    // if attack type multi bullet
+    public float angle = 25;
+    public int amounntBullet = 3;
 
     private Rigidbody rb;
     private bool isCharacterWeapon;
@@ -32,17 +42,13 @@ public class WeaponController : MonoBehaviour
 
     private void Start()
     {
-        if (isCharacterWeapon)
-        {
-           
-        }
-
+       
     }
     private void OnEnable()
     {
 
-        transform.localRotation = Quaternion.identity;
-        transform.localPosition = Vector3.zero;
+       // transform.localRotation = Quaternion.identity;
+        //transform.localPosition = Vector3.zero;
         //StartCoroutine(ActiveWeapon());
 
 
@@ -56,23 +62,27 @@ public class WeaponController : MonoBehaviour
         rb.isKinematic = false;
         rb.velocity = (dir * force);
 
-        transform.up = -dir;
-        transform.up = -rb.velocity;
-        transform.eulerAngles = new Vector3(90,transform.eulerAngles.y,transform.eulerAngles.z);
+        //Quaternion rotationBullet = Quaternion.Euler(-90, transform.eulerAngles.y, transform.eulerAngles.z);
+        //Vector3 newRotate = rotationBullet * dir;
 
+        //transform.rotation = Quaternion.Euler(newRotate);
+        //transform.up = newRotate;
+        //transform.rotation = Quaternion.Euler(-90,transform.eulerAngles.y,transform.eulerAngles.z);
 
-        myCharacter = character;
-        transform.localScale *= (1 + character.GetLevel() / 10f);
+        //transform.Rotate(dir);
+
+        // roatate direction weapon
+        Quaternion targetRotation = Quaternion.LookRotation(-dir, Vector3.up);
+        transform.rotation = targetRotation * Quaternion.Euler(90, 0, 0); 
 
     }
 
     private void Update()
     {
 
-
-        if (type==WeaponType.SPIN && !isCharacterWeapon)
+        if (weaponType==WeaponType.SPIN && !isCharacterWeapon)
         {
-            transform.Rotate(Vector3.forward * speedRotate * Time.deltaTime);
+            transform.Rotate(Vector3.forward * rotateSpeed * Time.deltaTime);
         }
 
         if (Vector3.Distance(transform.position, myCharacter.transform.position) > myCharacter.attackRange)

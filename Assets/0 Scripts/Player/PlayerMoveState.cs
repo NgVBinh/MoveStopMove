@@ -8,7 +8,6 @@ public class PlayerMoveState : PlayerState
     {
     }
 
-    private Vector3 moveDir;
 
 
     public override void Enter()
@@ -25,10 +24,14 @@ public class PlayerMoveState : PlayerState
     public override void Update()
     {
         base.Update();
-        if (moveDir == Vector3.zero) stateMachine.ChangeState(player.idleState);
-        moveDir = new Vector3(player.joystick.Direction.x, 0, player.joystick.Direction.y);
-        player.MoveHandle(moveDir.normalized * Time.deltaTime * player.moveSpeed);
-        player.RotateHandle(moveDir);
+        if (player.joystick.GetInputVector() != Vector2.zero) {
+            Vector3 moveDir = new Vector3(player.joystick.GetInputVector().x, 0, player.joystick.GetInputVector().y);
+            player.MoveHandle(moveDir * Time.deltaTime * player.moveSpeed);
+            player.RotateHandle(moveDir);
+        }
+        else
+            stateMachine.ChangeState(player.idleState);
+        
 
         //if(player.GetClosestEnemyInRange()&& player.CheckAttackCooldown())
         //{

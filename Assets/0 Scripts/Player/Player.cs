@@ -12,18 +12,23 @@ public class Player : Entity
     public PlayerDieState dieState { get; private set; }
 
     [Header("movement")]
-    public Joystick joystick;
+    public JoystickController joystick;
     public bool canMove;
     public float moveSpeed;
 
-    private LayerMask targetLayer;
+    [Header("Main Camera")]
     [SerializeField] private CameraFollow camFollow;
 
-    public Transform enemyTargetted { get; private set; }
-
-    public Action OnDeath;
+    [Header("Weapon")]
     [SerializeField] private string weapon;
 
+    [Header("Infor Character")]
+    [SerializeField] private GameObject attackRangSprite;
+    [SerializeField] private GameObject levelOnHead;
+
+    private LayerMask targetLayer;
+
+    public Transform enemyTargetted { get; private set; }
 
     protected override void Awake()
     {
@@ -43,6 +48,8 @@ public class Player : Entity
         canMove = true;
         targetLayer = LayerMask.GetMask("Enemy");
         InitialWeapon(weapon);
+
+        Observer.AddObserver("play", PlayerPlayGame);
     }
 
     // Update is called once per frame
@@ -115,4 +122,15 @@ public class Player : Entity
         base.InitialWeapon(weapon);
     }
 
+    private void OnDestroy()
+    {
+        Observer.RemoveObserver("play", PlayerPlayGame);
+    }
+
+    private void PlayerPlayGame()
+    {
+        attackRangSprite.SetActive(true);
+        levelOnHead.SetActive(true);
+            
+    }
 }

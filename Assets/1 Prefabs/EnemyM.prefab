@@ -12147,15 +12147,18 @@ MonoBehaviour:
   attackRange: 8
   forceThrow: 10
   levelTxt: {fileID: 1678395728157336120}
-  characterAim: {fileID: 4181584096192303190}
-  rotateSpeed: 20
   pant: {fileID: 6757536553112276446}
   body: {fileID: 1193868849255352740}
+  characterAim: {fileID: 4181584096192303190}
   dieEfect: {fileID: 6834169383744054498}
   levelUpEfect: {fileID: 182946969999771688}
+  rotateSpeed: 20
   level: 0
   moveSpeed: 7
+  radiusFindWay: 30
+  radiusSpawn: 50
   beTarget: {fileID: 1201189331165947462}
+  levelOnHead: {fileID: 2597837948864082712}
   enemyDead: 0
 --- !u!136 &2863762050663612072
 CapsuleCollider:
@@ -12450,6 +12453,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level-Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 161367437250668858, guid: c8eb682287081314a9ae507115af6df9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267310070267426168, guid: c8eb682287081314a9ae507115af6df9,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7191943084995315220, guid: c8eb682287081314a9ae507115af6df9,
         type: 3}
       propertyPath: bodyMaterial
@@ -12572,6 +12585,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2597837948864082712 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 161367437250668858, guid: c8eb682287081314a9ae507115af6df9,
+    type: 3}
+  m_PrefabInstance: {fileID: 2751722522091624994}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &6857387257246487605 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8726358065328229911, guid: c8eb682287081314a9ae507115af6df9,

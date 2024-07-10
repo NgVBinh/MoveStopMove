@@ -11,17 +11,18 @@ public class TransparentObstacle : MonoBehaviour
     private Renderer render;
     private Material originalMaterial;
 
-    public bool isBaseColor;
+    private bool isBaseColor;
+
+    private float distance;
     private void Start()
     {
         render = GetComponent<Renderer>();
         originalMaterial = render.material;
 
-        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+        distance = Vector3.Distance(transform.position, player.transform.position);
 
-        if (distanceToPlayer < transparentDistance)
+        if (distance < transparentDistance)
         {
-            Debug.Log("làm mờ");
             render.material = transparentMat;
             isBaseColor = false;
         }
@@ -30,32 +31,25 @@ public class TransparentObstacle : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+        distance = Vector3.Distance(transform.position, player.transform.position);
 
-        if (distanceToPlayer < transparentDistance)
+        if (distance < transparentDistance)
         {
-            if (distanceToPlayer < transparentDistance)
-            {
-                if (!isBaseColor) return;
+            if (!isBaseColor) return;
 
-                //Debug.Log("làm mờ");
-                render.material = transparentMat;
-                isBaseColor = false;
-            }
-
-            else
-            {
-                if (isBaseColor) return;
-                else
-                {
-                    if (isBaseColor) return;
-
-                    //Debug.Log("hủy làm mờ");
-                    render.material = originalMaterial;
-                    isBaseColor = true;
-                }
-            }
-
+            //Debug.Log("làm mờ");
+            render.material = transparentMat;
+            isBaseColor = false;
         }
+
+        else
+        {
+            if (isBaseColor) return;
+
+            //Debug.Log("hủy làm mờ");
+            render.material = originalMaterial;
+            isBaseColor = true;
+        }
+
     }
 }

@@ -22,7 +22,8 @@ public class PlayerIdleState : PlayerState
     public override void Update()
     {
         base.Update();
-        if(player.joystick.Direction!=Vector2.zero && player.canMove)
+        //if(player.joystick.Direction!=Vector2.zero && player.canMove)
+        if(player.joystick.GetInputVector()!=Vector2.zero && player.canMove)
         {
             stateMachine.ChangeState(player.moveState);
         }

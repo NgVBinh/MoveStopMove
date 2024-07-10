@@ -21,20 +21,20 @@ public class Entity : MonoBehaviour
     [Header("Level ui")]
     [SerializeField] private TextMeshProUGUI levelTxt;
 
-    [SerializeField] private Transform characterAim;
-
-    // private var
-    [SerializeField] private float rotateSpeed;
 
     [Header("Equipment")]
     public SkinnedMeshRenderer pant;
     public SkinnedMeshRenderer body;
+    [SerializeField] private Transform characterAim;
+    private WeaponController weaponScript;
 
     // die effect
     [SerializeField] private ParticleSystem dieEfect;
     [SerializeField] private ParticleSystem levelUpEfect;
 
     private PoolObjects poolObjects;
+    [SerializeField] private float rotateSpeed;
+    // private var
 
 
     private int exp;
@@ -87,12 +87,12 @@ public class Entity : MonoBehaviour
         myWeapon.SetActive(true);
         characterAim.gameObject.SetActive(true);
 
-
+        weaponScript = myWeapon.GetComponent<WeaponController>();
     }
-    public virtual void RotateHandle(Vector3 dirTarget)
+    public virtual void RotateHandle(Vector3 dir)
     {
-        transform.forward = Vector3.RotateTowards(transform.forward, dirTarget, rotateSpeed, Time.deltaTime);
-
+        //transform.forward = Vector3.RotateTowards(transform.forward, dirTarget, rotateSpeed, Time.deltaTime);
+        transform.rotation = Quaternion.LookRotation(dir);
     }
 
     #region attack
@@ -120,6 +120,19 @@ public class Entity : MonoBehaviour
 
         return null;
     }
+
+    public void Attack(Vector3 dir)
+    {
+        if(weaponScript.attackType == AttackType.MULTYBULLET)
+        {
+            ThrowMultiWeapon(dir, weaponScript.amounntBullet,weaponScript.angle);
+        }
+        else
+        {
+            ThrowWeapon(dir);
+        }
+    }
+
     public virtual void ThrowWeapon(Vector3 dir)
     {
         GameObject weaponThrow = poolObjects.GetObject(weaponName);
@@ -135,16 +148,19 @@ public class Entity : MonoBehaviour
 
         for (int i = 0; i < amountBullet; i++)
         {
-            Quaternion rotationBullet = Quaternion.Euler(0, angleInit + (i) * angle, 0);
+            GameObject weaponThrow = poolObjects.GetObject(weaponName);
+            Quaternion rotationBullet = Quaternion.Euler(0, angleInit + i * angle, 0);
             Vector3 rotatedDirection = rotationBullet * dir;
 
-            GameObject weaponThrow = poolObjects.GetObject(weaponName);
             weaponThrow.SetActive(true);
             weaponThrow.transform.position = attackPoint.position;
             weaponThrow.GetComponent<WeaponController>()?.SetupWeapon(rotatedDirection.normalized, forceThrow, this);
         }
 
     }
+
+
+
 
     public virtual bool CheckAttackCooldown()
     {
@@ -216,12 +232,6 @@ public class Entity : MonoBehaviour
     public virtual void ChangeIdleState()
     {
     }
-    protected virtual void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-    }
-
     public virtual void TakeDamage()
     {
         dieEfect.GetComponent<Renderer>().material = body.material;
@@ -232,6 +242,11 @@ public class Entity : MonoBehaviour
     {
         IncreaseExp(1);
         // tang kich thuoc vk
-
     }
+    protected virtual void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
 }

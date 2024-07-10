@@ -16,7 +16,7 @@ public class EnemyMoveState : EnemyState
         enemy.SetRandomDestination();
 
         //const var
-        stateTimer =Random.Range(3,7);
+        stateTimer =Random.Range(2,6);
     }
 
     public override void Exit()

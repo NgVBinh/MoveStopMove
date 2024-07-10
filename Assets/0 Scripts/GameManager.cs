@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int enemyAlive;
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform enemyParent;
+    private List<GameObject> enemies= new List<GameObject>();
 
     [Header("Material")]
     [SerializeField] private List<Material> pantMaterials;
@@ -53,10 +54,13 @@ public class GameManager : MonoBehaviour
     {
         GenerateEnemy();
 
-        player.OnDeath += PlayerLose;
+        Observer.AddObserver("playerDead", PlayerLose);
+        Observer.AddObserver("play", AddTargetIndicator);
+
         amountCharacter = enemyCount + 1;
 
         DisplayEnemyAlive();
+
     }
 
     private void GenerateEnemy()
@@ -71,6 +75,7 @@ public class GameManager : MonoBehaviour
     {
         //get enemy in pool
         GameObject newEnemy = poolObjects.GetObject("enemy");
+        newEnemy.transform.SetParent(enemyParent);
 
         // enemy properties
         int enemyLevel = Mathf.Clamp(Random.Range(player.GetLevel(), player.GetLevel() + 4), 0, player.GetLevel() + 4);
@@ -79,12 +84,22 @@ public class GameManager : MonoBehaviour
 
         // set up enemy
         Enemy enemyScript = newEnemy.GetComponent<Enemy>();
-        enemyScript.InitializeEnemy(weapons[Random.Range(0, weapons.Length)], bodyMaterial, pantMaterial, enemyLevel,player);
+        enemyScript.InitializeEnemy(weapons[Random.Range(0, weapons.Length)], bodyMaterial, pantMaterial, enemyLevel, player);
         enemyScript.OnDeath += OnEnemyDeath;
         newEnemy.SetActive(true);
 
         // add arrow indicator to enemy
-        arrowIndicator.AddTargetIndicator(newEnemy);
+        enemies.Add(newEnemy);
+
+    }
+
+    private void AddTargetIndicator()
+    {
+        foreach (var enemy in enemies)
+        {
+            arrowIndicator.AddTargetIndicator(enemy);
+        }
+
     }
 
     public void OnEnemyDeath()
@@ -144,12 +159,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    // btn replay
-    public void Replay()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
     private IEnumerator RevivalEnemyCoroutine()
     {
         yield return new WaitForSeconds(1);
@@ -162,5 +171,18 @@ public class GameManager : MonoBehaviour
             newEnemy.GetComponent<Enemy>().SpawnOnNavMesh();
             //Debug.Log("enemy revival");
         }
+    }
+
+
+    // btn replay
+    public void Replay()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void OnDestroy()
+    {
+        Observer.RemoveObserver("play", AddTargetIndicator);
+        Observer.RemoveObserver("playerDead", PlayerLose);
     }
 }

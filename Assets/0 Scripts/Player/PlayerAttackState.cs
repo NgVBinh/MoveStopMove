@@ -5,19 +5,20 @@ using UnityEngine;
 public class PlayerAttackState : PlayerState
 {
     private Vector3 attackDir;
-    private bool attacked;
     public PlayerAttackState(Player player, PlayerStateMachine stateMachine, string animationName) : base(player, stateMachine, animationName)
     {
     }
 
     public override void Enter()
     {
-        attacked = false;
         base.Enter();
-        player.canMove = false;
+
+        player.rb.velocity = Vector3.zero;
+
         attackDir = player.enemyTargetted.position - player.transform.position;
-        stateTimer = player.attackDelay;
         attackDir.y = 0;
+
+        stateTimer = player.attackDelay;
         player.RotateHandle(attackDir);
 
 
@@ -32,30 +33,20 @@ public class PlayerAttackState : PlayerState
     {
         base.Update();
 
-        if (player.joystick.Direction != Vector2.zero && player.canMove)
+        //if (player.joystick.Direction != Vector2.zero && player.canMove)
+        if (player.joystick.GetInputVector() != Vector2.zero && player.canMove)
         {
             stateMachine.ChangeState(player.moveState);
         }
-        if (attacked) return;
 
         if (stateTimer < 0 && player.CheckAttackCooldown())
         {
             player.StartCoroutine(player.HideWeaponOnAttack(1));
-            if (player.enemyTargetted != null)
-            {
-                attackDir = player.enemyTargetted.position - player.transform.position;
-            }
-            player.ThrowMultiWeapon(attackDir, 5, 15);
-            player.canMove = true;
+            player.Attack(attackDir);
             player.SetCooldown();
-            attacked = true;
 
         }
 
-
-
-        
     }
-
 
 }
