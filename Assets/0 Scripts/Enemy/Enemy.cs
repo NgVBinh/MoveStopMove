@@ -1,5 +1,5 @@
 using System;
-
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,18 +9,23 @@ public class Enemy : Entity
 {
 
     public float moveSpeed;
-    [SerializeField] private float radiusFindWay = 30f;
-    [SerializeField] private float radiusSpawn = 20f;
+    [SerializeField] private float radiusFindWay;
+    [SerializeField] private float radiusSpawn;
 
     [Header("Enemy infor")]
     [SerializeField] private GameObject beTarget;
     [SerializeField] private GameObject levelOnHead;
 
+
+    [Header("Equipment")]
+    [SerializeField] private List<EquipmentSO> weaponEquipments = new List<EquipmentSO>();
+    [SerializeField] private List<EquipmentSO> hairEquipments = new List<EquipmentSO>();
+    [SerializeField] private List<EquipmentSO> shieldEquipments = new List<EquipmentSO>();
+
     private LayerMask targetLayer;
     public NavMeshAgent agent { get; private set; }
-
     public Action OnDeath;
-    public bool enemyDead;
+    //public bool enemyDead;
 
     private Player player;
     public Collider col { get; private set; }
@@ -48,10 +53,6 @@ public class Enemy : Entity
         enemyDieState = new EnemyDieState(this, stateMachine, "IsDead");
     }
 
-    protected override void OnEnable()
-    {
-        //OnDeath += SetupDie;
-    }
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -69,30 +70,32 @@ public class Enemy : Entity
         stateMachine.currentState.Update();
     }
 
-    public void InitializeEnemy(string weaponName, Material bodyMat, Material pantMat, int level, Player player)
+    public void InitializeEnemy(Material bodyMat, Material pantMat, int level, Player player)
     {
-        InitialWeapon(weaponName);
+        //InitialWeapon(weaponName);
         body.material = bodyMat;
         pant.material = pantMat;
         this.level = level;
         this.player = player;
 
         SpawnOnNavMesh();
+        InitializeEquipment();
+        
     }
 
-    public override void ChangeIdleState()
+    private void InitializeEquipment()
     {
-        base.ChangeIdleState();
-        stateMachine.ChangeState(enemyIdleState);
+        //equip
+        equipController.Equipment(weaponEquipments[UnityEngine.Random.Range(0,weaponEquipments.Count)]);
+        equipController.Equipment(hairEquipments[UnityEngine.Random.Range(0, hairEquipments.Count)]);
+        equipController.Equipment(shieldEquipments[UnityEngine.Random.Range(0, shieldEquipments.Count)]);
+
+        GameObject weaponInHand = equipController.GetEquipped(EquipmentType.WEAPON);
+        weaponScript =weaponInHand.GetComponent<WeaponController>();
+        weaponScript.GetComponent<WeaponController>()?.SetWeaponOfCharacter(true);
+        weaponName = equipController.weaponName;
     }
 
-    public void EnemyIdle()
-    {
-        agent.velocity = Vector3.zero;
-        agent.speed = 0;
-        agent.ResetPath();
-
-    }
 
     public void SpawnOnNavMesh()
     {
@@ -133,7 +136,7 @@ public class Enemy : Entity
 
     protected virtual bool CheckPlayerRange(Vector3 checkPos)
     {
-        if (Vector3.Distance(checkPos, player.transform.position) < player.attackRange)
+        if (Vector3.SqrMagnitude(checkPos- player.transform.position) < player.attackRange)
         {
             return true;
         }
@@ -151,31 +154,35 @@ public class Enemy : Entity
         base.TakeDamage();
         stateMachine.ChangeState(enemyDieState);
     }
-    public override void KillCharacter()
-    {
-        base.KillCharacter();
-
-    }
 
     public void BeTargetted(bool display)
     {
         beTarget.SetActive(display);
     }
-
+    #region controll enemy state
     public void RevivalEnemy()
     {
-        enemyDead = false;
+        //enemyDead = false;
         this.tag = "Enemy";
         col.enabled = true;
         agent.ResetPath();
         stateMachine.ChangeState(enemyMoveState);
     }
 
-    private void OnDestroy()
+    public override void ChangeIdleState()
     {
-        Observer.RemoveObserver("play", EnemyPlay);
+        base.ChangeIdleState();
+        stateMachine.ChangeState(enemyIdleState);
     }
 
+    public void EnemyIdle()
+    {
+        agent.velocity = Vector3.zero;
+        agent.speed = 0;
+        agent.ResetPath();
+    }
+
+    // change prepare state when play game
     private void EnemyPlay()
     {
         levelOnHead.SetActive(true);
@@ -189,4 +196,10 @@ public class Enemy : Entity
             stateMachine.ChangeState(enemyMoveState);
         }
     }
+    #endregion
+    private void OnDestroy()
+    {
+        Observer.RemoveObserver("play", EnemyPlay);
+    }
+
 }

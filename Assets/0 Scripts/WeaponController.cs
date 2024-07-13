@@ -1,5 +1,5 @@
 using System.Collections;
-
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum WeaponType
@@ -27,6 +27,10 @@ public class WeaponController : MonoBehaviour
     public float angle = 25;
     public int amounntBullet = 3;
 
+    // color & material
+    private MeshRenderer meshRenderer;
+    public Material[] materials= new Material[] {};
+
     private Rigidbody rb;
     private bool isCharacterWeapon;
 
@@ -37,23 +41,20 @@ public class WeaponController : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        meshRenderer = GetComponent<MeshRenderer>();
+        materials = meshRenderer.materials;
         lastScale = transform.localScale;
     }
 
     private void Start()
     {
-       
+
+
+        if (!isCharacterWeapon)
+            StartCoroutine(ReturnToPool());
+
     }
-    private void OnEnable()
-    {
 
-       // transform.localRotation = Quaternion.identity;
-        //transform.localPosition = Vector3.zero;
-        //StartCoroutine(ActiveWeapon());
-
-
-        StartCoroutine(ReturnToPool());
-    }
     public void SetupWeapon(Vector3 dir, float force, Entity character)
     {
         myCharacter = character;
@@ -61,15 +62,6 @@ public class WeaponController : MonoBehaviour
         
         rb.isKinematic = false;
         rb.velocity = (dir * force);
-
-        //Quaternion rotationBullet = Quaternion.Euler(-90, transform.eulerAngles.y, transform.eulerAngles.z);
-        //Vector3 newRotate = rotationBullet * dir;
-
-        //transform.rotation = Quaternion.Euler(newRotate);
-        //transform.up = newRotate;
-        //transform.rotation = Quaternion.Euler(-90,transform.eulerAngles.y,transform.eulerAngles.z);
-
-        //transform.Rotate(dir);
 
         // roatate direction weapon
         Quaternion targetRotation = Quaternion.LookRotation(-dir, Vector3.up);
@@ -85,7 +77,7 @@ public class WeaponController : MonoBehaviour
             transform.Rotate(Vector3.forward * rotateSpeed * Time.deltaTime);
         }
 
-        if (Vector3.Distance(transform.position, myCharacter.transform.position) > myCharacter.attackRange)
+        if (Vector3.Distance(transform.position, myCharacter.transform.position) > myCharacter.attackRange && !isCharacterWeapon)
         {
             gameObject.SetActive(false);
         }
@@ -103,7 +95,8 @@ public class WeaponController : MonoBehaviour
     public void SetWeaponOfCharacter(bool isCharacterWeapon)
     {
         this.isCharacterWeapon = isCharacterWeapon;
-        this.enabled = false;
+        // enable script weapon controller
+        enabled = false;
         gameObject.tag = "Untagged";
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
@@ -116,11 +109,11 @@ public class WeaponController : MonoBehaviour
         if (other.CompareTag("Enemy") || other.CompareTag("Player"))
         {
             Entity tmp = other.GetComponent<Entity>();
-            //Debug.Log(other.name + "   die");
             if (tmp != myCharacter)
             {
                 myCharacter.KillCharacter();
                 tmp.TakeDamage();
+
                 gameObject.SetActive(false);
             }
 

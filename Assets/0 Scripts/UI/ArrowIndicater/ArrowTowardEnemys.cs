@@ -8,12 +8,7 @@ public class ArrowTowardEnemys : MonoBehaviour
     public Canvas arrowCanvas;
     public GameObject arrowPrefab;
 
-    public List<TargetIndicator> targetIndicators = new List<TargetIndicator>();
-
-    void Start()
-    {
-        
-    }
+    private List<TargetIndicator> targetIndicators = new List<TargetIndicator>();
 
     private void Update()
     {
@@ -27,13 +22,8 @@ public class ArrowTowardEnemys : MonoBehaviour
     public void AddTargetIndicator(GameObject target)
     {
         TargetIndicator indicator = Instantiate(arrowPrefab, arrowCanvas.transform).GetComponent<TargetIndicator>();
-        indicator.InitialTargetIndicator(target,mainCamera, arrowCanvas,this);
+        indicator.InitialTargetIndicator(target,mainCamera, arrowCanvas);
         targetIndicators.Add(indicator);
     }
 
-    //public void RemoveTargetIndicator(TargetIndicator target)
-    //{
-    //    targetIndicators.Remove(target);
-   
-    //}
 }

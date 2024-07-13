@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -22,19 +21,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<Material> pantMaterials;
     [SerializeField] private List<Material> bodyMaterials;
 
-    [Header("ArrowIndicator")]
-    [SerializeField] private ArrowTowardEnemys arrowIndicator;
+    private ArrowTowardEnemys arrowIndicator;
 
-    [Header("UI")]
-    [SerializeField] private GameObject losePanel;
-    [SerializeField] private GameObject winPanel;
-    [SerializeField] private GameObject joystick;
-
-    [SerializeField] private Player player;
+    public Player player;
 
     private int amountCharacter;
-
-    private string[] weapons = { "bua", "riu", "keo" };
 
     // variable game control
     private bool canSpawn = true;
@@ -52,15 +43,14 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        arrowIndicator = GetComponent<ArrowTowardEnemys>();
+
         GenerateEnemy();
 
-        Observer.AddObserver("playerDead", PlayerLose);
         Observer.AddObserver("play", AddTargetIndicator);
-
         amountCharacter = enemyCount + 1;
 
         DisplayEnemyAlive();
-
     }
 
     private void GenerateEnemy()
@@ -75,6 +65,7 @@ public class GameManager : MonoBehaviour
     {
         //get enemy in pool
         GameObject newEnemy = poolObjects.GetObject("enemy");
+        //Debug.Log(newEnemy);
         newEnemy.transform.SetParent(enemyParent);
 
         // enemy properties
@@ -84,7 +75,7 @@ public class GameManager : MonoBehaviour
 
         // set up enemy
         Enemy enemyScript = newEnemy.GetComponent<Enemy>();
-        enemyScript.InitializeEnemy(weapons[Random.Range(0, weapons.Length)], bodyMaterial, pantMaterial, enemyLevel, player);
+        enemyScript.InitializeEnemy(bodyMaterial, pantMaterial, enemyLevel, player);
         enemyScript.OnDeath += OnEnemyDeath;
         newEnemy.SetActive(true);
 
@@ -122,40 +113,15 @@ public class GameManager : MonoBehaviour
         {
             isEnd = true;
             isWin = true;
-            PlayerWin();
+
+            // display player win
+            Observer.Notify("PlayerWin");
         }
     }
 
     private void DisplayEnemyAlive()
     {
         enemiesAliveTxt.text = amountCharacter.ToString();
-
-    }
-
-    void PlayerLose()
-    {
-        losePanel.SetActive(true);
-        joystick.SetActive(false);
-
-    }
-    void PlayerWin()
-    {
-        winPanel.SetActive(true);
-        joystick.SetActive(false);
-
-    }
-    public void PlayerRevial()
-    {
-        player.ChangeIdleState();
-        if (losePanel.activeSelf)
-        {
-            losePanel.SetActive(false);
-        }
-
-        if (!joystick.activeSelf)
-        {
-            joystick.SetActive(true);
-        }
 
     }
 
@@ -173,16 +139,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
-    // btn replay
-    public void Replay()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    private void OnDestroy()
+    private void OnDisable()
     {
         Observer.RemoveObserver("play", AddTargetIndicator);
-        Observer.RemoveObserver("playerDead", PlayerLose);
     }
 }

@@ -7,10 +7,10 @@ public class Entity : MonoBehaviour
 {
     public Animator animator { get; private set; }
     public Rigidbody rb { get; private set; }
-
+    public EquipmentCharacter equipController { get; private set; }
 
     [Header("Attack")]
-    private string weaponName;
+    protected string weaponName;
     public float attackCooldown;
     [SerializeField] private Transform attackPoint;
     public float attackDelay;
@@ -26,7 +26,7 @@ public class Entity : MonoBehaviour
     public SkinnedMeshRenderer pant;
     public SkinnedMeshRenderer body;
     [SerializeField] private Transform characterAim;
-    private WeaponController weaponScript;
+    protected WeaponController weaponScript;
 
     // die effect
     [SerializeField] private ParticleSystem dieEfect;
@@ -45,7 +45,7 @@ public class Entity : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         poolObjects = FindObjectOfType<PoolObjects>();
-
+        equipController = GetComponent<EquipmentCharacter>();
     }
 
     protected virtual void OnEnable()
@@ -56,6 +56,7 @@ public class Entity : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
+
 
         DisplayLevelTxt();
         if (level != 0)
@@ -73,22 +74,21 @@ public class Entity : MonoBehaviour
         attackTimer -= Time.deltaTime;
     }
 
+    //public virtual void InitialWeapon(string weapon)
+    //{
+    //    //Debug.Log("???");
+    //    this.weaponName = weapon;
+    //    GameObject myWeapon = poolObjects.GetObjectOutPool(weapon);
 
-    public virtual void InitialWeapon(string weapon)
-    {
-        //Debug.Log("???");
-        this.weaponName = weapon;
-        GameObject myWeapon = poolObjects.GetObjectOutPool(weapon);
+    //    myWeapon.transform.SetParent(characterAim);
+    //    myWeapon.GetComponent<WeaponController>()?.SetWeaponOfCharacter(true);
+    //    myWeapon.transform.localPosition = Vector3.zero;
+    //    myWeapon.transform.localRotation = Quaternion.identity;
+    //    myWeapon.SetActive(true);
+    //    characterAim.gameObject.SetActive(true);
 
-        myWeapon.transform.SetParent(characterAim);
-        myWeapon.GetComponent<WeaponController>()?.SetWeaponOfCharacter(true);
-        myWeapon.transform.localPosition = Vector3.zero;
-        myWeapon.transform.localRotation = Quaternion.identity;
-        myWeapon.SetActive(true);
-        characterAim.gameObject.SetActive(true);
-
-        weaponScript = myWeapon.GetComponent<WeaponController>();
-    }
+    //    weaponScript = myWeapon.GetComponent<WeaponController>();
+    //}
     public virtual void RotateHandle(Vector3 dir)
     {
         //transform.forward = Vector3.RotateTowards(transform.forward, dirTarget, rotateSpeed, Time.deltaTime);
@@ -123,6 +123,7 @@ public class Entity : MonoBehaviour
 
     public void Attack(Vector3 dir)
     {
+
         if(weaponScript.attackType == AttackType.MULTYBULLET)
         {
             ThrowMultiWeapon(dir, weaponScript.amounntBullet,weaponScript.angle);
@@ -136,6 +137,7 @@ public class Entity : MonoBehaviour
     public virtual void ThrowWeapon(Vector3 dir)
     {
         GameObject weaponThrow = poolObjects.GetObject(weaponName);
+
         weaponThrow.SetActive(true);
         weaponThrow.transform.position = attackPoint.position;
         weaponThrow.GetComponent<WeaponController>()?.SetupWeapon(dir.normalized, forceThrow, this);
@@ -158,9 +160,6 @@ public class Entity : MonoBehaviour
         }
 
     }
-
-
-
 
     public virtual bool CheckAttackCooldown()
     {

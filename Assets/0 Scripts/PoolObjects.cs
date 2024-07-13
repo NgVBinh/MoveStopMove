@@ -33,7 +33,7 @@ public class PoolObjects : MonoBehaviour
         {
             if (poolDictionary.ContainsKey(pool.objectName))
             {
-                Debug.LogError("Duplicate _objectName found in pools: " + pool.objectName);
+                Debug.LogError("Duplicate _objectName in pools: " + pool.objectName);
                 continue;
             }
 
@@ -67,17 +67,30 @@ public class PoolObjects : MonoBehaviour
             }
         }
 
-        // tao them object khi het object trong pool
-        Pool pool = GetPoolByName(_objectName);
-        if (pool != null)
+        foreach (Pool pool in pools)
         {
-            GameObject newObj = Instantiate(pool.prefab);
-            newObj.SetActive(false);
-            poolDictionary[_objectName].Add(newObj);
-            return newObj;
+            if (pool.objectName == _objectName)
+            {
+                GameObject newObj = Instantiate(pool.prefab);
+                newObj.SetActive(true);
+                poolDictionary[_objectName].Add(newObj);
+                return newObj;
+            }
         }
-
+        Debug.LogError(_objectName + " null");
         return null;
+
+        ////tao them object khi het object trong pool
+        //Pool pool = GetPoolByName(_objectName);
+        //if (pool != null)
+        //{
+        //    GameObject newObj = Instantiate(pool.prefab);
+        //    newObj.SetActive(false);
+        //    poolDictionary[_objectName].Add(newObj);
+        //    return newObj;
+        //}
+
+        //return null;
     }
 
     // lay object trong pool va xoa object do khoi pool

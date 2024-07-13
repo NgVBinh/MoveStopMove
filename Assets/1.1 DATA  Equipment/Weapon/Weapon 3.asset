@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22b4a050de82368419b6b45660522dff, type: 3}
+  m_Name: Weapon 3
+  m_EditorClassIdentifier: 
+  equipName: candy0
+  equipmentType: 0
+  prefab: {fileID: 8364561010028221171, guid: 3cc147cbfafdd0d45ad544ba40a7e728, type: 3}
+  materials: []
+  description: + 8 attack speed
+  atkSpeedModifier: 8
+  moveSpeedModifier: 0
+  rangeModifier: 0

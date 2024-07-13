@@ -10,6 +10,7 @@ public class Player : Entity
     public PlayerMoveState moveState { get; private set; }
     public PlayerAttackState attackState { get; private set; }
     public PlayerDieState dieState { get; private set; }
+    public PlayerWinState winState { get; private set; }
 
     [Header("movement")]
     public JoystickController joystick;
@@ -19,8 +20,6 @@ public class Player : Entity
     [Header("Main Camera")]
     [SerializeField] private CameraFollow camFollow;
 
-    [Header("Weapon")]
-    [SerializeField] private string weapon;
 
     [Header("Infor Character")]
     [SerializeField] private GameObject attackRangSprite;
@@ -38,6 +37,8 @@ public class Player : Entity
         moveState = new PlayerMoveState(this,stateMachine,"IsMove");
         attackState = new PlayerAttackState(this, stateMachine, "IsAttack");
         dieState = new PlayerDieState(this, stateMachine, "IsDead");
+        winState = new PlayerWinState(this, stateMachine, "IsWin");
+        EquipmentWeapon();
 
     }
     // Start is called before the first frame update
@@ -47,9 +48,9 @@ public class Player : Entity
         stateMachine.Initialize(idleState);
         canMove = true;
         targetLayer = LayerMask.GetMask("Enemy");
-        InitialWeapon(weapon);
-
+        //InitialWeapon(weapon);
         Observer.AddObserver("play", PlayerPlayGame);
+        Observer.AddObserver("PlayerWin", ChangePlayerWinState);
     }
 
     // Update is called once per frame
@@ -62,7 +63,14 @@ public class Player : Entity
 
     }
 
-
+    public void EquipmentWeapon()
+    {
+        equipController.Equipment(weaponEquipments[0]);
+        GameObject weaponInHand = equipController.GetEquipped(EquipmentType.WEAPON);
+        weaponScript = weaponInHand.GetComponent<WeaponController>();
+        weaponScript.GetComponent<WeaponController>()?.SetWeaponOfCharacter(true);
+        weaponName = equipController.weaponName;
+    }
 
     public void MoveHandle(Vector3 moveDir)
     {
@@ -74,17 +82,6 @@ public class Player : Entity
     public Transform GetClosestEnemyInRange()
     {
         return GetTargetInRange(targetLayer);
-    }
-
-    public override void ChangeIdleState()
-    {
-        stateMachine.ChangeState(idleState);
-    }
-
-    public override void KillCharacter()
-    {
-        base.KillCharacter();
-
     }
 
     public override void TakeDamage()
@@ -117,20 +114,27 @@ public class Player : Entity
         }
     }
 
-    public override void InitialWeapon(string weapon)
-    {
-        base.InitialWeapon(weapon);
-    }
-
-    private void OnDestroy()
-    {
-        Observer.RemoveObserver("play", PlayerPlayGame);
-    }
+    //temp
+    [SerializeField] private List<EquipmentSO> weaponEquipments;
 
     private void PlayerPlayGame()
     {
         attackRangSprite.SetActive(true);
         levelOnHead.SetActive(true);
-            
     }
+    public override void ChangeIdleState()
+    {
+        stateMachine.ChangeState(idleState);
+    }
+    private void ChangePlayerWinState()
+    {
+        stateMachine.ChangeState(winState);
+    }
+
+    private void OnDestroy()
+    {
+        Observer.RemoveObserver("play", PlayerPlayGame);
+        Observer.RemoveObserver("PlayerWin", ChangePlayerWinState);
+    }
+
 }

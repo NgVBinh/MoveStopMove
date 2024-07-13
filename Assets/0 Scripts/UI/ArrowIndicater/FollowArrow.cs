@@ -82,7 +82,6 @@ public class FollowArrow : MonoBehaviour
     //private void OnDisable()
     //{
     //    enemyTarget.OnDeath -= DeActiveMySelf;
-    //    enemyTarget.OnLevelUp -= DisplayLevel;
     //}
 
     private void DeActiveMySelf()
@@ -97,5 +96,7 @@ public class FollowArrow : MonoBehaviour
     private void OnDestroy()
     {
         enemyTarget.OnDeath -= DeActiveMySelf;
+        enemyTarget.OnLevelUp -= DisplayLevel;
+
     }
 }

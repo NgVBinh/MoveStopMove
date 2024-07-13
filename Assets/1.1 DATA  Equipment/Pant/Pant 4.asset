@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22b4a050de82368419b6b45660522dff, type: 3}
+  m_Name: Pant 4
+  m_EditorClassIdentifier: 
+  equipName: pant4
+  cost: 800
+  equipmentType: 1
+  prefab: {fileID: 2459371874180654166, guid: cf7e552a048f77542ac8739761d13eeb, type: 3}
+  materials:
+  - {fileID: 2100000, guid: 627dc2412df92944b8d08ad716cd9309, type: 2}
+  description: + 10 move speed
+  atkSpeedModifier: 10
+  moveSpeedModifier: 10
+  rangeModifier: 0
