@@ -32,10 +32,16 @@ public class UI_SkinList : MonoBehaviour
             }
         }
 
-        foreach(EquipmentSO equip in equipList)
+        for(int i = 0;i<equipList.Count;i++)
+        //foreach(EquipmentSO equip in equipList)
         {
             GameObject equipInShop = Instantiate(equipInShop_UI, shopPannel);
-            equipInShop.GetComponent<UI_EquipInShop>().SetupEquipInShop(equip);
+            equipInShop.GetComponent<UI_EquipInShop>().SetupEquipInShop(equipList[i]);
+            if (i == 0)
+            {
+                equipInShop.GetComponent<UI_EquipInShop>().SetFirstSkin(equipList[i]);
+
+            }
         }
 
 

@@ -17,7 +17,7 @@ MonoBehaviour:
   equipmentType: 3
   prefab: {fileID: 12030616920562901, guid: b91db7fe414320d42a62edfe67594b2c, type: 3}
   materials: []
-  description: + 5 attack range
+  description: + 5% attack range
   atkSpeedModifier: 0
   moveSpeedModifier: 0
   rangeModifier: 5

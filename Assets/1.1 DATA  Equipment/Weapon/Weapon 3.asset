@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Weapon 3
   m_EditorClassIdentifier: 
   equipName: candy0
+  cost: 400
   equipmentType: 0
   prefab: {fileID: 8364561010028221171, guid: 3cc147cbfafdd0d45ad544ba40a7e728, type: 3}
   materials: []
-  description: + 8 attack speed
-  atkSpeedModifier: 8
+  description: '+ 10 attack speed '
+  atkSpeedModifier: 10
   moveSpeedModifier: 0
   rangeModifier: 0

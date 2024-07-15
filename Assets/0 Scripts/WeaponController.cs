@@ -20,7 +20,7 @@ public class WeaponController : MonoBehaviour
 {
     public WeaponType weaponType;
     public AttackType attackType;
-    // if weapon type Spin
+    // if weaponCenter type Spin
     [SerializeField] private float rotateSpeed=1000;
 
     // if attack type multi bullet
@@ -63,7 +63,7 @@ public class WeaponController : MonoBehaviour
         rb.isKinematic = false;
         rb.velocity = (dir * force);
 
-        // roatate direction weapon
+        // roatate direction weaponCenter
         Quaternion targetRotation = Quaternion.LookRotation(-dir, Vector3.up);
         transform.rotation = targetRotation * Quaternion.Euler(90, 0, 0); 
 
@@ -95,7 +95,7 @@ public class WeaponController : MonoBehaviour
     public void SetWeaponOfCharacter(bool isCharacterWeapon)
     {
         this.isCharacterWeapon = isCharacterWeapon;
-        // enable script weapon controller
+        // enable script weaponCenter controller
         enabled = false;
         gameObject.tag = "Untagged";
         transform.localPosition = Vector3.zero;

@@ -12,29 +12,15 @@ public class UI_SkinController : MonoBehaviour
     //[SerializeField] private Button setBtn;
 
     public Button buyEquipBtn;
-    public Button buySelectBtn;
     public TextMeshProUGUI descriptEquipTxt;
+
+    [SerializeField] private Button closeBtn;
     // Start is called before the first frame update
     void Start()
     {
         hairBtn.GetComponent<UI_SkinList>().DisplayEquipInShop();
+        closeBtn.onClick.AddListener(UIManager.instance.InitializedPannel);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    public void SwitchTo(GameObject _menu)
-    {
 
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            transform.GetChild(i).gameObject.SetActive(false);
-            transform.GetChild(i).GetChild(0).gameObject.SetActive(true);
-        }
-
-        if (_menu != null)
-            _menu.SetActive(true);
-    }
 }

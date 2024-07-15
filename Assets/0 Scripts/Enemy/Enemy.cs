@@ -8,7 +8,6 @@ using UnityEngine.AI;
 public class Enemy : Entity
 {
 
-    public float moveSpeed;
     [SerializeField] private float radiusFindWay;
     [SerializeField] private float radiusSpawn;
 
@@ -86,9 +85,9 @@ public class Enemy : Entity
     private void InitializeEquipment()
     {
         //equip
-        equipController.Equipment(weaponEquipments[UnityEngine.Random.Range(0,weaponEquipments.Count)]);
-        equipController.Equipment(hairEquipments[UnityEngine.Random.Range(0, hairEquipments.Count)]);
-        equipController.Equipment(shieldEquipments[UnityEngine.Random.Range(0, shieldEquipments.Count)]);
+        equipController.Equipment(weaponEquipments[UnityEngine.Random.Range(0,weaponEquipments.Count)],this);
+        equipController.Equipment(hairEquipments[UnityEngine.Random.Range(0, hairEquipments.Count)], this);
+        equipController.Equipment(shieldEquipments[UnityEngine.Random.Range(0, shieldEquipments.Count)], this);
 
         GameObject weaponInHand = equipController.GetEquipped(EquipmentType.WEAPON);
         weaponScript =weaponInHand.GetComponent<WeaponController>();
@@ -100,8 +99,8 @@ public class Enemy : Entity
     public void SpawnOnNavMesh()
     {
         // don't spawn near players according to the spawn radius
-        Vector3 randomPosSpawn = GetRandomPointOnNavMesh(transform.position,radiusSpawn);
-        if (CheckPlayerRange(randomPosSpawn))
+        Vector3 randomPosSpawn = GetRandomPointOnNavMesh(player.transform.position,radiusSpawn);
+        if (Vector3.Distance(randomPosSpawn, player.transform.position) < player.attackRange + 1)
         {
             SpawnOnNavMesh();
             return;
@@ -132,16 +131,6 @@ public class Enemy : Entity
 
         // If a random point is not on NavMesh, try again.
         return GetRandomPointOnNavMesh(centerPos,radius);
-    }
-
-    protected virtual bool CheckPlayerRange(Vector3 checkPos)
-    {
-        if (Vector3.SqrMagnitude(checkPos- player.transform.position) < player.attackRange)
-        {
-            return true;
-        }
-
-        return false;
     }
 
     public Transform GetClosestTargetInRange()

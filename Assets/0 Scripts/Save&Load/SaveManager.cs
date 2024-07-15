@@ -59,7 +59,7 @@ public class SaveManager : MonoBehaviour
             saveManager.SaveData(ref gameData);
         }
         dataHandle.Save(gameData);
-        Debug.Log("game was saved "+ gameData.coin);
+        Debug.Log("game was saved: "+ gameData.coin+" coin");
     }
 
     private void OnApplicationQuit()

@@ -7,11 +7,12 @@ using UnityEngine.UI;
 public class UI_ShopWeaponController : MonoBehaviour
 {
     [SerializeField] private List<EquipmentSO> weaponEquipment;
-    [SerializeField] private Transform weapon;
+    [SerializeField] private Transform weaponCenter;
     [SerializeField] private List<Transform> weaponColorChoose;
 
     [SerializeField] private Button rightBtn;
     [SerializeField] private Button leftBtn;
+    [SerializeField] private Button buyBtn;
 
     [SerializeField] private TextMeshProUGUI weapponNameTxt;
     [SerializeField] private TextMeshProUGUI statsTxt;
@@ -27,18 +28,33 @@ public class UI_ShopWeaponController : MonoBehaviour
         backBtn.onClick.AddListener(UIManager.instance.InitializedPannel);
     }
 
-   private void DisplayWeapon(int index)
+    private void OnEnable()
     {
-        if (weapon.childCount > 0)
+        DisplayWeapon(weaponIndex);
+
+    }
+
+    private void DisplayWeapon(int index)
+    {
+        if (weaponCenter.childCount > 0)
         {
-            Destroy(weapon.GetChild(0).gameObject);
+            Destroy(weaponCenter.GetChild(0).gameObject);
         }
 
-        GameObject weaponDisplay = Instantiate(weaponEquipment[weaponIndex].prefab, weapon);
+        GameObject weaponDisplay = Instantiate(weaponEquipment[weaponIndex].prefab, weaponCenter);
+        if (buyBtn.GetComponent<UI_BuyBtnController>() != null)
+        {
+            buyBtn.GetComponent<UI_BuyBtnController>().SetupBtn(weaponEquipment[weaponIndex]);
+
+        }
+        else
+        {
+            Debug.Log("Null");
+        }
         weaponDisplay.GetComponent<WeaponController>().enabled = false;
         weaponDisplay.transform.localScale = Vector3.one * 10000;
 
-        for (int i=0;i<weaponColorChoose.Count;i++)
+        for (int i = 0; i < weaponColorChoose.Count; i++)
         {
             if (weaponColorChoose[i].childCount > 0)
             {
@@ -60,14 +76,14 @@ public class UI_ShopWeaponController : MonoBehaviour
     private void NextWeaponLeft()
     {
         weaponIndex--;
-        weaponIndex=Mathf.Clamp(weaponIndex,0, weaponEquipment.Count-1);
+        weaponIndex = Mathf.Clamp(weaponIndex, 0, weaponEquipment.Count - 1);
         DisplayWeapon(weaponIndex);
     }
 
     private void NextWeaponRight()
     {
         weaponIndex++;
-        weaponIndex=Mathf.Clamp(weaponIndex, 0, weaponEquipment.Count - 1);
+        weaponIndex = Mathf.Clamp(weaponIndex, 0, weaponEquipment.Count - 1);
         DisplayWeapon(weaponIndex);
     }
 }

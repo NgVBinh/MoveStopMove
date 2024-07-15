@@ -18,7 +18,7 @@ MonoBehaviour:
   prefab: {fileID: 2459371874180654166, guid: cf7e552a048f77542ac8739761d13eeb, type: 3}
   materials:
   - {fileID: 2100000, guid: ca472aa2956c0924596de361d4466cf8, type: 2}
-  description: + 10 move speed
-  atkSpeedModifier: 10
-  moveSpeedModifier: 10
+  description: + 8% move speed
+  atkSpeedModifier: 0
+  moveSpeedModifier: 8
   rangeModifier: 0

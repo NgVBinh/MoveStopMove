@@ -9,13 +9,16 @@ public class Entity : MonoBehaviour
     public Rigidbody rb { get; private set; }
     public EquipmentCharacter equipController { get; private set; }
 
+    public float moveSpeed;
+
+
     [Header("Attack")]
     protected string weaponName;
     public float attackCooldown;
     [SerializeField] private Transform attackPoint;
     public float attackDelay;
     public float attackRange;
-    public float forceThrow;
+    public float attackSpeed;
     private float attackTimer;
 
     [Header("Level ui")]
@@ -40,6 +43,12 @@ public class Entity : MonoBehaviour
     private int exp;
     public int level;
     public Action OnLevelUp;
+
+    [HideInInspector]
+    public bool usedWeapon;
+    public bool usedHair;
+    public bool usedShield;
+    public bool usedPant;
     protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
@@ -74,11 +83,11 @@ public class Entity : MonoBehaviour
         attackTimer -= Time.deltaTime;
     }
 
-    //public virtual void InitialWeapon(string weapon)
+    //public virtual void InitialWeapon(string weaponCenter)
     //{
     //    //Debug.Log("???");
-    //    this.weaponName = weapon;
-    //    GameObject myWeapon = poolObjects.GetObjectOutPool(weapon);
+    //    this.weaponName = weaponCenter;
+    //    GameObject myWeapon = poolObjects.GetObjectOutPool(weaponCenter);
 
     //    myWeapon.transform.SetParent(characterAim);
     //    myWeapon.GetComponent<WeaponController>()?.SetWeaponOfCharacter(true);
@@ -140,7 +149,7 @@ public class Entity : MonoBehaviour
 
         weaponThrow.SetActive(true);
         weaponThrow.transform.position = attackPoint.position;
-        weaponThrow.GetComponent<WeaponController>()?.SetupWeapon(dir.normalized, forceThrow, this);
+        weaponThrow.GetComponent<WeaponController>()?.SetupWeapon(dir.normalized, attackSpeed, this);
 
     }
 
@@ -156,7 +165,7 @@ public class Entity : MonoBehaviour
 
             weaponThrow.SetActive(true);
             weaponThrow.transform.position = attackPoint.position;
-            weaponThrow.GetComponent<WeaponController>()?.SetupWeapon(rotatedDirection.normalized, forceThrow, this);
+            weaponThrow.GetComponent<WeaponController>()?.SetupWeapon(rotatedDirection.normalized, attackSpeed, this);
         }
 
     }
@@ -205,15 +214,24 @@ public class Entity : MonoBehaviour
         DisplayLevelTxt();
         IncreaseScaleCharacter(10);
     }
-    protected virtual void IncreaseScaleCharacter(float percent)
+    public virtual void IncreaseScaleCharacter(float percent)
     {
         transform.localScale *= (1 + percent / 100);
-        SetRange(percent);
+        IncreaseRange(percent);
 
     }
-    private void SetRange(float percent)
+    public virtual void IncreaseRange(float percent)
     {
         attackRange *= (1 + percent / 100);
+    }
+    public virtual void IncreaseSpeed(float percent)
+    {
+        moveSpeed *= (1 + percent / 100);
+    }
+
+    public virtual void IncreaseAttackSpeed(float percent)
+    {
+        attackSpeed *= (1 + percent / 100);
     }
 
     public int GetLevel()

@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Weapon 1
   m_EditorClassIdentifier: 
   equipName: axe
+  cost: 100
   equipmentType: 0
   prefab: {fileID: 8002765484148580117, guid: 49838a2ea2b950248843ad9732894724, type: 3}
   materials: []
-  description: + 8 attack speed
-  atkSpeedModifier: 8
+  description: '+ 10 attack speed '
+  atkSpeedModifier: 10
   moveSpeedModifier: 0
   rangeModifier: 0

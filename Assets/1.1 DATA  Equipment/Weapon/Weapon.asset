@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Weapon
   m_EditorClassIdentifier: 
   equipName: arrow
+  cost: 0
   equipmentType: 0
   prefab: {fileID: 1253281103009817149, guid: a916a8a540fcc1847a652bc0acaa1fe9, type: 3}
   materials:
@@ -23,7 +24,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: ebbf1cc932affe545a237a88bc460265, type: 2}
   - {fileID: 2100000, guid: ae95ef3562d73a74a8d58b48075cd1b6, type: 2}
   - {fileID: 2100000, guid: 33adef5f4fc5799418f266e8aa8495fe, type: 2}
-  description: + 8 attack speed
-  atkSpeedModifier: 8
+  description: '+ 10 attack speed '
+  atkSpeedModifier: 10
   moveSpeedModifier: 0
   rangeModifier: 0

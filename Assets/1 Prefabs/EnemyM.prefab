@@ -12123,11 +12123,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13a45bff9499c0741b996fd94240d7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 7
   attackCooldown: 3
   attackPoint: {fileID: 1771509183668179846}
   attackDelay: 0.2
   attackRange: 8
-  forceThrow: 10
+  attackSpeed: 10
   levelTxt: {fileID: 1678395728157336120}
   pant: {fileID: 6757536553112276446}
   body: {fileID: 1193868849255352740}
@@ -12136,9 +12137,8 @@ MonoBehaviour:
   levelUpEfect: {fileID: 182946969999771688}
   rotateSpeed: 20
   level: 0
-  moveSpeed: 7
   radiusFindWay: 30
-  radiusSpawn: 100
+  radiusSpawn: 50
   beTarget: {fileID: 1201189331165947462}
   levelOnHead: {fileID: 2597837948864082712}
   weaponEquipments:
@@ -12200,6 +12200,8 @@ MonoBehaviour:
   weaponContain: {fileID: 4181584096192303190}
   hairContain: {fileID: 7206608445523126014}
   shieldContain: {fileID: 7862132366571068836}
+  allEquipment: []
+  pantRenderer: {fileID: 6757536553112276446}
 --- !u!1 &8333327178104571809
 GameObject:
   m_ObjectHideFlags: 0

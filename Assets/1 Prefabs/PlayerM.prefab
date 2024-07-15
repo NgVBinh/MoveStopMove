@@ -889,7 +889,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e23804944a3d936418b716a29189aaea, type: 2}
+  - {fileID: 2100000, guid: ae95ef3562d73a74a8d58b48075cd1b6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1664,7 +1664,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5367929825180691207}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.9984631, z: -0, w: -0.05542195}
+  m_LocalRotation: {x: 0, y: 0.9984631, z: -0, w: -0.055420723}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1762,11 +1762,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05fa494e5ccc8974bb72f7eeb99e61e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 1000
   attackCooldown: 1
   attackPoint: {fileID: 8805805511782907237}
   attackDelay: 0.2
   attackRange: 7
-  forceThrow: 10
+  attackSpeed: 0
   levelTxt: {fileID: 177923029610675729}
   pant: {fileID: 1159587823743115028}
   body: {fileID: 2822965446277261611}
@@ -1774,14 +1775,16 @@ MonoBehaviour:
   dieEfect: {fileID: 3911943146825731087}
   levelUpEfect: {fileID: 4175774349326603397}
   rotateSpeed: 20
-  level: 0
+  level: 5
   joystick: {fileID: 0}
   canMove: 1
-  moveSpeed: 1000
   camFollow: {fileID: 0}
-  weapon: z
   attackRangSprite: {fileID: 4987674695674738671}
   levelOnHead: {fileID: 3548730753770942257}
+  weaponEquipments:
+  - {fileID: 11400000, guid: f0a9af406b82ad543971d6636f9adc40, type: 2}
+  - {fileID: 11400000, guid: f74bdf88a3edb4640b26bb6379e315ad, type: 2}
+  - {fileID: 11400000, guid: 9c6264516ae1b6242915f476d9f0725f, type: 2}
 --- !u!114 &6296753696438690023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1797,6 +1800,35 @@ MonoBehaviour:
   weaponContain: {fileID: 7052834155243119225}
   hairContain: {fileID: 8294493466746810504}
   shieldContain: {fileID: 1773533044344121614}
+  allEquipment:
+  - {fileID: 11400000, guid: 52e900f91739ab94d8ba4741901afae1, type: 2}
+  - {fileID: 11400000, guid: b1dab49dfa3c91a46875d79b63cc093c, type: 2}
+  - {fileID: 11400000, guid: ff3676559e44df944bc8305fc545f376, type: 2}
+  - {fileID: 11400000, guid: eeccbbcea90ae4f469a67cf5ef9394a2, type: 2}
+  - {fileID: 11400000, guid: 593e5487dc3cd8a4ea2758864b2f9911, type: 2}
+  - {fileID: 11400000, guid: 041231f30f059014bbecf5c70ea71a85, type: 2}
+  - {fileID: 11400000, guid: c79e19c991d3fb44da019212b8f7363e, type: 2}
+  - {fileID: 11400000, guid: 51d84b05e397a5f47be34ec15785ab61, type: 2}
+  - {fileID: 11400000, guid: 48602251080616a4e9b990c577751888, type: 2}
+  - {fileID: 11400000, guid: 2325c4f9829031745ba45e8860ff1f47, type: 2}
+  - {fileID: 11400000, guid: ad2102ed5dbabd742ac97f18b0bc09d3, type: 2}
+  - {fileID: 11400000, guid: bcb37c0aa01a11143baf1f1c919daa49, type: 2}
+  - {fileID: 11400000, guid: 840de5017df587a40a676e14e64f9bba, type: 2}
+  - {fileID: 11400000, guid: cc87111073d0cb645bfb5c33e7cf2422, type: 2}
+  - {fileID: 11400000, guid: c5e84a37f05da1343a22b7e36845eba2, type: 2}
+  - {fileID: 11400000, guid: cb3c7a7196ef0494fbaef5761e0c7585, type: 2}
+  - {fileID: 11400000, guid: 03b1d7f42c1c61a468dea7f462990881, type: 2}
+  - {fileID: 11400000, guid: d5766929d69587c40b49047859defe08, type: 2}
+  - {fileID: 11400000, guid: f0a9af406b82ad543971d6636f9adc40, type: 2}
+  - {fileID: 11400000, guid: f74bdf88a3edb4640b26bb6379e315ad, type: 2}
+  - {fileID: 11400000, guid: 9c6264516ae1b6242915f476d9f0725f, type: 2}
+  - {fileID: 11400000, guid: f068f1c45a50d7b4091ebc448af70c18, type: 2}
+  - {fileID: 11400000, guid: c6c2576df72bf43489ca46189772cec0, type: 2}
+  - {fileID: 11400000, guid: 3d982637bde7aaf4bbc9b13fa2596eb6, type: 2}
+  - {fileID: 11400000, guid: b82c1c62fa0e4af44b7d649bca4d7517, type: 2}
+  - {fileID: 11400000, guid: d946e3da13d73db4bb3bffb3921405e0, type: 2}
+  - {fileID: 11400000, guid: e95d04fd22159d041a4827129bf9ba38, type: 2}
+  pantRenderer: {fileID: 0}
 --- !u!1 &5384637200973707204
 GameObject:
   m_ObjectHideFlags: 0

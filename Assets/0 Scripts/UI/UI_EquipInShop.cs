@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -28,6 +29,10 @@ public class UI_EquipInShop : MonoBehaviour,IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log(myEquipSO.equipName);
+
+        // xem truoc
+        UIManager.instance.player.Equipment(myEquipSO);
+
         UI_SkinController skinShopScript = GetComponentInParent<UI_SkinController>();
 
         if(skinShopScript != null )
@@ -41,5 +46,19 @@ public class UI_EquipInShop : MonoBehaviour,IPointerDownHandler
         }
     }
 
+    public void SetFirstSkin(EquipmentSO equip)
+    {
+        myEquipSO = equip;
+        UI_SkinController skinShopScript = GetComponentInParent<UI_SkinController>();
 
+        if (skinShopScript != null)
+        {
+            skinShopScript.buyEquipBtn.GetComponent<UI_BuyBtnController>().SetupBtn(myEquipSO);
+            skinShopScript.descriptEquipTxt.text = myEquipSO.description;
+        }
+        else
+        {
+            Debug.LogError("UI_SkinController NULL");
+        }
+    }
 }

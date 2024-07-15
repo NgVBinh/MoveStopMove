@@ -11,11 +11,11 @@ public class Player : Entity
     public PlayerAttackState attackState { get; private set; }
     public PlayerDieState dieState { get; private set; }
     public PlayerWinState winState { get; private set; }
+    public PlayerDanceSkinState danceSkinState { get; private set; }
 
     [Header("movement")]
     public JoystickController joystick;
     public bool canMove;
-    public float moveSpeed;
 
     [Header("Main Camera")]
     [SerializeField] private CameraFollow camFollow;
@@ -38,19 +38,27 @@ public class Player : Entity
         attackState = new PlayerAttackState(this, stateMachine, "IsAttack");
         dieState = new PlayerDieState(this, stateMachine, "IsDead");
         winState = new PlayerWinState(this, stateMachine, "IsWin");
-        EquipmentWeapon();
+        danceSkinState = new PlayerDanceSkinState(this, stateMachine, "IsDance");
+    }
 
+
+    protected override void OnEnable()
+    {
+        stateMachine.Initialize(idleState);
     }
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        stateMachine.Initialize(idleState);
+        //stateMachine.ChangeState(idleState);
         canMove = true;
         targetLayer = LayerMask.GetMask("Enemy");
-        //InitialWeapon(weapon);
+        //InitialWeapon(weaponCenter);
         Observer.AddObserver("play", PlayerPlayGame);
         Observer.AddObserver("PlayerWin", ChangePlayerWinState);
+
+        //CreateWeaponInHand();
+
     }
 
     // Update is called once per frame
@@ -63,15 +71,21 @@ public class Player : Entity
 
     }
 
-    public void EquipmentWeapon()
+    public void CreateWeaponInHand()
     {
-        equipController.Equipment(weaponEquipments[0]);
+        //equipController.Equipment(weaponEquipments[0]);
         GameObject weaponInHand = equipController.GetEquipped(EquipmentType.WEAPON);
         weaponScript = weaponInHand.GetComponent<WeaponController>();
         weaponScript.GetComponent<WeaponController>()?.SetWeaponOfCharacter(true);
         weaponName = equipController.weaponName;
+
     }
 
+    public void Equipment(EquipmentSO equip)
+    {
+        equipController.Equipment(equip,this);
+    }
+    
     public void MoveHandle(Vector3 moveDir)
     {
         if(!canMove) return;
@@ -91,7 +105,7 @@ public class Player : Entity
         stateMachine.ChangeState(dieState);
     }
 
-    protected override void IncreaseScaleCharacter(float percent)
+    public override void IncreaseScaleCharacter(float percent)
     {
         base.IncreaseScaleCharacter(percent);
         camFollow.SetOffset(percent);
@@ -130,6 +144,7 @@ public class Player : Entity
     {
         stateMachine.ChangeState(winState);
     }
+
 
     private void OnDestroy()
     {
