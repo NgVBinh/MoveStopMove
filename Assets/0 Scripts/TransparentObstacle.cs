@@ -16,6 +16,7 @@ public class TransparentObstacle : MonoBehaviour
     private float distance;
     private void Start()
     {
+        player = FindObjectOfType<Player>();
         render = GetComponent<Renderer>();
         originalMaterial = render.material;
 

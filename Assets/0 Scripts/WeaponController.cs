@@ -109,8 +109,14 @@ public class WeaponController : MonoBehaviour
         if (other.CompareTag("Enemy") || other.CompareTag("Player"))
         {
             Entity tmp = other.GetComponent<Entity>();
+
             if (tmp != myCharacter)
             {
+                if(other.GetComponent<Player>() != null) {
+                    //Debug.Log(myCharacter.characterName);
+                    UIManager.instance.endgameController.SetupEndLose(myCharacter.characterName, GameManager.instance.amountCharacter,myCharacter.body.material.color);
+                }
+
                 myCharacter.KillCharacter();
                 tmp.TakeDamage();
 

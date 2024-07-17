@@ -7,9 +7,6 @@ using UnityEngine.UI;
 public class UI_SkinController : MonoBehaviour
 {
     [SerializeField] private Button hairBtn;
-    //[SerializeField] private Button pantBtn;
-    //[SerializeField] private Button shieldBtn;
-    //[SerializeField] private Button setBtn;
 
     public Button buyEquipBtn;
     public TextMeshProUGUI descriptEquipTxt;
@@ -18,7 +15,7 @@ public class UI_SkinController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hairBtn.GetComponent<UI_SkinList>().DisplayEquipInShop();
+        //hairBtn.GetComponent<UI_SkinList>().DisplayEquipInShop();
         closeBtn.onClick.AddListener(UIManager.instance.InitializedPannel);
     }
 

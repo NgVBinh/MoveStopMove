@@ -21,37 +21,29 @@ public class UI_SkinList : MonoBehaviour
         myBtn.onClick.AddListener(DisplayEquipInShop);
     }
 
+    // attach more in inspector
     public void DisplayEquipInShop()
     {
 
+
         if (shopPannel.childCount > 0)
         {
-            for(int i = 0;i<shopPannel.childCount;i++)
+            for (int i = 0; i < shopPannel.childCount; i++)
             {
                 Destroy(shopPannel.GetChild(i).gameObject);
             }
         }
 
-        for(int i = 0;i<equipList.Count;i++)
+        for (int i = 0; i < equipList.Count; i++)
         //foreach(EquipmentSO equip in equipList)
         {
             GameObject equipInShop = Instantiate(equipInShop_UI, shopPannel);
-            equipInShop.GetComponent<UI_EquipInShop>().SetupEquipInShop(equipList[i]);
+            equipInShop.GetComponentInChildren<UI_EquipInShop>().SetupEquipInShop(equipList[i]);
             if (i == 0)
             {
-                equipInShop.GetComponent<UI_EquipInShop>().SetFirstSkin(equipList[i]);
-
+                equipInShop.GetComponentInChildren<UI_EquipInShop>().SetFirstSkin(equipList[i]);
+                equipInShop.GetComponentInChildren<OutlineController>().DisplayOutlineFirstEqup();
             }
         }
-
-
-        //transparentImg.gameObject.SetActive(false);
-    }
-
-    private void OnDisable()
-    {
-        //transparentImg.gameObject.SetActive(true);
-        //Debug.Log("?");
-
     }
 }

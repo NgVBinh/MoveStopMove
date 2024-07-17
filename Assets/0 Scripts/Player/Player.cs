@@ -50,14 +50,13 @@ public class Player : Entity
     protected override void Start()
     {
         base.Start();
-        //stateMachine.ChangeState(idleState);
+
+        stateMachine.ChangeState(idleState);
         canMove = true;
         targetLayer = LayerMask.GetMask("Enemy");
         //InitialWeapon(weaponCenter);
         Observer.AddObserver("play", PlayerPlayGame);
         Observer.AddObserver("PlayerWin", ChangePlayerWinState);
-
-        //CreateWeaponInHand();
 
     }
 
@@ -83,7 +82,7 @@ public class Player : Entity
 
     public void Equipment(EquipmentSO equip)
     {
-        equipController.Equipment(equip,this);
+        equipController.Equipment(equip);
     }
     
     public void MoveHandle(Vector3 moveDir)

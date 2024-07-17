@@ -7,10 +7,12 @@ public class Entity : MonoBehaviour
 {
     public Animator animator { get; private set; }
     public Rigidbody rb { get; private set; }
-    public EquipmentCharacter equipController { get; private set; }
+    public EquipmentCharacter equipController;
+
+    [HideInInspector]
+    public string characterName;
 
     public float moveSpeed;
-
 
     [Header("Attack")]
     protected string weaponName;
@@ -46,15 +48,19 @@ public class Entity : MonoBehaviour
 
     [HideInInspector]
     public bool usedWeapon;
+    [HideInInspector]
     public bool usedHair;
+    [HideInInspector]
     public bool usedShield;
+    [HideInInspector]
     public bool usedPant;
+
     protected virtual void Awake()
     {
-        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         poolObjects = FindObjectOfType<PoolObjects>();
         equipController = GetComponent<EquipmentCharacter>();
+        animator = GetComponent<Animator>();
     }
 
     protected virtual void OnEnable()
@@ -83,21 +89,6 @@ public class Entity : MonoBehaviour
         attackTimer -= Time.deltaTime;
     }
 
-    //public virtual void InitialWeapon(string weaponCenter)
-    //{
-    //    //Debug.Log("???");
-    //    this.weaponName = weaponCenter;
-    //    GameObject myWeapon = poolObjects.GetObjectOutPool(weaponCenter);
-
-    //    myWeapon.transform.SetParent(characterAim);
-    //    myWeapon.GetComponent<WeaponController>()?.SetWeaponOfCharacter(true);
-    //    myWeapon.transform.localPosition = Vector3.zero;
-    //    myWeapon.transform.localRotation = Quaternion.identity;
-    //    myWeapon.SetActive(true);
-    //    characterAim.gameObject.SetActive(true);
-
-    //    weaponScript = myWeapon.GetComponent<WeaponController>();
-    //}
     public virtual void RotateHandle(Vector3 dir)
     {
         //transform.forward = Vector3.RotateTowards(transform.forward, dirTarget, rotateSpeed, Time.deltaTime);

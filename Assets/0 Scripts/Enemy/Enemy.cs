@@ -60,6 +60,7 @@ public class Enemy : Entity
         targetLayer = LayerMask.GetMask("Enemy", "Player");
 
         Observer.AddObserver("play", EnemyPlay);
+
     }
 
     // Update is called once per frame
@@ -69,8 +70,9 @@ public class Enemy : Entity
         stateMachine.currentState.Update();
     }
 
-    public void InitializeEnemy(Material bodyMat, Material pantMat, int level, Player player)
+    public void InitializeEnemy(Material bodyMat, Material pantMat, int level,string name, Player player)
     {
+        characterName = name;
         //InitialWeapon(weaponName);
         body.material = bodyMat;
         pant.material = pantMat;
@@ -85,9 +87,10 @@ public class Enemy : Entity
     private void InitializeEquipment()
     {
         //equip
-        equipController.Equipment(weaponEquipments[UnityEngine.Random.Range(0,weaponEquipments.Count)],this);
-        equipController.Equipment(hairEquipments[UnityEngine.Random.Range(0, hairEquipments.Count)], this);
-        equipController.Equipment(shieldEquipments[UnityEngine.Random.Range(0, shieldEquipments.Count)], this);
+        equipController = GetComponentInChildren<EquipmentCharacter>();
+        equipController.Equipment(weaponEquipments[UnityEngine.Random.Range(0,weaponEquipments.Count)]);
+        equipController.Equipment(hairEquipments[UnityEngine.Random.Range(0, hairEquipments.Count)]);
+        equipController.Equipment(shieldEquipments[UnityEngine.Random.Range(0, shieldEquipments.Count)]);
 
         GameObject weaponInHand = equipController.GetEquipped(EquipmentType.WEAPON);
         weaponScript =weaponInHand.GetComponent<WeaponController>();

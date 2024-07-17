@@ -1,7 +1,7 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class UI_EquipInShop : MonoBehaviour,IPointerDownHandler
 {
@@ -15,11 +15,11 @@ public class UI_EquipInShop : MonoBehaviour,IPointerDownHandler
         if(equip.equipmentType == EquipmentType.PANT)
         {
             MeshRenderer renderer = equipPref.GetComponent<MeshRenderer>();
-            renderer.material = equip.materials[0];
+            renderer.material = myEquipSO.materials[0];
             equipPref.transform.localPosition= new Vector3 (0,-140,0);
 
         }
-        else if (equip.equipmentType == EquipmentType.SHIELD)
+        else if (myEquipSO.equipmentType == EquipmentType.SHIELD)
         {
             equipPref.transform.Rotate(0, -90, 90);
         }
@@ -28,7 +28,6 @@ public class UI_EquipInShop : MonoBehaviour,IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log(myEquipSO.equipName);
 
         // xem truoc
         UIManager.instance.player.Equipment(myEquipSO);
@@ -39,6 +38,7 @@ public class UI_EquipInShop : MonoBehaviour,IPointerDownHandler
         {
             skinShopScript.buyEquipBtn.GetComponent<UI_BuyBtnController>().SetupBtn(myEquipSO);
             skinShopScript.descriptEquipTxt.text = myEquipSO.description;
+
         }
         else
         {
@@ -48,13 +48,17 @@ public class UI_EquipInShop : MonoBehaviour,IPointerDownHandler
 
     public void SetFirstSkin(EquipmentSO equip)
     {
-        myEquipSO = equip;
-        UI_SkinController skinShopScript = GetComponentInParent<UI_SkinController>();
 
+        EquipmentSO firstEquip = equip;
+        Debug.Log(firstEquip.equipName);
+
+        UI_SkinController skinShopScript = GetComponentInParent<UI_SkinController>();
         if (skinShopScript != null)
         {
-            skinShopScript.buyEquipBtn.GetComponent<UI_BuyBtnController>().SetupBtn(myEquipSO);
-            skinShopScript.descriptEquipTxt.text = myEquipSO.description;
+            skinShopScript.buyEquipBtn.GetComponent<UI_BuyBtnController>().SetupBtn(firstEquip);
+            UIManager.instance.player.Equipment(firstEquip);/////////
+
+            skinShopScript.descriptEquipTxt.text = firstEquip.description;
         }
         else
         {

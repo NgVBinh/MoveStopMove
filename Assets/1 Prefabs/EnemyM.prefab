@@ -12036,8 +12036,8 @@ GameObject:
   - component: {fileID: 6649893735352910460}
   - component: {fileID: 6013426232074549374}
   - component: {fileID: 4095310286299008965}
-  - component: {fileID: 2863762050663612072}
   - component: {fileID: 6053421893430246553}
+  - component: {fileID: 2863762050663612072}
   m_Layer: 6
   m_Name: EnemyM
   m_TagString: Enemy
@@ -12123,8 +12123,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13a45bff9499c0741b996fd94240d7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  equipController: {fileID: 0}
+  characterName: 
   moveSpeed: 7
-  attackCooldown: 3
+  attackCooldown: 1.5
   attackPoint: {fileID: 1771509183668179846}
   attackDelay: 0.2
   attackRange: 8
@@ -12137,6 +12139,10 @@ MonoBehaviour:
   levelUpEfect: {fileID: 182946969999771688}
   rotateSpeed: 20
   level: 0
+  usedWeapon: 0
+  usedHair: 0
+  usedShield: 0
+  usedPant: 0
   radiusFindWay: 30
   radiusSpawn: 50
   beTarget: {fileID: 1201189331165947462}
@@ -12162,6 +12168,24 @@ MonoBehaviour:
   shieldEquipments:
   - {fileID: 11400000, guid: d5766929d69587c40b49047859defe08, type: 2}
   - {fileID: 11400000, guid: 03b1d7f42c1c61a468dea7f462990881, type: 2}
+--- !u!114 &6053421893430246553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8117893312523632883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33909c93c3f54e0499e0851df2b3203a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponContain: {fileID: 4181584096192303190}
+  hairContain: {fileID: 7206608445523126014}
+  shieldContain: {fileID: 7862132366571068836}
+  allEquipment: []
+  pantRenderer: {fileID: 6757536553112276446}
+  defaultPantMaterial: {fileID: 0}
 --- !u!136 &2863762050663612072
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -12185,23 +12209,6 @@ CapsuleCollider:
   m_Height: 2.35
   m_Direction: 1
   m_Center: {x: 0, y: 1.13, z: 0}
---- !u!114 &6053421893430246553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8117893312523632883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33909c93c3f54e0499e0851df2b3203a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponContain: {fileID: 4181584096192303190}
-  hairContain: {fileID: 7206608445523126014}
-  shieldContain: {fileID: 7862132366571068836}
-  allEquipment: []
-  pantRenderer: {fileID: 6757536553112276446}
 --- !u!1 &8333327178104571809
 GameObject:
   m_ObjectHideFlags: 0
@@ -12477,6 +12484,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1267135204134418585, guid: c8eb682287081314a9ae507115af6df9,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0.596
+      objectReference: {fileID: 0}
+    - target: {fileID: 1267135204134418585, guid: c8eb682287081314a9ae507115af6df9,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0.7524
+      objectReference: {fileID: 0}
+    - target: {fileID: 1267135204134418585, guid: c8eb682287081314a9ae507115af6df9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.00000035762787
+      objectReference: {fileID: 0}
+    - target: {fileID: 1267135204134418585, guid: c8eb682287081314a9ae507115af6df9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.30519998
+      objectReference: {fileID: 0}
     - target: {fileID: 3267310070267426168, guid: c8eb682287081314a9ae507115af6df9,
         type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -12487,6 +12514,11 @@ PrefabInstance:
       propertyPath: bodyMaterial
       value: 
       objectReference: {fileID: 1193868849255352740}
+    - target: {fileID: 7191943084995315220, guid: c8eb682287081314a9ae507115af6df9,
+        type: 3}
+      propertyPath: characterName
+      value: 
+      objectReference: {fileID: 6462817443728010319}
     - target: {fileID: 8726358065328229911, guid: c8eb682287081314a9ae507115af6df9,
         type: 3}
       propertyPath: m_Pivot.x
@@ -12587,6 +12619,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9187518288814257773, guid: c8eb682287081314a9ae507115af6df9,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 0.6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12610,6 +12647,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2751722522091624994}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6462817443728010319 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9187518288814257773, guid: c8eb682287081314a9ae507115af6df9,
+    type: 3}
+  m_PrefabInstance: {fileID: 2751722522091624994}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6857387257246487605 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8726358065328229911, guid: c8eb682287081314a9ae507115af6df9,

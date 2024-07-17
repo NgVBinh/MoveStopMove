@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EquipmentCharacter : MonoBehaviour
@@ -20,42 +21,46 @@ public class EquipmentCharacter : MonoBehaviour
 
     [SerializeField] private SkinnedMeshRenderer pantRenderer;
     public Material defaultPantMaterial;
+
+    private Entity character;
     private void Awake()
     {
         if (pantRenderer != null)
             defaultPantMaterial = pantRenderer.material;
+
+        character = GetComponent<Entity>();
     }
 
-    public void PlayerEquipped(string name, Entity character)
+    public void PlayerEquipped(string name)
     {
         EquipmentSO equip = allEquipment.FirstOrDefault(tmp => tmp.equipName.Equals(name));
 
         if (equip == null)
-        {
-            //Debug.LogWarning(name + " don't exits");
-            if (weaponContain.childCount > 0)
-            {
-                Destroy(weaponContain.GetChild(0).gameObject);
-            }
-            if (hairContain.childCount > 0)
-            {
-                Destroy(hairContain.GetChild(0).gameObject);
-            }
-            if (shieldContain.childCount > 0)
-            {
-                Destroy(shieldContain.GetChild(0).gameObject);
-            }
-            if (pantRenderer.material != defaultPantMaterial)
-            {
-                pantRenderer.material = defaultPantMaterial;
-            }
             return;
+
+        //Debug.LogWarning(name + " don't exits");
+        if (weaponContain.childCount > 0)
+        {
+            Destroy(weaponContain.GetChild(0).gameObject);
+        }
+        if (hairContain.childCount > 0)
+        {
+            Destroy(hairContain.GetChild(0).gameObject);
+        }
+        if (shieldContain.childCount > 0)
+        {
+            Destroy(shieldContain.GetChild(0).gameObject);
+        }
+        if (pantRenderer.material != defaultPantMaterial)
+        {
+            pantRenderer.material = defaultPantMaterial;
         }
 
-        Equipment(equip, character);
+
+        Equipment(equip);
     }
 
-    public void Equipment(EquipmentSO equip, Entity character)
+    public void Equipment(EquipmentSO equip)
     {
         // equip contain null?
         // add modifier
@@ -72,7 +77,7 @@ public class EquipmentCharacter : MonoBehaviour
                 GameObject newWeapon = Instantiate(equip.prefab, weaponContain);
                 weaponEquipped = newWeapon;
                 weaponName = equip.equipName;
-                AddModifier(equip, character);
+                //AddModifier(equip, character);
 
                 break;
             case EquipmentType.HAIR:
@@ -85,7 +90,7 @@ public class EquipmentCharacter : MonoBehaviour
 
                 GameObject newHair = Instantiate(equip.prefab, hairContain);
                 hairEquipped = newHair;
-                AddModifier(equip, character);
+                //AddModifier(equip, character);
 
                 break;
 
@@ -98,7 +103,7 @@ public class EquipmentCharacter : MonoBehaviour
 
                 GameObject newShield = Instantiate(equip.prefab, shieldContain);
                 shieldEquipped = newShield;
-                AddModifier(equip, character);
+                //AddModifier(equip, character);
 
                 break;
             case EquipmentType.PANT:
@@ -108,16 +113,37 @@ public class EquipmentCharacter : MonoBehaviour
                 newPant.SetActive(false);
                 Material pantMaterial = equip.materials[0];
                 pantRenderer.material = pantMaterial;
-                AddModifier(equip, character);
+                //AddModifier(equip, character);
 
                 break;
         }
 
     }
 
-    public void UnEquipment()
+    public void UnEquipment(Equip equip)
     {
         // do something
+        switch (equip.type)
+        {
+            case EquipmentType.HAIR:
+                if (hairContain.childCount > 0)
+                {
+                    Destroy(hairContain.GetChild(0).gameObject);
+                    //character.usedHair = false;
+                }
+                break;
+            case EquipmentType.PANT:
+                Material pantMaterial = defaultPantMaterial;
+                pantRenderer.material = pantMaterial;
+                break;
+            case EquipmentType.SHIELD:
+                if (shieldContain.childCount > 0)
+                {
+                    Destroy(shieldContain.GetChild(0).gameObject);
+                    //character.usedShield = false;   
+                }
+                break;
+        }
     }
 
     public GameObject GetEquipped(EquipmentType type)

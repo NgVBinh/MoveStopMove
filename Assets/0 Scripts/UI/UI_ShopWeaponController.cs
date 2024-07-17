@@ -28,12 +28,6 @@ public class UI_ShopWeaponController : MonoBehaviour
         backBtn.onClick.AddListener(UIManager.instance.InitializedPannel);
     }
 
-    private void OnEnable()
-    {
-        DisplayWeapon(weaponIndex);
-
-    }
-
     private void DisplayWeapon(int index)
     {
         if (weaponCenter.childCount > 0)

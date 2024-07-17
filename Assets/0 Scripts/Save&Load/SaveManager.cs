@@ -62,6 +62,17 @@ public class SaveManager : MonoBehaviour
         Debug.Log("game was saved: "+ gameData.coin+" coin");
     }
 
+    public void SaveComponent(ISaveManager iSave)
+    {
+        iSave.SaveData(ref gameData);
+        dataHandle.Save(gameData);
+    }
+
+    public void LoadComponent(ISaveManager iLoad)
+    {
+        dataHandle.Load();
+        iLoad.LoadData(gameData);
+    }
     private void OnApplicationQuit()
     {
         SaveGame();

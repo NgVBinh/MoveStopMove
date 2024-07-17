@@ -41,13 +41,16 @@ public class EnemyAttackState : EnemyState
 
         }
 
-        if (!enemy.GetClosestTargetInRange())
-        {
-            stateMachine.ChangeState(enemy.enemyMoveState);
-        }
-        else
-        {
-            stateMachine.ChangeState(enemy.enemyAttackState);
-        }
+        if (Random.Range(0, 2) == 0) { stateMachine.ChangeState(enemy.enemyIdleState); }
+        else { stateMachine.ChangeState(enemy.enemyMoveState); }
+
+        //if (!enemy.GetClosestTargetInRange())
+        //{
+        //    stateMachine.ChangeState(enemy.enemyMoveState);
+        //}
+        //else
+        //{
+        //    stateMachine.ChangeState(enemy.enemyAttackState);
+        //}
     }
 }

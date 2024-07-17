@@ -11,26 +11,29 @@ public class GameManager : MonoBehaviour
     [Header("Enemy")]
     public Text enemiesAliveTxt;
 
-    [SerializeField] private int enemyCount;
+    public int enemyCount;
     [SerializeField] private int enemyAlive;
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform enemyParent;
     private List<GameObject> enemies= new List<GameObject>();
 
     [Header("Material")]
-    [SerializeField] private List<Material> pantMaterials;
-    [SerializeField] private List<Material> bodyMaterials;
+    [SerializeField] private List<Material> pantsEnemy;
+    [SerializeField] private List<Material> bodyEnemy;
 
     private ArrowTowardEnemys arrowIndicator;
 
     public Player player;
 
-    private int amountCharacter;
+    public int amountCharacter { get; private set; }
 
     // variable game control
     private bool canSpawn = true;
+
     public bool isWin { get; private set; }
-    public bool isEnd { get; private set; }
+
+    private int coin;
+
     private void Awake()
     {
         if (instance != null)
@@ -57,31 +60,25 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < enemyAlive; i++)
         {
-            InitializeEnemy();
+            //get enemy in pool
+            GameObject newEnemy = poolObjects.GetObject("enemy");
+            //Debug.Log(newEnemy);
+            newEnemy.transform.SetParent(enemyParent);
+
+            // enemy properties
+            int enemyLevel = Mathf.Clamp(Random.Range(player.GetLevel(), player.GetLevel() + 4), 0, player.GetLevel() + 4);
+            Material pantMaterial = pantsEnemy[Random.Range(0, pantsEnemy.Count)];
+            Material bodyMaterial = bodyEnemy[Random.Range(0, bodyEnemy.Count)];
+
+            // set up enemy
+            Enemy enemyScript = newEnemy.GetComponent<Enemy>();
+            enemyScript.InitializeEnemy(bodyMaterial, pantMaterial, enemyLevel, "Enemy " + (i+1), player);
+            enemyScript.OnDeath += OnEnemyDeath;
+            newEnemy.SetActive(true);
+
+            // add arrow indicator to enemy
+            enemies.Add(newEnemy);
         }
-    }
-
-    private void InitializeEnemy()
-    {
-        //get enemy in pool
-        GameObject newEnemy = poolObjects.GetObject("enemy");
-        //Debug.Log(newEnemy);
-        newEnemy.transform.SetParent(enemyParent);
-
-        // enemy properties
-        int enemyLevel = Mathf.Clamp(Random.Range(player.GetLevel(), player.GetLevel() + 4), 0, player.GetLevel() + 4);
-        Material pantMaterial = pantMaterials[Random.Range(0, pantMaterials.Count)];
-        Material bodyMaterial = bodyMaterials[Random.Range(0, bodyMaterials.Count)];
-
-        // set up enemy
-        Enemy enemyScript = newEnemy.GetComponent<Enemy>();
-        enemyScript.InitializeEnemy(bodyMaterial, pantMaterial, enemyLevel, player);
-        enemyScript.OnDeath += OnEnemyDeath;
-        newEnemy.SetActive(true);
-
-        // add arrow indicator to enemy
-        enemies.Add(newEnemy);
-
     }
 
     private void AddTargetIndicator()
@@ -111,9 +108,7 @@ public class GameManager : MonoBehaviour
 
         if (amountCharacter == 1)
         {
-            isEnd = true;
             isWin = true;
-
             // display player win
             Observer.Notify("PlayerWin");
         }

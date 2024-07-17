@@ -12,7 +12,7 @@ public class PlayerDieState : PlayerState
     {
         base.Enter();
         player.rb.velocity = Vector3.zero;
-        Observer.Notify("PlayerDead");
+        Observer.Notify("PlayerTakeDamage");
 
     }
 

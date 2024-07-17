@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerAttackState : PlayerState
 {
     private Vector3 attackDir;
+
+    private float attackTrigger;
     public PlayerAttackState(Player player, PlayerStateMachine stateMachine, string animationName) : base(player, stateMachine, animationName)
     {
     }
@@ -12,7 +14,7 @@ public class PlayerAttackState : PlayerState
     public override void Enter()
     {
         base.Enter();
-
+        attackTrigger = 1f;
         player.rb.velocity = Vector3.zero;
 
         attackDir = player.enemyTargetted.position - player.transform.position;
@@ -32,6 +34,7 @@ public class PlayerAttackState : PlayerState
     public override void Update()
     {
         base.Update();
+        attackTrigger -= Time.deltaTime;
 
         //if (player.joystick.Direction != Vector2.zero && player.canMove)
         if (player.joystick.GetInputVector() != Vector2.zero && player.canMove)
@@ -46,7 +49,10 @@ public class PlayerAttackState : PlayerState
             player.SetCooldown();
 
         }
-
+        if (attackTrigger < 0)
+        {
+            player.stateMachine.ChangeState(player.idleState);
+        }
     }
 
 }
