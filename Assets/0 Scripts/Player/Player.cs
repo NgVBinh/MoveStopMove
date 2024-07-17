@@ -127,9 +127,6 @@ public class Player : Entity
         }
     }
 
-    //temp
-    [SerializeField] private List<EquipmentSO> weaponEquipments;
-
     private void PlayerPlayGame()
     {
         attackRangSprite.SetActive(true);

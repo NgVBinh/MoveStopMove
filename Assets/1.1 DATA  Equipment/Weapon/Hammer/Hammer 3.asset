@@ -10,13 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22b4a050de82368419b6b45660522dff, type: 3}
-  m_Name: Weapon 1
+  m_Name: Hammer 3
   m_EditorClassIdentifier: 
-  equipName: axe
-  cost: 100
+  equipName: hammer3
+  cost: 200
   equipmentType: 0
-  prefab: {fileID: 8002765484148580117, guid: 49838a2ea2b950248843ad9732894724, type: 3}
-  materials: []
+  prefab: {fileID: 4540371428087562927, guid: e6dae07dca09f594f990f5137854b0d1, type: 3}
+  materials:
+  - {fileID: 2100000, guid: 90b31bb5614421a4783ac0b9c72befc4, type: 2}
+  - {fileID: 2100000, guid: 90b31bb5614421a4783ac0b9c72befc4, type: 2}
+  weaponMaterialSets: []
   description: '+ 10 attack speed '
   atkSpeedModifier: 10
   moveSpeedModifier: 0

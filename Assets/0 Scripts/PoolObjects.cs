@@ -67,6 +67,7 @@ public class PoolObjects : MonoBehaviour
             }
         }
 
+        // tao them object khi het
         foreach (Pool pool in pools)
         {
             if (pool.objectName == _objectName)
@@ -112,18 +113,6 @@ public class PoolObjects : MonoBehaviour
         }
 
         obj.SetActive(false);
-    }
-
-    private Pool GetPoolByName(string _objectName)
-    {
-        foreach (Pool pool in pools)
-        {
-            if (pool.objectName == _objectName)
-            {
-                return pool;
-            }
-        }
-        return null;
     }
 }
 

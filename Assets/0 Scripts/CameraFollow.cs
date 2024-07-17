@@ -21,7 +21,7 @@ public class CameraFollow : MonoBehaviour
 
     public void SetOffset(float percent)
     {
-        this.offset *=(1+percent/100);
+        this.offset *=(0.95f+percent/100);
     }
 
     private void ActiveFollow()

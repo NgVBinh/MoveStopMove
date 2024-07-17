@@ -45,7 +45,7 @@ public class UI_ShopWeaponController : MonoBehaviour
         {
             Debug.Log("Null");
         }
-        weaponDisplay.GetComponent<WeaponController>().enabled = false;
+        weaponDisplay.GetComponent<WeaponController>().SetWeaponOfCharacter(true);
         weaponDisplay.transform.localScale = Vector3.one * 10000;
 
         for (int i = 0; i < weaponColorChoose.Count; i++)
@@ -57,7 +57,9 @@ public class UI_ShopWeaponController : MonoBehaviour
 
             GameObject weaponDisplayColor = Instantiate(weaponEquipment[weaponIndex].prefab, weaponColorChoose[i]);
             weaponDisplayColor.GetComponent<WeaponController>().enabled = false;
-            weaponDisplayColor.GetComponent<MeshRenderer>().material = weaponEquipment[0].materials[i];
+
+            MeshRenderer weaponRenderer = weaponDisplayColor.GetComponent<MeshRenderer>();
+            weaponRenderer.materials = weaponEquipment[weaponIndex].weaponMaterialSets[i].materials.ToArray();
             weaponDisplayColor.transform.localScale = Vector3.one * 4000;
         }
 

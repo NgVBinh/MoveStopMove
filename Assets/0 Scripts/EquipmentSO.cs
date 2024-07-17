@@ -10,6 +10,14 @@ public enum EquipmentType
     HAIR
 }
 
+
+[System.Serializable]
+public class WeaponMaterialSet
+{
+    public string setName; 
+    public List<Material> materials; 
+}
+
 [CreateAssetMenu(fileName = "Equipment",menuName ="Item/Equipment")]
 public class EquipmentSO : ScriptableObject
 {
@@ -19,6 +27,8 @@ public class EquipmentSO : ScriptableObject
     public GameObject prefab;
     
     public List<Material> materials = new List<Material>();
+
+    public List<WeaponMaterialSet> weaponMaterialSets = new List<WeaponMaterialSet>();
 
     public string description;
 

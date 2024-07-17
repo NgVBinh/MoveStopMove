@@ -68,13 +68,16 @@ public class GameManager : MonoBehaviour
             // enemy properties
             int enemyLevel = Mathf.Clamp(Random.Range(player.GetLevel(), player.GetLevel() + 4), 0, player.GetLevel() + 4);
             Material pantMaterial = pantsEnemy[Random.Range(0, pantsEnemy.Count)];
-            Material bodyMaterial = bodyEnemy[Random.Range(0, bodyEnemy.Count)];
+
+            Material randomEnemyBody = bodyEnemy[Random.Range(0, bodyEnemy.Count)];
+            bodyEnemy.Remove(randomEnemyBody);
 
             // set up enemy
             Enemy enemyScript = newEnemy.GetComponent<Enemy>();
-            enemyScript.InitializeEnemy(bodyMaterial, pantMaterial, enemyLevel, "Enemy " + (i+1), player);
+            enemyScript.InitializeEnemy(randomEnemyBody, pantMaterial, enemyLevel, "Enemy " + (i+1), player);
             enemyScript.OnDeath += OnEnemyDeath;
             newEnemy.SetActive(true);
+
 
             // add arrow indicator to enemy
             enemies.Add(newEnemy);
@@ -122,10 +125,9 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator RevivalEnemyCoroutine()
     {
-        yield return new WaitForSeconds(1);
         if (canSpawn)
         {
-
+            yield return new WaitForSeconds(1);
             GameObject newEnemy = poolObjects.GetObject("enemy");
             newEnemy.SetActive(true);
             newEnemy.GetComponent<Enemy>().RevivalEnemy();

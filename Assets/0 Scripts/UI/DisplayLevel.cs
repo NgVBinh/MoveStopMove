@@ -18,6 +18,8 @@ public class DisplayLevel : MonoBehaviour
     {
         entity = GetComponentInParent<Entity>();
         if(characterName != null) characterName.text = entity.characterName;
+
+        characterName.color = bodyMaterial.material.color;
         myLevelImage.color =bodyMaterial.material.color;
     }
 

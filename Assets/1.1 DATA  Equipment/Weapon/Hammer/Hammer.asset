@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22b4a050de82368419b6b45660522dff, type: 3}
+  m_Name: Hammer
+  m_EditorClassIdentifier: 
+  equipName: hammer
+  cost: 200
+  equipmentType: 0
+  prefab: {fileID: 4540371428087562927, guid: e558e4dce82a56a499a77b2806973839, type: 3}
+  materials:
+  - {fileID: 2100000, guid: 78a0a3726ac2ac34192e7459c5e7d832, type: 2}
+  - {fileID: 2100000, guid: ae95ef3562d73a74a8d58b48075cd1b6, type: 2}
+  weaponMaterialSets: []
+  description: '+ 10 attack speed '
+  atkSpeedModifier: 10
+  moveSpeedModifier: 0
+  rangeModifier: 0
