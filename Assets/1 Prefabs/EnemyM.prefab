@@ -12138,6 +12138,7 @@ MonoBehaviour:
   dieEfect: {fileID: 6834169383744054498}
   levelUpEfect: {fileID: 182946969999771688}
   rotateSpeed: 20
+  expToUgrade: 0000000002000000050000000a000000120000001e0000002d0000003c000000
   level: 0
   usedWeapon: 0
   usedHair: 0
@@ -12157,6 +12158,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b82c1c62fa0e4af44b7d649bca4d7517, type: 2}
   - {fileID: 11400000, guid: d946e3da13d73db4bb3bffb3921405e0, type: 2}
   - {fileID: 11400000, guid: e95d04fd22159d041a4827129bf9ba38, type: 2}
+  - {fileID: 11400000, guid: b85bc987314e6264a813d6cc8e75a61b, type: 2}
   hairEquipments:
   - {fileID: 11400000, guid: 52e900f91739ab94d8ba4741901afae1, type: 2}
   - {fileID: 11400000, guid: b1dab49dfa3c91a46875d79b63cc093c, type: 2}

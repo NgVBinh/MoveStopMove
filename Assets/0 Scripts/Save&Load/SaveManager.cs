@@ -29,6 +29,7 @@ public class SaveManager : MonoBehaviour
         IEnumerable<ISaveManager> allSaveManager = FindObjectsOfType<MonoBehaviour>().OfType<ISaveManager>();
         saveManagers =new List<ISaveManager>(allSaveManager);
         LoadGame();
+        
     }
 
     public void NewGame()
@@ -70,7 +71,7 @@ public class SaveManager : MonoBehaviour
 
     public void LoadComponent(ISaveManager iLoad)
     {
-        dataHandle.Load();
+        //dataHandle.Load();
         iLoad.LoadData(gameData);
     }
     private void OnApplicationQuit()

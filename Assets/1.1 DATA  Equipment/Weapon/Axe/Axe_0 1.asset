@@ -15,7 +15,7 @@ MonoBehaviour:
   equipName: axe01
   cost: 100
   equipmentType: 0
-  prefab: {fileID: 8002765484148580117, guid: 49838a2ea2b950248843ad9732894724, type: 3}
+  prefab: {fileID: 8002765484148580117, guid: 1a713818390defd47a3cad7ba8eb0aea, type: 3}
   materials:
   - {fileID: 2100000, guid: ae95ef3562d73a74a8d58b48075cd1b6, type: 2}
   - {fileID: 2100000, guid: 33adef5f4fc5799418f266e8aa8495fe, type: 2}

@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: effd2ca2a2760854ca2c40966e2df0b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponType: 2
+  weaponType: 1
   attackType: 0
   rotateSpeed: 1000
   angle: 25

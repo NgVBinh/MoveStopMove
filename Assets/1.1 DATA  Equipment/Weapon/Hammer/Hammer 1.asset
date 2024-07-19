@@ -15,7 +15,7 @@ MonoBehaviour:
   equipName: hammer1
   cost: 200
   equipmentType: 0
-  prefab: {fileID: 4540371428087562927, guid: e558e4dce82a56a499a77b2806973839, type: 3}
+  prefab: {fileID: 4540371428087562927, guid: 6f193dc4297a4134fa67db5bb902cdbd, type: 3}
   materials:
   - {fileID: 2100000, guid: 3285e9b79491a1c44b61bf68e278bdb3, type: 2}
   - {fileID: 2100000, guid: 72341c8b8e619014989cb14efa18c0e2, type: 2}

@@ -68,6 +68,7 @@ public class Player : Entity
         DisplayTarget();
         //Debug.Log(stateMachine.currentState);
 
+
     }
 
     public void CreateWeaponInHand()
@@ -76,6 +77,7 @@ public class Player : Entity
         GameObject weaponInHand = equipController.GetEquipped(EquipmentType.WEAPON);
         weaponScript = weaponInHand.GetComponent<WeaponController>();
         weaponScript.GetComponent<WeaponController>()?.SetWeaponOfCharacter(true);
+
         weaponName = equipController.weaponName;
 
     }

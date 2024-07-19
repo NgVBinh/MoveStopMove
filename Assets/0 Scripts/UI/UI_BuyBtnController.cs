@@ -15,19 +15,18 @@ public class UI_BuyBtnController : MonoBehaviour, ISaveManager
     [SerializeField] private Image coinImage;
 
 
-    private Button myBtn;
+    [SerializeField] private Button myBtn;
     [Header("Use one Time")]
     [SerializeField] private Button oneTimeBtn;
     [SerializeField] private TextMeshProUGUI useOneTimeTxt;
     private void Awake()
     {
-        myBtn = GetComponent<Button>();
     }
 
-    //private void OnEnable()
-    //{
-    //    SaveManager.instance.LoadGame();
-    //}
+    private void OnEnable()
+    {
+        //SaveManager.instance.LoadComponent(this);
+    }
 
     public void LoadData(GameData gameData)
     {
@@ -52,6 +51,7 @@ public class UI_BuyBtnController : MonoBehaviour, ISaveManager
         if (oneTimeBtn != null)
             oneTimeBtn.gameObject.SetActive(false);
 
+        // lay ra equip cung ten neu co
         Equip myEquipSelected = myEquips.FirstOrDefault(tmp => tmp.equipName == equipSelected.equipName);
         if (myEquipSelected != null)
         {
@@ -66,11 +66,14 @@ public class UI_BuyBtnController : MonoBehaviour, ISaveManager
                     coinImage.gameObject.SetActive(false);
                     return;
                 }
+                else
+                {
+                    myBtn.onClick.RemoveAllListeners();
+                    myBtn.onClick.AddListener(() => UnEquip(myEquipSelected));
+                    textBtn.text = "UnEquip";
+                    coinImage.gameObject.SetActive(false);
+                }
 
-                myBtn.onClick.RemoveAllListeners();
-                myBtn.onClick.AddListener(() => UnEquip(ref myEquipSelected));
-                textBtn.text = "UnEquip";
-                coinImage.gameObject.SetActive(false);
 
                 if (myEquipSelected.isUesOneTime)
                 {
@@ -83,7 +86,7 @@ public class UI_BuyBtnController : MonoBehaviour, ISaveManager
                 textBtn.text = "Select";
                 myBtn.onClick.RemoveAllListeners();
                 coinImage.gameObject.SetActive(false);
-                myBtn.onClick.AddListener(() => SelectEquipBtn(ref myEquipSelected));
+                myBtn.onClick.AddListener(() => SelectEquipBtn(myEquipSelected));
 
                 if (myEquipSelected.isUesOneTime)
                 {
@@ -116,14 +119,38 @@ public class UI_BuyBtnController : MonoBehaviour, ISaveManager
 
     public void BuyEquip()
     {
-        UIManager.instance.coin -= equipSelected.cost;
-        myEquips.Add(new Equip(equipSelected.equipName, false, equipSelected.equipmentType));
+        myCoin -= equipSelected.cost;
+        myEquips.Add(new Equip(equipSelected.equipName, true, equipSelected.equipmentType));
 
-        SaveManager.instance.SaveGame();
+        // bo trang bi cu
+        Equip unEquip = myEquips.FirstOrDefault(tmp => tmp.type == equipSelected.equipmentType && tmp.used);
+        if (unEquip != null)
+        {
+            unEquip.used = false;
+        }
+        SaveManager.instance.SaveComponent(this);
+
+        // check
+        if (equipSelected.equipmentType == EquipmentType.WEAPON)
+        {
+            UI_ShopWPCT shopWeaponScript= GetComponentInParent<UI_ShopWPCT>();
+            if (PlayerPrefs.GetInt("currentIndex") != shopWeaponScript.weaponIndex)
+            {
+                shopWeaponScript.SaveIndex();
+                shopWeaponScript.DisplayWeapon(PlayerPrefs.GetInt("currentIndex"));
+
+                myEquips.Add(new Equip(shopWeaponScript.weapons[PlayerPrefs.GetInt("currentIndex")].weaponInShops[2].equipName, false, equipSelected.equipmentType));
+                myEquips.Add(new Equip(shopWeaponScript.weapons[PlayerPrefs.GetInt("currentIndex")].weaponInShops[1].equipName, false, equipSelected.equipmentType));
+
+            }
+        }
+
         SetupBtn(equipSelected);
+
+        UIManager.instance.DisplayCoin(myCoin);
     }
 
-    private void SelectEquipBtn(ref Equip myEquipSelected)
+    private void SelectEquipBtn(Equip myEquipSelected)
     {
         GameManager.instance.player.Equipment(equipSelected);
         Equip unEquip = myEquips.FirstOrDefault(tmp => tmp.type == equipSelected.equipmentType && tmp.used);
@@ -131,19 +158,20 @@ public class UI_BuyBtnController : MonoBehaviour, ISaveManager
         {
             unEquip.used = false;
         }
-
-
         myEquipSelected.used = true;
 
-        SaveManager.instance.SaveGame();
+        GetComponentInParent<UI_ShopWPCT>()?.SaveIndex();
+        //GetComponentInParent<UI_ShopWPCT>()?.BackStartPannel();
+
+        SaveManager.instance.SaveComponent(this);
         SetupBtn(equipSelected);
     }
 
-    private void UnEquip(ref Equip myEquipped)
+    private void UnEquip(Equip myEquipped)
     {
         GameManager.instance.player.equipController.UnEquipment(myEquipped);
         myEquipped.used = false;
-        SaveManager.instance.SaveGame();
+        SaveManager.instance.SaveComponent(this);
         SetupBtn(equipSelected);
 
     }
@@ -152,7 +180,8 @@ public class UI_BuyBtnController : MonoBehaviour, ISaveManager
     {
         myEquips.Add(new Equip(equipSelected.equipName, false, equipSelected.equipmentType, true));
 
-        SaveManager.instance.SaveGame();
+        SaveManager.instance.SaveComponent(this);
         SetupBtn(equipSelected);
+
     }
 }

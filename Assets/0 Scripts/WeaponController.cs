@@ -29,7 +29,7 @@ public class WeaponController : MonoBehaviour
 
     // color & material
     private MeshRenderer meshRenderer;
-    public Material[] materials = new Material[] { };
+    //public Material[] materials = new Material[] { };
 
     private Rigidbody rb;
     public bool isCharacterWeapon;
@@ -46,13 +46,18 @@ public class WeaponController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         meshRenderer = GetComponent<MeshRenderer>();
-        materials = meshRenderer.materials;
+        //materials = meshRenderer.materials;
         lastScale = transform.localScale;
     }
     private void OnEnable()
     {
         StartCoroutine(ReturnToPool());
 
+    }
+
+    public void SetColor(List<Material> a)
+    {
+        meshRenderer.materials = a.ToArray();
     }
 
     public void SetupWeapon(Vector3 dir, float force, Entity character)

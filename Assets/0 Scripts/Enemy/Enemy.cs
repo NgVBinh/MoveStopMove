@@ -103,7 +103,7 @@ public class Enemy : Entity
     {
         // don't spawn near players according to the spawn radius
         Vector3 randomPosSpawn = GetRandomPointOnNavMesh(player.transform.position,radiusSpawn);
-        if (Vector3.Distance(randomPosSpawn, player.transform.position) < player.attackRange + 1)
+        if (Vector3.Distance(randomPosSpawn, player.transform.position) < player.attackRange + 3)
         {
             SpawnOnNavMesh();
             return;

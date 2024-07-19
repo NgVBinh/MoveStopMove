@@ -40,7 +40,7 @@ public class Entity : MonoBehaviour
     private PoolObjects poolObjects;
     [SerializeField] private float rotateSpeed;
     // private var
-
+    public int[] expToUgrade;
 
     private int exp;
     public int level;
@@ -71,8 +71,6 @@ public class Entity : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-
-
         DisplayLevelTxt();
         if (level != 0)
         {
@@ -188,6 +186,7 @@ public class Entity : MonoBehaviour
     private void IncreaseExp(int amount)
     {
         exp += amount;
+        //Debug.Log(this.name+" "+ AAA(exp).ToString());
         if (exp > 1)
         {
             level++;
@@ -257,4 +256,17 @@ public class Entity : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
+
+    public int AAA(int exp)
+    {
+        for(int i = 0;i<expToUgrade.Length;i++)
+        {
+            if (exp < expToUgrade[i])
+            {
+                return i;
+            }
+        }
+
+        return 0;
+    }
 }

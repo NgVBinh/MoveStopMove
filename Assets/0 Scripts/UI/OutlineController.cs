@@ -12,15 +12,7 @@ public class OutlineController : MonoBehaviour,IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        // Disable the outline of the previously selected image if there is one
-        if (currentSelectedImage != null && currentSelectedImage != this)
-        {
-            currentSelectedImage.ToggleOutline(false);
-        }
-
-        // Enable the outline for the newly selected image
-        ToggleOutline(true);
-        currentSelectedImage = this;
+        DisplayOutline();
     }
 
     private void ToggleOutline(bool enable)
@@ -32,7 +24,7 @@ public class OutlineController : MonoBehaviour,IPointerDownHandler
         }
     }
 
-    public void DisplayOutlineFirstEqup()
+    public void DisplayOutline()
     {
         if (currentSelectedImage != null && currentSelectedImage != this)
         {

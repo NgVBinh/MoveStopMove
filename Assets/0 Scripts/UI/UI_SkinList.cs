@@ -42,7 +42,7 @@ public class UI_SkinList : MonoBehaviour
             if (i == 0)
             {
                 equipInShop.GetComponentInChildren<UI_EquipInShop>().SetFirstSkin(equipList[i]);
-                equipInShop.GetComponentInChildren<OutlineController>().DisplayOutlineFirstEqup();
+                equipInShop.GetComponentInChildren<OutlineController>().DisplayOutline();
             }
         }
     }

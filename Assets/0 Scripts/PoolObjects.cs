@@ -2,13 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//public enum TagType
-//{
-//    Player,
-//    Enemy,
-//    Projectile,
-//}
-
 [System.Serializable]
 public class Pool
 {
@@ -33,21 +26,27 @@ public class PoolObjects : MonoBehaviour
         {
             if (poolDictionary.ContainsKey(pool.objectName))
             {
-                Debug.LogError("Duplicate _objectName in pools: " + pool.objectName);
+                Debug.LogWarning(pool.objectName + " already  exist.");
                 continue;
             }
 
-            List<GameObject> objectPool = new List<GameObject>();
-
-            for (int i = 0; i < pool.size; i++)
-            {
-                GameObject obj = Instantiate(pool.prefab);
-                obj.SetActive(false);
-                objectPool.Add(obj);
-            }
-
-            poolDictionary.Add(pool.objectName, objectPool);
+            InitializePool(pool.objectName, pool.prefab, pool.size);
         }
+    }
+
+    private void InitializePool(string poolName, GameObject prefab, int size)
+    {
+
+        List<GameObject> objectPool = new List<GameObject>();
+
+        for (int i = 0; i < size; i++)
+        {
+            GameObject obj = Instantiate(prefab,transform);
+            obj.SetActive(false);
+            objectPool.Add(obj);
+        }
+
+        poolDictionary.Add(poolName, objectPool);
     }
 
     public GameObject GetObject(string _objectName)
@@ -62,64 +61,52 @@ public class PoolObjects : MonoBehaviour
         {
             if (!obj.activeInHierarchy)
             {
-                //obj.SetActive(true);
                 return obj;
             }
         }
 
         // tao them object khi het
-        foreach (Pool pool in pools)
+        Pool pool = pools.Find(p => p.objectName == _objectName);
+
+        GameObject newObj = Instantiate(pool.prefab,transform);
+        newObj.SetActive(true);
+        poolDictionary[_objectName].Add(newObj);
+        return newObj;
+
+    }
+
+    // tao pool moi hoac thay the pool da co cung ten
+    public void AddPool(string _newObjectName, GameObject newPrefab, int size = 1)
+    {
+        if (poolDictionary.ContainsKey(_newObjectName))
         {
-            if (pool.objectName == _objectName)
-            {
-                GameObject newObj = Instantiate(pool.prefab);
-                newObj.SetActive(true);
-                poolDictionary[_objectName].Add(newObj);
-                return newObj;
-            }
+            ReplacePoolPrefab(_newObjectName, newPrefab, size);
         }
-        Debug.LogError(_objectName + " null");
-        return null;
-
-        ////tao them object khi het object trong pool
-        //Pool pool = GetPoolByName(_objectName);
-        //if (pool != null)
-        //{
-        //    GameObject newObj = Instantiate(pool.prefab);
-        //    newObj.SetActive(false);
-        //    poolDictionary[_objectName].Add(newObj);
-        //    return newObj;
-        //}
-
-        //return null;
-    }
-
-    // lay object trong pool va xoa object do khoi pool
-    public GameObject GetObjectOutPool(string _objectName)
-    {
-        GameObject tmp = GetObject(_objectName);
-        poolDictionary[_objectName].Remove(tmp);
-
-        return tmp;
-    }
-
-    public void ReturnObject(string _objectName, GameObject obj)
-    {
-        if (!poolDictionary.ContainsKey(_objectName))
+        else
         {
-            Debug.LogWarning("Pool with _objectName " + _objectName + " doesn't exist.");
+            InitializePool(_newObjectName, newPrefab, size);
+        }
+    }
+
+    private void ReplacePoolPrefab(string poolName, GameObject newPrefab, int newSize)
+    {
+        List<GameObject> objectPool = poolDictionary[poolName];
+
+        // Destroy old objects
+        foreach (GameObject obj in objectPool)
+        {
             Destroy(obj);
-            return;
         }
 
-        obj.SetActive(false);
+        objectPool.Clear();
+
+        for (int i = 0; i < newSize; i++)
+        {
+            GameObject obj = Instantiate(newPrefab, transform);
+            obj.SetActive(false);
+            objectPool.Add(obj);
+        }
+
+        poolDictionary[poolName] = objectPool;
     }
 }
-
-//public static class Tags
-//{
-//    public const string Player = "Player";
-//    public const string Enemy = "Enemy";
-//    public const string Projectile = "Projectile";
-
-//}

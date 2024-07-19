@@ -6,9 +6,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour,ISaveManager
+public class UIManager : MonoBehaviour, ISaveManager
 {
     public static UIManager instance;
+    [SerializeField] private GameObject coinImg;
 
     [Header("Pannel")]
     [SerializeField] private GameObject instructionImg;
@@ -44,12 +45,20 @@ public class UIManager : MonoBehaviour,ISaveManager
     [SerializeField] private CameraFollow cameraFollow;
 
     public UI_EndGameController endgameController;
-    public List<Equip> myEquips = new List<Equip>();
+    private List<Equip> myEquips = new List<Equip>();
 
     // private
     private Animator cameraAnimator;
     private Animator uiAnimator;
     public int coin;
+
+    // equipped
+    public string weaponName { get; private set; }
+    public string shieldName{ get; private set; }
+    public string pantName {  get; private set; }
+    public string hairName { get; private set; }
+
+    public UI_ShopWPCT shopWeapon;
     private void Awake()
     {
         if (instance != null)
@@ -83,6 +92,7 @@ public class UIManager : MonoBehaviour,ISaveManager
 
     public void InitializedPannel()
     {
+        coinImg.SetActive(true);
         startPannel.SetActive(true);
         instructionImg.SetActive(false);
         ingamePannel.SetActive(false);
@@ -97,13 +107,16 @@ public class UIManager : MonoBehaviour,ISaveManager
 
         uiAnimator.SetTrigger("test3");
 
-        SaveManager.instance.LoadGame();
-        DisplayCoin();
+        SaveManager.instance.LoadComponent(this);
+
+        DisplayCoin(coin);
     }
    
 
     public void PlayBtn()
     {
+        coinImg.SetActive(false);
+
         ingamePannel.SetActive(true);
         startPannel.SetActive(false);
         instructionImg.SetActive(true);
@@ -199,23 +212,23 @@ public class UIManager : MonoBehaviour,ISaveManager
 
     public void EquipThePlayer()
     {
-        string weaponName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.WEAPON && tmp.used)?.equipName;
+        weaponName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.WEAPON && tmp.used)?.equipName;
         player.equipController.PlayerEquipped(weaponName);
 
-        string hairName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.HAIR && tmp.used)?.equipName;
+        hairName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.HAIR && tmp.used)?.equipName;
         player.equipController.PlayerEquipped(hairName);
 
-        string shieldName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.SHIELD && tmp.used)?.equipName;
+        shieldName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.SHIELD && tmp.used)?.equipName;
         player.equipController.PlayerEquipped(shieldName);
 
-        string pantName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.PANT && tmp.used)?.equipName;
+        pantName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.PANT && tmp.used)?.equipName;
         player.equipController.PlayerEquipped(pantName);
 
         player.CreateWeaponInHand();
     }
 
   
-    public void DisplayCoin()
+    public void DisplayCoin(int coin)
     {
         coinTxt.text = coin.ToString();
     }
@@ -230,6 +243,7 @@ public class UIManager : MonoBehaviour,ISaveManager
         this.coin = gameData.coin;
         myEquips = gameData.myEquips;
         EquipThePlayer();
+
     }
 
     public void SaveData(ref GameData gameData)

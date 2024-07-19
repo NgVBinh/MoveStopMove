@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
             newEnemy.transform.SetParent(enemyParent);
 
             // enemy properties
-            int enemyLevel = Mathf.Clamp(Random.Range(player.GetLevel(), player.GetLevel() + 4), 0, player.GetLevel() + 4);
+            int enemyLevel = Mathf.Clamp(Random.Range(player.GetLevel()-1, player.GetLevel() + 5), 0, player.GetLevel() + 5);
             Material pantMaterial = pantsEnemy[Random.Range(0, pantsEnemy.Count)];
 
             Material randomEnemyBody = bodyEnemy[Random.Range(0, bodyEnemy.Count)];
@@ -130,6 +130,8 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(1);
             GameObject newEnemy = poolObjects.GetObject("enemy");
             newEnemy.SetActive(true);
+            int enemyLevel = Mathf.Clamp(Random.Range(player.GetLevel() - 1, player.GetLevel() + 5), 0, player.GetLevel() + 5);
+            newEnemy.GetComponent<Enemy>().level = enemyLevel;
             newEnemy.GetComponent<Enemy>().RevivalEnemy();
             newEnemy.GetComponent<Enemy>().SpawnOnNavMesh();
             //Debug.Log("enemy revival");
