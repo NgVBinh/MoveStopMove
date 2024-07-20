@@ -12,6 +12,8 @@ public class PlayerDieState : PlayerState
     {
         base.Enter();
         player.rb.velocity = Vector3.zero;
+        player.col.enabled = false;
+        player.tag = "Untagged";
         Observer.Notify("PlayerTakeDamage");
 
     }

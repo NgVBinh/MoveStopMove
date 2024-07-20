@@ -29,16 +29,20 @@ public class Player : Entity
 
     public Transform enemyTargetted { get; private set; }
 
+    public Collider col { get; private set; }
+
     protected override void Awake()
     {
         base.Awake();
         stateMachine = new PlayerStateMachine();
-        idleState = new PlayerIdleState(this,stateMachine,"IsIdle");
-        moveState = new PlayerMoveState(this,stateMachine,"IsMove");
+        idleState = new PlayerIdleState(this, stateMachine, "IsIdle");
+        moveState = new PlayerMoveState(this, stateMachine, "IsMove");
         attackState = new PlayerAttackState(this, stateMachine, "IsAttack");
         dieState = new PlayerDieState(this, stateMachine, "IsDead");
         winState = new PlayerWinState(this, stateMachine, "IsWin");
         danceSkinState = new PlayerDanceSkinState(this, stateMachine, "IsDance");
+
+        col= GetComponent<Collider>();
     }
 
 
@@ -52,7 +56,7 @@ public class Player : Entity
         base.Start();
 
         stateMachine.ChangeState(idleState);
-        canMove = true;
+        canMove = false;
         targetLayer = LayerMask.GetMask("Enemy");
         //InitialWeapon(weaponCenter);
         Observer.AddObserver("play", PlayerPlayGame);
@@ -84,12 +88,13 @@ public class Player : Entity
 
     public void Equipment(EquipmentSO equip)
     {
+        equipController.UnEquipSet();
         equipController.Equipment(equip);
     }
-    
+
     public void MoveHandle(Vector3 moveDir)
     {
-        if(!canMove) return;
+        if (!canMove) return;
         rb.velocity = moveDir;// new Vector3(moveDir.x, 0, moveDir.z);
     }
 
@@ -114,16 +119,17 @@ public class Player : Entity
 
     public void DisplayTarget()
     {
-        
-        if (enemyTargetted!=GetClosestEnemyInRange())
+
+        if (enemyTargetted != GetClosestEnemyInRange())
         {
-            if(enemyTargetted!=null) {
+            if (enemyTargetted != null)
+            {
                 enemyTargetted.GetComponent<Enemy>().BeTargetted(false);
             }
             enemyTargetted = GetClosestEnemyInRange();
         }
         // attack enemy
-        if (enemyTargetted!=null)
+        if (enemyTargetted != null)
         {
             GetClosestEnemyInRange().GetComponent<Enemy>().BeTargetted(true);
         }
@@ -143,6 +149,12 @@ public class Player : Entity
         stateMachine.ChangeState(winState);
     }
 
+    public void PlayerRevival()
+    {
+        col.enabled = true;
+        tag = "Player";
+        ChangeIdleState();
+    }
 
     private void OnDestroy()
     {

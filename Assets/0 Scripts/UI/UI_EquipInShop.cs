@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,10 +9,27 @@ public class UI_EquipInShop : MonoBehaviour, IPointerDownHandler
     public EquipmentSO myEquipSO;
     private bool canChooseColor;
 
+    public static UI_EquipInShop currentlyEquipped;
+    public GameObject equippedTxt;
+
+    void Start()
+    {
+        
+    }
+
     public void SetupEquipInShop(EquipmentSO equip, bool canChooseColor = false)
     {
         myEquipSO = equip;
         this.canChooseColor = canChooseColor;
+
+        if (equip.equipmentType == EquipmentType.SET)
+        {
+            GetComponent<Image>().color = Color.white;
+
+            GetComponent<Image>().sprite = equip.setIcon;
+            GetComponent<Image>().preserveAspect = true;
+            return;
+        }
 
         GameObject equipPref = Instantiate(myEquipSO.prefab, transform);
         equipPref.transform.localScale = Vector3.one * 200;
@@ -64,14 +82,18 @@ public class UI_EquipInShop : MonoBehaviour, IPointerDownHandler
     private void ClickSkinInShop()
     {
         // xem truoc
-
-        UIManager.instance.player.Equipment(myEquipSO);
-
+        if (myEquipSO.equipmentType != EquipmentType.SET)
+            UIManager.instance.player.Equipment(myEquipSO);
+        else
+        {
+            UIManager.instance.player.equipController.EquipSet(myEquipSO.equipName);
+            Debug.Log(">");
+        }
         UI_SkinController skinShopScript = GetComponentInParent<UI_SkinController>();
 
         if (skinShopScript != null)
         {
-            skinShopScript.buyEquipBtn.GetComponent<UI_BuyBtnController>().SetupBtn(myEquipSO);
+            skinShopScript.buyEquipBtn.GetComponent<UI_BuyBtnController>().SetupBtn(myEquipSO,this);
             skinShopScript.descriptEquipTxt.text = myEquipSO.description;
 
         }
@@ -83,6 +105,7 @@ public class UI_EquipInShop : MonoBehaviour, IPointerDownHandler
 
     public void ClickWeaponInShop(EquipmentSO weaponClick)
     {
+
         UI_ShopWPCT shopWeponScript = GetComponentInParent<UI_ShopWPCT>();
         if (shopWeponScript != null)
         {
@@ -108,6 +131,7 @@ public class UI_EquipInShop : MonoBehaviour, IPointerDownHandler
 
     public void SetFirstSkin(EquipmentSO equip)
     {
+        //currentlyEquipped = this;
 
         EquipmentSO firstEquip = equip;
         if (firstEquip.equipmentType != EquipmentType.WEAPON)
@@ -115,8 +139,16 @@ public class UI_EquipInShop : MonoBehaviour, IPointerDownHandler
             UI_SkinController skinShopScript = GetComponentInParent<UI_SkinController>();
             if (skinShopScript != null)
             {
-                skinShopScript.buyEquipBtn.GetComponent<UI_BuyBtnController>().SetupBtn(firstEquip);
-                UIManager.instance.player.Equipment(firstEquip);/////////
+                skinShopScript.buyEquipBtn.GetComponent<UI_BuyBtnController>().SetupBtn(firstEquip,this);
+                
+                //UIManager.instance.player.Equipment(firstEquip);/////////
+
+                if (myEquipSO.equipmentType != EquipmentType.SET)
+                    UIManager.instance.player.Equipment(firstEquip);
+                else
+                {
+                    UIManager.instance.player.equipController.EquipSet(firstEquip.equipName);
+                }
 
                 skinShopScript.descriptEquipTxt.text = firstEquip.description;
             }
@@ -144,7 +176,16 @@ public class UI_EquipInShop : MonoBehaviour, IPointerDownHandler
             }
         }
 
+    }
 
+    public void OnImageSelected()
+    {
+        if (currentlyEquipped != null)
+        {
+            currentlyEquipped.equippedTxt.SetActive(false); 
+        }
 
+        currentlyEquipped = this;
+        equippedTxt.SetActive(true); 
     }
 }

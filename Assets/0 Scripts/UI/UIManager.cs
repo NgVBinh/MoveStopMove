@@ -54,9 +54,10 @@ public class UIManager : MonoBehaviour, ISaveManager
 
     // equipped
     public string weaponName { get; private set; }
-    public string shieldName{ get; private set; }
-    public string pantName {  get; private set; }
+    public string shieldName { get; private set; }
+    public string pantName { get; private set; }
     public string hairName { get; private set; }
+    public string setName { get; private set; }
 
     public UI_ShopWPCT shopWeapon;
     private void Awake()
@@ -108,10 +109,11 @@ public class UIManager : MonoBehaviour, ISaveManager
         uiAnimator.SetTrigger("test3");
 
         SaveManager.instance.LoadComponent(this);
+        EquipThePlayer();
 
         DisplayCoin(coin);
     }
-   
+
 
     public void PlayBtn()
     {
@@ -168,7 +170,7 @@ public class UIManager : MonoBehaviour, ISaveManager
     public void PlayerRevial()
     {
         // add ADs
-        GameManager.instance.player.ChangeIdleState();
+        GameManager.instance.player.PlayerRevival();
         if (revivalPanel.activeSelf)
         {
             revivalPanel.SetActive(false);
@@ -215,24 +217,51 @@ public class UIManager : MonoBehaviour, ISaveManager
         weaponName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.WEAPON && tmp.used)?.equipName;
         player.equipController.PlayerEquipped(weaponName);
 
-        hairName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.HAIR && tmp.used)?.equipName;
-        player.equipController.PlayerEquipped(hairName);
+        setName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.SET && tmp.used)?.equipName;
+        if (setName != null)
+        {
+            player.equipController.EquipSet(setName);
+        }
+        else
+        {
+            player.equipController.UnEquipSet();
+            hairName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.HAIR && tmp.used)?.equipName;
 
-        shieldName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.SHIELD && tmp.used)?.equipName;
-        player.equipController.PlayerEquipped(shieldName);
+            if (hairName != null)
+            {
+                player.equipController.PlayerEquipped(hairName);
+            }
+            else
+            {
+                player.equipController.RemoveHairStat();
+            }
 
-        pantName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.PANT && tmp.used)?.equipName;
-        player.equipController.PlayerEquipped(pantName);
+            pantName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.PANT && tmp.used)?.equipName;
+            if (pantName != null)
+            {
+                player.equipController.PlayerEquipped(pantName);
+            }
+            else
+            {
+                player.equipController.RemovePantStat();
+            }
+            shieldName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.SHIELD && tmp.used)?.equipName;
+            player.equipController.PlayerEquipped(shieldName);
+
+          
+
+        }
+
 
         player.CreateWeaponInHand();
     }
 
-  
+
     public void DisplayCoin(int coin)
     {
         coinTxt.text = coin.ToString();
     }
-    
+
     public void ChangePlayerName(string name)
     {
         player.characterName = name;
@@ -242,7 +271,6 @@ public class UIManager : MonoBehaviour, ISaveManager
     {
         this.coin = gameData.coin;
         myEquips = gameData.myEquips;
-        EquipThePlayer();
 
     }
 

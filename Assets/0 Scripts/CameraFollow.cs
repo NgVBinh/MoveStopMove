@@ -27,5 +27,6 @@ public class CameraFollow : MonoBehaviour
     private void ActiveFollow()
     {
         this.enabled = true;
+        GameManager.instance.player.canMove = true;
     }
 }

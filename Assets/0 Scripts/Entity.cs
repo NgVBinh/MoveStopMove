@@ -206,22 +206,22 @@ public class Entity : MonoBehaviour
     }
     public virtual void IncreaseScaleCharacter(float percent)
     {
-        transform.localScale *= (1 + percent / 100);
+        transform.localScale *= (1 + percent / 100f);
         IncreaseRange(percent);
 
     }
     public virtual void IncreaseRange(float percent)
     {
-        attackRange *= (1 + percent / 100);
+        attackRange *= (1 + percent / 100f);
     }
     public virtual void IncreaseSpeed(float percent)
     {
-        moveSpeed *= (1 + percent / 100);
+        moveSpeed *= (1 + percent / 100f);
     }
 
     public virtual void IncreaseAttackSpeed(float percent)
     {
-        attackSpeed *= (1 + percent / 100);
+        attackSpeed *= (1 + percent / 100f);
     }
 
     public int GetLevel()

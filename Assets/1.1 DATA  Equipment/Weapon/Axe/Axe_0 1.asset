@@ -40,7 +40,9 @@ MonoBehaviour:
     materials:
     - {fileID: 2100000, guid: b42ed4f02104f3a4f9f9bdff43742370, type: 2}
     - {fileID: 2100000, guid: b42ed4f02104f3a4f9f9bdff43742370, type: 2}
-  description: + 15 range
+  equipOfSets: []
+  setIcon: {fileID: 0}
+  description: + 10 range
   atkSpeedModifier: 0
   moveSpeedModifier: 0
   rangeModifier: 10

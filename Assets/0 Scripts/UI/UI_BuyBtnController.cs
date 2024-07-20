@@ -19,6 +19,8 @@ public class UI_BuyBtnController : MonoBehaviour, ISaveManager
     [Header("Use one Time")]
     [SerializeField] private Button oneTimeBtn;
     [SerializeField] private TextMeshProUGUI useOneTimeTxt;
+
+    private UI_EquipInShop equipShopScript;
     private void Awake()
     {
     }
@@ -41,9 +43,9 @@ public class UI_BuyBtnController : MonoBehaviour, ISaveManager
         gameData.coin = myCoin;
     }
 
-    public void SetupBtn(EquipmentSO equip)
+    public void SetupBtn(EquipmentSO equip,UI_EquipInShop equipShopScript = null)
     {
-
+        this.equipShopScript = equipShopScript;
         equipSelected = equip;
         if (useOneTimeTxt != null)
             useOneTimeTxt.gameObject.SetActive(false);
@@ -119,21 +121,21 @@ public class UI_BuyBtnController : MonoBehaviour, ISaveManager
 
     public void BuyEquip()
     {
-        myCoin -= equipSelected.cost;
-        myEquips.Add(new Equip(equipSelected.equipName, true, equipSelected.equipmentType));
 
-        // bo trang bi cu
+
+        myCoin -= equipSelected.cost;
+        // bo trang bi cu cung loai
         Equip unEquip = myEquips.FirstOrDefault(tmp => tmp.type == equipSelected.equipmentType && tmp.used);
         if (unEquip != null)
         {
             unEquip.used = false;
         }
-        SaveManager.instance.SaveComponent(this);
+        myEquips.Add(new Equip(equipSelected.equipName, true, equipSelected.equipmentType));
 
         // check
         if (equipSelected.equipmentType == EquipmentType.WEAPON)
         {
-            UI_ShopWPCT shopWeaponScript= GetComponentInParent<UI_ShopWPCT>();
+            UI_ShopWPCT shopWeaponScript = GetComponentInParent<UI_ShopWPCT>();
             if (PlayerPrefs.GetInt("currentIndex") != shopWeaponScript.weaponIndex)
             {
                 shopWeaponScript.SaveIndex();
@@ -145,6 +147,14 @@ public class UI_BuyBtnController : MonoBehaviour, ISaveManager
             }
         }
 
+        if (equipShopScript != null)
+            equipShopScript.OnImageSelected();
+        else
+        {
+            Debug.Log("null");
+        }
+        SaveManager.instance.SaveComponent(this);
+
         SetupBtn(equipSelected);
 
         UIManager.instance.DisplayCoin(myCoin);
@@ -152,7 +162,18 @@ public class UI_BuyBtnController : MonoBehaviour, ISaveManager
 
     private void SelectEquipBtn(Equip myEquipSelected)
     {
-        GameManager.instance.player.Equipment(equipSelected);
+        if(equipShopScript != null)
+        equipShopScript.OnImageSelected();
+        else
+        {
+            Debug.Log("null");
+        }
+        if (myEquipSelected.type != EquipmentType.SET)
+            UIManager.instance.player.Equipment(equipSelected);
+        else
+        {
+            UIManager.instance.player.equipController.EquipSet(myEquipSelected.equipName);
+        }
         Equip unEquip = myEquips.FirstOrDefault(tmp => tmp.type == equipSelected.equipmentType && tmp.used);
         if (unEquip != null)
         {
@@ -164,15 +185,31 @@ public class UI_BuyBtnController : MonoBehaviour, ISaveManager
         //GetComponentInParent<UI_ShopWPCT>()?.BackStartPannel();
 
         SaveManager.instance.SaveComponent(this);
-        SetupBtn(equipSelected);
+        SetupBtn(equipSelected, equipShopScript);
     }
 
     private void UnEquip(Equip myEquipped)
     {
-        GameManager.instance.player.equipController.UnEquipment(myEquipped);
-        myEquipped.used = false;
+        if (myEquipped.type != EquipmentType.SET)
+        {
+            UIManager.instance.player.equipController.UnEquipment(myEquipped);
+            myEquipped.used = false;
+        }
+        else
+        {
+            UIManager.instance.player.equipController.UnEquipSet();
+            myEquipped.used = false;
+            UIManager.instance.EquipThePlayer();
+        }
+
+        if (equipShopScript != null)
+            equipShopScript.equippedTxt.SetActive(false);
+        else
+        {
+            Debug.Log("null");
+        }
         SaveManager.instance.SaveComponent(this);
-        SetupBtn(equipSelected);
+        SetupBtn(equipSelected, equipShopScript);
 
     }
 

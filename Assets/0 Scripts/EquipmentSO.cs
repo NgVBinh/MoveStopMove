@@ -7,7 +7,8 @@ public enum EquipmentType
     WEAPON,
     PANT,
     SHIELD,
-    HAIR
+    HAIR,
+    SET
 }
 
 
@@ -29,6 +30,8 @@ public class EquipmentSO : ScriptableObject
     public List<Material> materials = new List<Material>();
 
     public List<WeaponMaterialSet> weaponMaterialSets = new List<WeaponMaterialSet>();
+    public List<GameObject> equipOfSets = new List<GameObject>();
+    public Sprite setIcon;
 
     public string description;
 
