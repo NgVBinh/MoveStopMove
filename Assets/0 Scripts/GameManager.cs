@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int enemyAlive;
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform enemyParent;
-    private List<GameObject> enemies= new List<GameObject>();
+    private List<GameObject> enemies = new List<GameObject>();
 
     [Header("Material")]
     [SerializeField] private List<Material> pantsEnemy;
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
             newEnemy.transform.SetParent(enemyParent);
 
             // enemy properties
-            int enemyLevel = Mathf.Clamp(Random.Range(player.GetLevel()-1, player.GetLevel() + 5), 0, player.GetLevel() + 5);
+            int enemyLevel = Mathf.Clamp(Random.Range(player.exp - 1, player.exp + 5), 0, player.exp + 5);
             Material pantMaterial = pantsEnemy[Random.Range(0, pantsEnemy.Count)];
 
             Material randomEnemyBody = bodyEnemy[Random.Range(0, bodyEnemy.Count)];
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
 
             // set up enemy
             Enemy enemyScript = newEnemy.GetComponent<Enemy>();
-            enemyScript.InitializeEnemy(randomEnemyBody, pantMaterial, enemyLevel, "Enemy " + (i+1), player);
+            enemyScript.InitializeEnemy(randomEnemyBody, pantMaterial, enemyLevel, "Enemy " + (i + 1));
             enemyScript.OnDeath += OnEnemyDeath;
             newEnemy.SetActive(true);
 
@@ -127,13 +127,17 @@ public class GameManager : MonoBehaviour
     {
         if (canSpawn)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(3);
             GameObject newEnemy = poolObjects.GetObject("enemy");
+            Enemy enemyScript = newEnemy.GetComponent<Enemy>();
+            if (enemyScript.exp < player.exp)
+            {
+                int expBuff = player.exp - enemyScript.exp + Random.Range(0,10);
+                enemyScript.IncreaseExp(expBuff);
+            }
             newEnemy.SetActive(true);
-            int enemyLevel = Mathf.Clamp(Random.Range(player.GetLevel() - 1, player.GetLevel() + 5), 0, player.GetLevel() + 5);
-            newEnemy.GetComponent<Enemy>().level = enemyLevel;
-            newEnemy.GetComponent<Enemy>().RevivalEnemy();
-            newEnemy.GetComponent<Enemy>().SpawnOnNavMesh();
+            enemyScript.RevivalEnemy();
+            enemyScript.SpawnOnNavMesh();
             //Debug.Log("enemy revival");
         }
     }

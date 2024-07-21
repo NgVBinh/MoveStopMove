@@ -40,10 +40,12 @@ public class Entity : MonoBehaviour
     private PoolObjects poolObjects;
     [SerializeField] private float rotateSpeed;
     // private var
-    public int[] expToUgrade;
+    public int[] expToUgrade = {0,2,5,10,18,30,45,60};
 
-    private int exp;
-    public int level;
+    //[HideInInspector]
+    public int exp;
+    public int curentLevel;
+    public int lastLevel;
     public Action OnLevelUp;
 
     [HideInInspector]
@@ -71,14 +73,16 @@ public class Entity : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        DisplayLevelTxt();
-        if (level != 0)
+        levelUpEfect.GetComponent<Renderer>().material = body.material;
+        dieEfect.GetComponent<Renderer>().material = body.material;
+
+        if (exp != 0)
         {
-            for (int i = 0; i < level; i++)
-            {
-                LevelUp();
-            }
+            IncreaseExp(exp);
         }
+
+        DisplayExpTxt();
+        
     }
 
     // Update is called once per frame
@@ -183,31 +187,34 @@ public class Entity : MonoBehaviour
     #endregion
 
     #region level up & upgrade
-    private void IncreaseExp(int amount)
+    public void IncreaseExp(int amount)
     {
         exp += amount;
-        //Debug.Log(this.name+" "+ AAA(exp).ToString());
-        if (exp > 1)
+        DisplayExpTxt();
+        curentLevel = GetCharacterLevel(exp);
+        if(curentLevel>lastLevel)
         {
-            level++;
+            for(int i = lastLevel; i  < curentLevel; i++)
+            {
+                // level up
+                LevelUp(10);
+                
+                levelUpEfect.Play();
+                OnLevelUp?.Invoke();
+            }
+            lastLevel = curentLevel;
 
-            levelUpEfect.GetComponent<Renderer>().material = body.material;
-            levelUpEfect.Play();
-            OnLevelUp?.Invoke();
-
-            LevelUp();
-            exp = 0;
         }
     }
-    private void LevelUp()
+    private void LevelUp(float percentScale)
     {
-        DisplayLevelTxt();
-        IncreaseScaleCharacter(10);
+        IncreaseScaleCharacter(percentScale);
+        IncreaseRange(percentScale);
+
     }
     public virtual void IncreaseScaleCharacter(float percent)
     {
         transform.localScale *= (1 + percent / 100f);
-        IncreaseRange(percent);
 
     }
     public virtual void IncreaseRange(float percent)
@@ -226,12 +233,12 @@ public class Entity : MonoBehaviour
 
     public int GetLevel()
     {
-        return this.level;
+        return this.curentLevel;
     }
 
-    private void DisplayLevelTxt()
+    private void DisplayExpTxt()
     {
-        levelTxt.text = level.ToString();
+        levelTxt.text = exp .ToString();
     }
 
     #endregion
@@ -241,13 +248,12 @@ public class Entity : MonoBehaviour
     }
     public virtual void TakeDamage()
     {
-        dieEfect.GetComponent<Renderer>().material = body.material;
         dieEfect.Play();
     }
 
-    public virtual void KillCharacter()
+    public virtual void KillCharacter(int exp)
     {
-        IncreaseExp(1);
+        IncreaseExp(exp);
         // tang kich thuoc vk
     }
     protected virtual void OnDrawGizmos()
@@ -257,16 +263,16 @@ public class Entity : MonoBehaviour
     }
 
 
-    public int AAA(int exp)
+    public virtual int GetCharacterLevel(int exp)
     {
         for(int i = 0;i<expToUgrade.Length;i++)
         {
-            if (exp < expToUgrade[i])
+            if (exp>=expToUgrade[i] && exp < expToUgrade[i+1])
             {
                 return i;
             }
         }
 
-        return 0;
+        return -1;
     }
 }

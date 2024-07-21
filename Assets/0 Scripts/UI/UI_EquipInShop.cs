@@ -48,8 +48,12 @@ public class UI_EquipInShop : MonoBehaviour, IPointerDownHandler
         {
 
             equipPref.GetComponent<WeaponController>().SetWeaponOfCharacter(true);
-            equipPref.GetComponent<MeshRenderer>().materials = myEquipSO.materials.ToArray();
-            equipPref.transform.localScale = Vector3.one * 5000;
+            //equipPref.GetComponentInChildren<MeshRenderer>().materials = myEquipSO.materials.ToArray();
+
+            equipPref.transform.GetChild(0).localPosition = Vector3.zero;
+            equipPref.transform.localRotation = Quaternion.Euler(0, 0, 140);
+            equipPref.transform.localScale = Vector3.one * 100;
+
         }
     }
 
@@ -105,7 +109,6 @@ public class UI_EquipInShop : MonoBehaviour, IPointerDownHandler
 
     public void ClickWeaponInShop(EquipmentSO weaponClick)
     {
-
         UI_ShopWPCT shopWeponScript = GetComponentInParent<UI_ShopWPCT>();
         if (shopWeponScript != null)
         {
@@ -119,8 +122,9 @@ public class UI_EquipInShop : MonoBehaviour, IPointerDownHandler
             }
             GameObject equipPref = Instantiate(weaponClick.prefab, shopWeponScript.weaponCenter);
             equipPref.GetComponent<WeaponController>().SetWeaponOfCharacter(true);
-            equipPref.GetComponent<MeshRenderer>().materials = weaponClick.materials.ToArray();
-            equipPref.transform.localScale = Vector3.one * 10000;
+            equipPref.transform.GetChild(0).localPosition = Vector3.zero;
+            //equipPref.GetComponentInChildren<MeshRenderer>().materials = weaponClick.materials.ToArray();
+            equipPref.transform.localScale = Vector3.one * 200;
 
         }
         else
@@ -139,6 +143,7 @@ public class UI_EquipInShop : MonoBehaviour, IPointerDownHandler
             UI_SkinController skinShopScript = GetComponentInParent<UI_SkinController>();
             if (skinShopScript != null)
             {
+
                 skinShopScript.buyEquipBtn.GetComponent<UI_BuyBtnController>().SetupBtn(firstEquip,this);
                 
                 //UIManager.instance.player.Equipment(firstEquip);/////////
@@ -161,7 +166,6 @@ public class UI_EquipInShop : MonoBehaviour, IPointerDownHandler
         {
             UI_ShopWPCT weaponShopScript = GetComponentInParent<UI_ShopWPCT>();
 
-            //GetComponent<OutlineController>().DisplayOutline();
             ClickWeaponInShop(equip);
 
             if (weaponShopScript != null)

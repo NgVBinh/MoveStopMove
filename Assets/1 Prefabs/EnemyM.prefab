@@ -12138,8 +12138,10 @@ MonoBehaviour:
   dieEfect: {fileID: 6834169383744054498}
   levelUpEfect: {fileID: 182946969999771688}
   rotateSpeed: 20
-  expToUgrade: 0000000002000000050000000a000000120000001e0000002d0000003c000000
-  level: 0
+  expToUgrade: 0000000002000000050000000a000000120000001e0000002d0000003c000000500000006e000000
+  exp: 0
+  curentLevel: 0
+  lastLevel: 0
   usedWeapon: 0
   usedHair: 0
   usedShield: 0
@@ -12149,16 +12151,26 @@ MonoBehaviour:
   beTarget: {fileID: 1201189331165947462}
   levelOnHead: {fileID: 2597837948864082712}
   weaponEquipments:
-  - {fileID: 11400000, guid: f0a9af406b82ad543971d6636f9adc40, type: 2}
-  - {fileID: 11400000, guid: f74bdf88a3edb4640b26bb6379e315ad, type: 2}
   - {fileID: 11400000, guid: 9c6264516ae1b6242915f476d9f0725f, type: 2}
-  - {fileID: 11400000, guid: f068f1c45a50d7b4091ebc448af70c18, type: 2}
-  - {fileID: 11400000, guid: c6c2576df72bf43489ca46189772cec0, type: 2}
-  - {fileID: 11400000, guid: 3d982637bde7aaf4bbc9b13fa2596eb6, type: 2}
-  - {fileID: 11400000, guid: b82c1c62fa0e4af44b7d649bca4d7517, type: 2}
-  - {fileID: 11400000, guid: d946e3da13d73db4bb3bffb3921405e0, type: 2}
-  - {fileID: 11400000, guid: e95d04fd22159d041a4827129bf9ba38, type: 2}
+  - {fileID: 11400000, guid: dbe9088a6b2f6ca44bc051cab2bbc28b, type: 2}
+  - {fileID: 11400000, guid: fd6914704dc8bcc4fac8fd7bd36d413c, type: 2}
+  - {fileID: 11400000, guid: 40cc23e9ad9da94459cefa6fcd67df33, type: 2}
+  - {fileID: 11400000, guid: 88f657582ddc445468bf50b2aa8b8873, type: 2}
+  - {fileID: 11400000, guid: a13707f7820a880458b560bb78f1f891, type: 2}
+  - {fileID: 11400000, guid: d0e61aa3e3c185246975baf5684c07ab, type: 2}
+  - {fileID: 11400000, guid: 1cb9fa39a1d911b48be85d34ca0803cf, type: 2}
   - {fileID: 11400000, guid: b85bc987314e6264a813d6cc8e75a61b, type: 2}
+  - {fileID: 11400000, guid: ff33e859ac6adaa4fb309756887ab541, type: 2}
+  - {fileID: 11400000, guid: f74bdf88a3edb4640b26bb6379e315ad, type: 2}
+  - {fileID: 11400000, guid: 9e1fbf041bf1dce44aa0db2ab58674bf, type: 2}
+  - {fileID: 11400000, guid: f5ca31db350fef94993a59f3097cc80a, type: 2}
+  - {fileID: 11400000, guid: 62c8cccf212254e4e8a5e8d42387b1c7, type: 2}
+  - {fileID: 11400000, guid: e35ac2a1066631742ac672c9a8155092, type: 2}
+  - {fileID: 11400000, guid: f0a9af406b82ad543971d6636f9adc40, type: 2}
+  - {fileID: 11400000, guid: 7f8f9a2791da5af4eaf7dd6031c01049, type: 2}
+  - {fileID: 11400000, guid: 0c1b0182218c5c34582b0743d325f19b, type: 2}
+  - {fileID: 11400000, guid: c2c4b3644907cf943b955b7641184033, type: 2}
+  - {fileID: 11400000, guid: eb8ce52cc563ea840a3551f740cd6d85, type: 2}
   hairEquipments:
   - {fileID: 11400000, guid: 52e900f91739ab94d8ba4741901afae1, type: 2}
   - {fileID: 11400000, guid: b1dab49dfa3c91a46875d79b63cc093c, type: 2}
@@ -12185,7 +12197,9 @@ MonoBehaviour:
   weaponContain: {fileID: 4181584096192303190}
   hairContain: {fileID: 7206608445523126014}
   shieldContain: {fileID: 7862132366571068836}
+  wingContain: {fileID: 0}
   allEquipment: []
+  bodyRenderer: {fileID: 0}
   pantRenderer: {fileID: 6757536553112276446}
   defaultPantMaterial: {fileID: 0}
 --- !u!136 &2863762050663612072
@@ -12484,7 +12498,17 @@ PrefabInstance:
     - target: {fileID: 161367437250668858, guid: c8eb682287081314a9ae507115af6df9,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 977816383801650159, guid: c8eb682287081314a9ae507115af6df9,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -0.1118
+      objectReference: {fileID: 0}
+    - target: {fileID: 977816383801650159, guid: c8eb682287081314a9ae507115af6df9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.0559
       objectReference: {fileID: 0}
     - target: {fileID: 1267135204134418585, guid: c8eb682287081314a9ae507115af6df9,
         type: 3}
@@ -12510,6 +12534,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565383092437743642, guid: c8eb682287081314a9ae507115af6df9,
+        type: 3}
+      propertyPath: m_text
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565383092437743642, guid: c8eb682287081314a9ae507115af6df9,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565383092437743642, guid: c8eb682287081314a9ae507115af6df9,
+        type: 3}
+      propertyPath: m_fontSizeMin
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7191943084995315220, guid: c8eb682287081314a9ae507115af6df9,
         type: 3}

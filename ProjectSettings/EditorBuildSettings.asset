@@ -5,7 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/3 Scene/SampleScene.unity
+    guid: 463f436266d9eeb42886cf51757062e4
+  - enabled: 1
+    path: Assets/3 Scene/ZombieCity.unity
+    guid: d14b70ff6f2b6b04ea50c486e1e71e05
   m_configObjects: {}

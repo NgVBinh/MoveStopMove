@@ -14,7 +14,7 @@ public class WeaponInShop
     public List<EquipmentSO> weaponInShops;
 }
 
-public class UI_ShopWPCT : MonoBehaviour,ISaveManager
+public class UI_ShopWPCT : MonoBehaviour, ISaveManager
 {
     public Material testm;
     public List<WeaponInShop> weapons = new List<WeaponInShop>();
@@ -41,6 +41,7 @@ public class UI_ShopWPCT : MonoBehaviour,ISaveManager
 
     public GameObject chooseColorBtn;
     public GameObject gridChooseColor;
+    public GameObject customTxt;
 
     public List<Image> imagesColor;
     public Button btnA;
@@ -103,6 +104,7 @@ public class UI_ShopWPCT : MonoBehaviour,ISaveManager
                 buy.gameObject.SetActive(true);
             }
 
+            customTxt.SetActive(false);
             chooseSkinGroup.gameObject.SetActive(false);
             LockTransform.gameObject.SetActive(true);
 
@@ -117,14 +119,18 @@ public class UI_ShopWPCT : MonoBehaviour,ISaveManager
             }
             GameObject equipPref = Instantiate(weapons[index].weaponInShops[0].prefab, weaponCenter);
             equipPref.GetComponent<WeaponController>().SetWeaponOfCharacter(true);
-            equipPref.GetComponent<MeshRenderer>().materials = weapons[index].weaponInShops[0].materials.ToArray();
-            equipPref.transform.localScale = Vector3.one * 10000;
+            equipPref.transform.GetChild(0).localPosition = Vector3.zero;
+
+            //equipPref.GetComponentInChildren<MeshRenderer>().materials = weapons[index].weaponInShops[0].materials.ToArray();
+            equipPref.transform.localScale = Vector3.one * 200;
 
         }
         else
         {
             chooseSkinGroup.gameObject.SetActive(true);
             LockTransform.gameObject.SetActive(false);
+            customTxt.SetActive(true);
+
             if (chooseSkinGroup.childCount > 0)
             {
                 for (int i = 0; i < chooseSkinGroup.childCount; i++)
@@ -151,17 +157,18 @@ public class UI_ShopWPCT : MonoBehaviour,ISaveManager
                 if (equip != null)
                 {
                     GetComponentInChildren<UI_EquipInShop>()?.SetFirstSkin(equip);
-
                 }
                 else
                 {
-                    GetComponentInChildren<UI_EquipInShop>()?.SetFirstSkin(weapons[weaponIndex].weaponInShops[2]);
+                    GetComponentInChildren<UI_EquipInShop>()?.SetFirstSkin(weapons[weaponIndex].weaponInShops[0]);
+
                 }
             }
 
             else
             {
                 GetComponentInChildren<UI_EquipInShop>()?.SetFirstSkin(weapons[weaponIndex].weaponInShops[0]);
+
             }
 
 
@@ -268,20 +275,20 @@ public class UI_ShopWPCT : MonoBehaviour,ISaveManager
             {
                 case 0:
                     materialsChoose[0] = material;
-                    weapons[weaponIndex].weaponInShops[0].prefab.GetComponent<MeshRenderer>().materials = materialsChoose.ToArray();
+                    weapons[weaponIndex].weaponInShops[0].prefab.GetComponentInChildren<MeshRenderer>().materials = materialsChoose.ToArray();
                     //equipPref.GetComponent<MeshRenderer>().materials = materialsChoose.ToArray();
                     DisplayWeapon(weaponIndex);
                     break;
                 case 1:
                     materialsChoose[1] = material;
-                    weapons[weaponIndex].weaponInShops[0].prefab.GetComponent<MeshRenderer>().materials = materialsChoose.ToArray();
+                    weapons[weaponIndex].weaponInShops[0].prefab.GetComponentInChildren<MeshRenderer>().materials = materialsChoose.ToArray();
                     DisplayWeapon(weaponIndex);
 
 
                     break;
                 case 2:
                     materialsChoose[2] = material;
-                    weapons[weaponIndex].weaponInShops[0].prefab.GetComponent<MeshRenderer>().materials = materialsChoose.ToArray();
+                    weapons[weaponIndex].weaponInShops[0].prefab.GetComponentInChildren<MeshRenderer>().materials = materialsChoose.ToArray();
                     DisplayWeapon(weaponIndex);
 
 
@@ -306,7 +313,7 @@ public class UI_ShopWPCT : MonoBehaviour,ISaveManager
 
     public void SaveData(ref GameData gameData)
     {
-        
+
     }
 
     #endregion

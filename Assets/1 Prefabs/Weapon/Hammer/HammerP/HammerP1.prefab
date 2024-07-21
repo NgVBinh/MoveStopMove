@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5282440717358813877
+--- !u!1 &1398347782190824350
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8599800065498520247}
-  - component: {fileID: 3883514914368145102}
-  - component: {fileID: 1492519886178476270}
-  - component: {fileID: 6811360480050545516}
-  - component: {fileID: 2119581092876781589}
-  - component: {fileID: 5324091009342047651}
+  - component: {fileID: 8785761441900192259}
+  - component: {fileID: 3273033916653405625}
+  - component: {fileID: 1210254631508480204}
   m_Layer: 0
-  m_Name: boomerang (2)
-  m_TagString: Weapon
+  m_Name: Hammer 1
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8599800065498520247
+--- !u!4 &8785761441900192259
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5282440717358813877}
+  m_GameObject: {fileID: 1398347782190824350}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 15, z: 15}
-  m_ConstrainProportionsScale: 1
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 39, y: 39, z: 39}
+  m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 3669524020027497390}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3883514914368145102
+--- !u!33 &3273033916653405625
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5282440717358813877}
-  m_Mesh: {fileID: -462981019419857548, guid: cb6e597070ed41f4eb5cb9583c725959, type: 3}
---- !u!23 &1492519886178476270
+  m_GameObject: {fileID: 1398347782190824350}
+  m_Mesh: {fileID: 3174812724623785705, guid: 90389cac50942cb4ca38583e6531094a, type: 3}
+--- !u!23 &1210254631508480204
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5282440717358813877}
+  m_GameObject: {fileID: 1398347782190824350}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -64,7 +61,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ae95ef3562d73a74a8d58b48075cd1b6, type: 2}
+  - {fileID: 2100000, guid: 72341c8b8e619014989cb14efa18c0e2, type: 2}
+  - {fileID: 2100000, guid: 3285e9b79491a1c44b61bf68e278bdb3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,13 +84,48 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &6811360480050545516
+--- !u!1 &5099545553713522105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3669524020027497390}
+  - component: {fileID: -8998484623524589228}
+  - component: {fileID: 225652333989355937}
+  - component: {fileID: -3155051012682091769}
+  m_Layer: 0
+  m_Name: HammerP1
+  m_TagString: Weapon
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3669524020027497390
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5099545553713522105}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8785761441900192259}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &-8998484623524589228
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5282440717358813877}
+  m_GameObject: {fileID: 5099545553713522105}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -105,17 +138,17 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.023482068
-  m_Height: 0.095465235
+  m_Radius: 0.17
+  m_Height: 0.96897036
   m_Direction: 1
-  m_Center: {x: 0.015, y: 0, z: 0}
---- !u!54 &2119581092876781589
+  m_Center: {x: 0, y: -0.036967963, z: 0}
+--- !u!54 &225652333989355937
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5282440717358813877}
+  m_GameObject: {fileID: 5099545553713522105}
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
@@ -134,24 +167,23 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 64
   m_CollisionDetection: 0
---- !u!114 &5324091009342047651
+--- !u!114 &-3155051012682091769
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5282440717358813877}
+  m_GameObject: {fileID: 5099545553713522105}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: effd2ca2a2760854ca2c40966e2df0b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponType: 2
+  weaponType: 1
   attackType: 1
   rotateSpeed: 1000
   angle: 25
   amounntBullet: 3
-  materials: []
   isCharacterWeapon: 0

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8167718721232122641
+--- !u!1 &1889126163362884492
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4151760100349420230}
-  - component: {fileID: 5230044997269633423}
-  - component: {fileID: 4961202545863217313}
-  - component: {fileID: 7123558174670415743}
-  - component: {fileID: 7135025189741068930}
-  - component: {fileID: 6065998440356868116}
+  - component: {fileID: 3107206084819216207}
+  - component: {fileID: 1672120961469685766}
+  - component: {fileID: 7653146843228752919}
   m_Layer: 0
-  m_Name: boomerang (4)
-  m_TagString: Weapon
+  m_Name: Arrow 4
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4151760100349420230
+--- !u!4 &3107206084819216207
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8167718721232122641}
+  m_GameObject: {fileID: 1889126163362884492}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 15, z: 15}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 45, y: 45, z: 45}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 9062185633464149561}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5230044997269633423
+--- !u!33 &1672120961469685766
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8167718721232122641}
-  m_Mesh: {fileID: -462981019419857548, guid: cb6e597070ed41f4eb5cb9583c725959, type: 3}
---- !u!23 &4961202545863217313
+  m_GameObject: {fileID: 1889126163362884492}
+  m_Mesh: {fileID: 1913988541965732932, guid: ceffb78c74021304889ac584f173d156, type: 3}
+--- !u!23 &7653146843228752919
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8167718721232122641}
+  m_GameObject: {fileID: 1889126163362884492}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -64,7 +61,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: db01570e60315e944977708d5c52b6c3, type: 2}
+  - {fileID: 2100000, guid: 32152498c6c10064aa3ca56485a0b003, type: 2}
+  - {fileID: 2100000, guid: 3285e9b79491a1c44b61bf68e278bdb3, type: 2}
+  - {fileID: 2100000, guid: ebbf1cc932affe545a237a88bc460265, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,36 +85,48 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7123558174670415743
-CapsuleCollider:
+--- !u!1 &3553248828308960320
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8167718721232122641}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9062185633464149561}
+  - component: {fileID: 4585549383965137118}
+  - component: {fileID: 8370527829377732772}
+  - component: {fileID: -7311860425320443809}
+  m_Layer: 0
+  m_Name: ArrowP4
+  m_TagString: Weapon
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9062185633464149561
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3553248828308960320}
   serializedVersion: 2
-  m_Radius: 0.023482068
-  m_Height: 0.095465235
-  m_Direction: 1
-  m_Center: {x: 0.015, y: 0, z: 0}
---- !u!54 &7135025189741068930
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3107206084819216207}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &4585549383965137118
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8167718721232122641}
+  m_GameObject: {fileID: 3553248828308960320}
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
@@ -136,22 +147,44 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6065998440356868116
+--- !u!136 &8370527829377732772
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3553248828308960320}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.09
+  m_Height: 1.1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.12, z: 0}
+--- !u!114 &-7311860425320443809
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8167718721232122641}
+  m_GameObject: {fileID: 3553248828308960320}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: effd2ca2a2760854ca2c40966e2df0b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponType: 2
-  attackType: 1
+  weaponType: 0
+  attackType: 0
   rotateSpeed: 1000
   angle: 25
   amounntBullet: 3
-  materials: []
   isCharacterWeapon: 0

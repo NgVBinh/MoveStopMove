@@ -124,14 +124,17 @@ public class Player : Entity
         {
             if (enemyTargetted != null)
             {
-                enemyTargetted.GetComponent<Enemy>().BeTargetted(false);
+                enemyTargetted.GetComponent<Enemy>()?.BeTargetted(false);
+                enemyTargetted.GetComponent<ZombieController>()?.BeTargetted(false);
+
             }
             enemyTargetted = GetClosestEnemyInRange();
         }
         // attack enemy
         if (enemyTargetted != null)
         {
-            GetClosestEnemyInRange().GetComponent<Enemy>().BeTargetted(true);
+            GetClosestEnemyInRange().GetComponent<Enemy>()?.BeTargetted(true);
+            GetClosestEnemyInRange().GetComponent<ZombieController>()?.BeTargetted(true);
         }
     }
 
@@ -162,4 +165,14 @@ public class Player : Entity
         Observer.RemoveObserver("PlayerWin", ChangePlayerWinState);
     }
 
+    public bool isZombieCity;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!isZombieCity) return;
+        if (other.CompareTag("Enemy") )
+        {
+            Debug.Log("Player die");
+            TakeDamage();
+        }
+    }
 }

@@ -15,11 +15,11 @@ MonoBehaviour:
   equipName: arrow
   cost: 0
   equipmentType: 0
-  prefab: {fileID: 1253281103009817149, guid: a916a8a540fcc1847a652bc0acaa1fe9, type: 3}
+  prefab: {fileID: 6643644264232287358, guid: 3d8d42d3b96d9ce4e8a7feeb252e59bb, type: 3}
   materials:
-  - {fileID: 2100000, guid: 72341c8b8e619014989cb14efa18c0e2, type: 2}
+  - {fileID: 2100000, guid: 70f0ed0af600af841b63ec634be79e88, type: 2}
   - {fileID: 2100000, guid: 78a0a3726ac2ac34192e7459c5e7d832, type: 2}
-  - {fileID: 2100000, guid: 3285e9b79491a1c44b61bf68e278bdb3, type: 2}
+  - {fileID: 2100000, guid: 70f0ed0af600af841b63ec634be79e88, type: 2}
   weaponMaterialSets:
   - setName: ArrowSet1
     materials:
@@ -46,6 +46,8 @@ MonoBehaviour:
     - {fileID: 2100000, guid: ebbf1cc932affe545a237a88bc460265, type: 2}
     - {fileID: 2100000, guid: 3285e9b79491a1c44b61bf68e278bdb3, type: 2}
     - {fileID: 2100000, guid: 78a0a3726ac2ac34192e7459c5e7d832, type: 2}
+  equipOfSets: []
+  setIcon: {fileID: 0}
   description: '+ 5 attack speed '
   atkSpeedModifier: 5
   moveSpeedModifier: 0

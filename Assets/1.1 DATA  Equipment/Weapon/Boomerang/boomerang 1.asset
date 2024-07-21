@@ -15,7 +15,7 @@ MonoBehaviour:
   equipName: boomerang1
   cost: 500
   equipmentType: 0
-  prefab: {fileID: 6441348783527060316, guid: a0e55e83b85e7d84a8e32c7b4b2f482e, type: 3}
+  prefab: {fileID: 4058866795090293758, guid: d9b737c23bba18a47814b2e6d529f1e9, type: 3}
   materials:
   - {fileID: 2100000, guid: 3285e9b79491a1c44b61bf68e278bdb3, type: 2}
   weaponMaterialSets:
@@ -39,6 +39,8 @@ MonoBehaviour:
     materials:
     - {fileID: 2100000, guid: b42ed4f02104f3a4f9f9bdff43742370, type: 2}
     - {fileID: 2100000, guid: b42ed4f02104f3a4f9f9bdff43742370, type: 2}
+  equipOfSets: []
+  setIcon: {fileID: 0}
   description: + 5 range*2
   atkSpeedModifier: 0
   moveSpeedModifier: 0

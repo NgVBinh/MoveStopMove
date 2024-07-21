@@ -33,6 +33,9 @@ public class UIManager : MonoBehaviour, ISaveManager
     [SerializeField] private Button homeSettingBtn;
     [SerializeField] private Button continueSettingBtn;
 
+    [Header("ZombieCity")]
+    [SerializeField] private Button PlayZombieCity;
+
     [Header("Joystick")]
     [SerializeField] private GameObject joystick;
 
@@ -87,6 +90,9 @@ public class UIManager : MonoBehaviour, ISaveManager
         settingInGameBtn.onClick.AddListener(SwitchDisplaySetting);
         homeSettingBtn.onClick.AddListener(Home);
         continueSettingBtn.onClick.AddListener(SwitchDisplaySetting);
+
+        //ZC
+        PlayZombieCity.onClick.AddListener(PlayZombieCityMode);
 
         closeRevivalBtn.onClick.AddListener(DisplayEndgame);
     }
@@ -216,6 +222,9 @@ public class UIManager : MonoBehaviour, ISaveManager
     {
         weaponName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.WEAPON && tmp.used)?.equipName;
         player.equipController.PlayerEquipped(weaponName);
+        hairName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.HAIR && tmp.used)?.equipName;
+        pantName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.PANT && tmp.used)?.equipName;
+        shieldName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.SHIELD && tmp.used)?.equipName;
 
         setName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.SET && tmp.used)?.equipName;
         if (setName != null)
@@ -225,7 +234,6 @@ public class UIManager : MonoBehaviour, ISaveManager
         else
         {
             player.equipController.UnEquipSet();
-            hairName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.HAIR && tmp.used)?.equipName;
 
             if (hairName != null)
             {
@@ -236,7 +244,6 @@ public class UIManager : MonoBehaviour, ISaveManager
                 player.equipController.RemoveHairStat();
             }
 
-            pantName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.PANT && tmp.used)?.equipName;
             if (pantName != null)
             {
                 player.equipController.PlayerEquipped(pantName);
@@ -245,14 +252,8 @@ public class UIManager : MonoBehaviour, ISaveManager
             {
                 player.equipController.RemovePantStat();
             }
-            shieldName = myEquips.FirstOrDefault(tmp => tmp.type == EquipmentType.SHIELD && tmp.used)?.equipName;
             player.equipController.PlayerEquipped(shieldName);
-
-          
-
         }
-
-
         player.CreateWeaponInHand();
     }
 
@@ -265,6 +266,11 @@ public class UIManager : MonoBehaviour, ISaveManager
     public void ChangePlayerName(string name)
     {
         player.characterName = name;
+    }
+
+    private void PlayZombieCityMode()
+    {
+        SceneManager.LoadSceneAsync(1);
     }
 
     public void LoadData(GameData gameData)

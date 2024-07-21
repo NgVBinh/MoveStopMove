@@ -8,19 +8,19 @@ public class FollowArrow : MonoBehaviour
 {
     private TargetIndicator arrow;
 
-    private TextMeshProUGUI levelTxt;
+    private TextMeshProUGUI expTxt;
     public float offset;
 
     private Enemy enemyTarget;
 
     public void SetupLevelInforImg(TargetIndicator arrow, float offsetArrow, GameObject target, Color color)
     {
-        levelTxt = GetComponentInChildren<TextMeshProUGUI>();
+        expTxt = GetComponentInChildren<TextMeshProUGUI>();
         this.arrow = arrow;
         this.offsetArrow = offsetArrow;
         enemyTarget = target.GetComponent<Enemy>();
         enemyTarget.OnDeath += DeActiveMySelf;
-        levelTxt.text = enemyTarget.level.ToString();
+        expTxt.text = enemyTarget.exp.ToString();
 
         GetComponent<Image>().color = color;
         enemyTarget.OnLevelUp += DisplayLevel;
@@ -76,7 +76,7 @@ public class FollowArrow : MonoBehaviour
 
     private void DisplayLevel()
     {
-        levelTxt.text = enemyTarget.level.ToString();
+        expTxt.text = enemyTarget.exp.ToString();
     }
 
     //private void OnDisable()

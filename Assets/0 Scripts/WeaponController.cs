@@ -121,7 +121,7 @@ public class WeaponController : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
 
-        if (weaponType!=WeaponType.BUMERANG&& !isCharacterWeapon && gameObject.activeSelf)
+        if (weaponType != WeaponType.BUMERANG && !isCharacterWeapon && gameObject.activeSelf)
         {
             gameObject.SetActive(false);
         }
@@ -143,18 +143,28 @@ public class WeaponController : MonoBehaviour
         {
             Entity tmp = other.GetComponent<Entity>();
 
-            if (tmp != myCharacter)
+            if (tmp != null && tmp != myCharacter)
             {
                 if (other.GetComponent<Player>() != null)
                 {
                     //Debug.Log(myCharacter.characterName);
                     UIManager.instance.endgameController.SetupEndLose(myCharacter.characterName, GameManager.instance.amountCharacter, myCharacter.body.material.color);
                 }
-
-                myCharacter.KillCharacter();
+                int amountExp = tmp.GetLevel();
+                if (amountExp == 0)
+                {
+                    amountExp = 1;
+                }
+                Debug.Log(myCharacter.name + " " + amountExp);
+                myCharacter.KillCharacter(amountExp);
                 tmp.TakeDamage();
 
                 gameObject.SetActive(false);
+            }
+            if (other.GetComponent<ZombieController>() != null)
+            {
+                other.GetComponent<ZombieController>().TakeDamege();
+                myCharacter.IncreaseExp(1);
             }
 
 

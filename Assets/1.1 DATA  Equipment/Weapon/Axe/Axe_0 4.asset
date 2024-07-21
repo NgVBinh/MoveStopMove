@@ -15,7 +15,7 @@ MonoBehaviour:
   equipName: axe04
   cost: 100
   equipmentType: 0
-  prefab: {fileID: 8002765484148580117, guid: 1f0d8a7c9563e0d4ebddf7cca3b65081, type: 3}
+  prefab: {fileID: 578378065630884784, guid: c8e9c9feb1065654b81e5739a778cbb9, type: 3}
   materials:
   - {fileID: 2100000, guid: b42ed4f02104f3a4f9f9bdff43742370, type: 2}
   - {fileID: 2100000, guid: b42ed4f02104f3a4f9f9bdff43742370, type: 2}
@@ -40,6 +40,8 @@ MonoBehaviour:
     materials:
     - {fileID: 2100000, guid: b42ed4f02104f3a4f9f9bdff43742370, type: 2}
     - {fileID: 2100000, guid: b42ed4f02104f3a4f9f9bdff43742370, type: 2}
+  equipOfSets: []
+  setIcon: {fileID: 0}
   description: + 10 range
   atkSpeedModifier: 0
   moveSpeedModifier: 0

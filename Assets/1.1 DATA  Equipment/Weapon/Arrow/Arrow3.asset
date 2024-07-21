@@ -15,7 +15,7 @@ MonoBehaviour:
   equipName: arrow3
   cost: 0
   equipmentType: 0
-  prefab: {fileID: 1253281103009817149, guid: a916a8a540fcc1847a652bc0acaa1fe9, type: 3}
+  prefab: {fileID: 303337711004258019, guid: 0ad9673ee89fcce439e6818a63ba95aa, type: 3}
   materials:
   - {fileID: 2100000, guid: 33adef5f4fc5799418f266e8aa8495fe, type: 2}
   - {fileID: 2100000, guid: ae95ef3562d73a74a8d58b48075cd1b6, type: 2}
@@ -46,6 +46,8 @@ MonoBehaviour:
     - {fileID: 2100000, guid: ebbf1cc932affe545a237a88bc460265, type: 2}
     - {fileID: 2100000, guid: 3285e9b79491a1c44b61bf68e278bdb3, type: 2}
     - {fileID: 2100000, guid: 78a0a3726ac2ac34192e7459c5e7d832, type: 2}
+  equipOfSets: []
+  setIcon: {fileID: 0}
   description: '+ 5 attack speed '
   atkSpeedModifier: 5
   moveSpeedModifier: 0

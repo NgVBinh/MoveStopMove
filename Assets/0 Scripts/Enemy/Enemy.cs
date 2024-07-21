@@ -29,6 +29,7 @@ public class Enemy : Entity
     private Player player;
     public Collider col { get; private set; }
 
+
     #region enemy state
     public EnemyPrepareState enemyPrepareState { get; private set; }
     public EnemyIdleState enemyIdleState { get; private set; }
@@ -42,6 +43,8 @@ public class Enemy : Entity
     protected override void Awake()
     {
         base.Awake();
+        player = GameManager.instance.player;
+
         agent = GetComponent<NavMeshAgent>();
         col = GetComponent<Collider>();
         stateMachine = new EnemyStateMachine();
@@ -51,7 +54,10 @@ public class Enemy : Entity
         enemyAttackState = new EnemyAttackState(this, stateMachine, "IsAttack");
         enemyDieState = new EnemyDieState(this, stateMachine, "IsDead");
     }
-
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+    }
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -70,14 +76,13 @@ public class Enemy : Entity
         stateMachine.currentState.Update();
     }
 
-    public void InitializeEnemy(Material bodyMat, Material pantMat, int level,string name, Player player)
+    public void InitializeEnemy(Material bodyMat, Material pantMat, int expInit,string name)
     {
         characterName = name;
         //InitialWeapon(weaponName);
         body.material = bodyMat;
         pant.material = pantMat;
-        this.level = level;
-        this.player = player;
+        exp = expInit;
 
         SpawnOnNavMesh();
         InitializeEquipment();

@@ -15,10 +15,10 @@ MonoBehaviour:
   equipName: axe00
   cost: 100
   equipmentType: 0
-  prefab: {fileID: 8002765484148580117, guid: 49838a2ea2b950248843ad9732894724, type: 3}
+  prefab: {fileID: 3619801826691884960, guid: 9a450e4fe49ad62448c8ee66039767ba, type: 3}
   materials:
-  - {fileID: 2100000, guid: 78a0a3726ac2ac34192e7459c5e7d832, type: 2}
-  - {fileID: 2100000, guid: ae95ef3562d73a74a8d58b48075cd1b6, type: 2}
+  - {fileID: 2100000, guid: 3285e9b79491a1c44b61bf68e278bdb3, type: 2}
+  - {fileID: 2100000, guid: ee8d3709e2f8607489d2ac51cbc6ed53, type: 2}
   weaponMaterialSets:
   - setName: Axe_01
     materials:
@@ -40,6 +40,8 @@ MonoBehaviour:
     materials:
     - {fileID: 2100000, guid: b42ed4f02104f3a4f9f9bdff43742370, type: 2}
     - {fileID: 2100000, guid: b42ed4f02104f3a4f9f9bdff43742370, type: 2}
+  equipOfSets: []
+  setIcon: {fileID: 0}
   description: + 10 range
   atkSpeedModifier: 0
   moveSpeedModifier: 0

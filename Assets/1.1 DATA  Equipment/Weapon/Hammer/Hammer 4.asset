@@ -15,11 +15,13 @@ MonoBehaviour:
   equipName: hammer4
   cost: 200
   equipmentType: 0
-  prefab: {fileID: 4540371428087562927, guid: 1e30e853d4a65ec42b9125c958425e12, type: 3}
+  prefab: {fileID: 4135047840538250023, guid: fd194601b5f1c5a419ae107f9aaf53b7, type: 3}
   materials:
   - {fileID: 2100000, guid: 16589a4b49a305c43b15685021b822ad, type: 2}
   - {fileID: 2100000, guid: 16589a4b49a305c43b15685021b822ad, type: 2}
   weaponMaterialSets: []
+  equipOfSets: []
+  setIcon: {fileID: 0}
   description: '+ 10 attack speed '
   atkSpeedModifier: 10
   moveSpeedModifier: 0
